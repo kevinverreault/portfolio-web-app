@@ -1,0 +1,41 @@
+.footerIcon {
+    width: 50px;
+    height: 50px;
+}
+
+.content {
+    max-width:1200px;
+    display: inline-block;
+}
+
+.image-list {
+    padding: 50px 20px 20px 20px;
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+  .card-content > span {
+      color: #fff;
+  }
+
+  /* Style all font awesome icons */
+  .fa {
+    padding: 20px;
+    font-size: 30px;
+    width: 32px;
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  /* Add a hover effect if you want */
+  .fa:hover {
+    opacity: 0.7;
+  }
