@@ -3,24 +3,64 @@
     height: 50px;
 }
 
-.content {
-    max-width:1200px;
-    display: inline-block;
+.image-list {
+    /* padding: 75px 350px 75px 350px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap; */
+    padding: 75px 350px 75px 350px;
+    line-height: 0;
+   
+    -webkit-column-count: 2;
+    -webkit-column-gap:   0px;
+    -moz-column-count:    2;
+    -moz-column-gap:      0px;
+    column-count:         2;
+    column-gap:           0px;  
 }
 
-.image-list {
-    padding: 50px 20px 20px 20px;
+.image-list > a
+.image-list > a > img {
+  width: 100% !important;
+  height: auto !important;
+}
+
+.main-block {
+  position: relative;
+}
+
+.basdepage {
+  height:50px;
+  width: 100%;
+  color:rgba(0, 0, 0, 0.65);
+  padding-left: 350px;
+  font-size:18px;
+  margin-bottom:50px;
 }
 
 body {
-    display: flex;
+    margin:0;
+    height: 100vh;
     min-height: 100vh;
-    flex-direction: column;
+    /* background-color: rgba(0, 0, 0, 0.2); */
+    overflow-y: scroll;
   }
 
-  main {
-    flex: 1 0 auto;
+  html {
+    /* background-image:  url(../images/background.jpg); */
+    background-color: white;
+    background-position: top center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: 'Open Sans', sans-serif;
+    margin:0;
+    padding:0;
+    overflow: hidden;
   }
+
+  /* nav {
+    height: 100px;
+  } */
 
   .card-content > span {
       color: #fff;
@@ -39,3 +79,32 @@ body {
   .fa:hover {
     opacity: 0.7;
   }
+
+  #nav-mobile > li > a {
+      text-transform: uppercase;
+      color: black !important;
+  }
+
+  .navigation {
+    padding-left: 350px;
+    padding-right: 350px;
+  }
+
+  .brand-logo {
+    font-weight: 700;
+    text-transform: uppercase;
+    color: black !important;
+  }
+
+img {
+    width: 100%;
+    height: 100%;
+}
+
+nav {
+  color: black !important;
+  background-color: white !important;
+  margin-top:50px;
+  webkit-box-shadow: none;
+  box-shadow: none;
+}
