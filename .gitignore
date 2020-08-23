@@ -1,3 +1,5 @@
 {\rtf1}
 
 *.code-workspace
+src/index-min.html
+output/
