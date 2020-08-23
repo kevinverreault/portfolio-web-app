@@ -29,7 +29,6 @@ html {
 
 nav {
   padding-top:2.5em;
-  webkit-box-shadow: none;
   box-shadow: none;
   height:15em;
 }
@@ -47,6 +46,7 @@ nav {
   color: #212121;
   margin:auto;
 }
+
 .icon {
   text-decoration: none;
   border-bottom: none;
