@@ -48,7 +48,6 @@ footer:before {
 nav {
   padding-top:2.5em;
   box-shadow: none;
-  height:15em;
 }
 
 .navigation {
@@ -140,7 +139,7 @@ ul.icons li:last-child {
 /* GRID */
 
 .grid {
-  max-width: 115em; 
+  max-width: 100em; 
   width: 100%;
   margin: 0 auto;
   padding: 0 10em;
