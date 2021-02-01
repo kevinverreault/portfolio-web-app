@@ -5,7 +5,7 @@ Param(
     $libPath = $PSScriptRoot + "\lib\Yahoo.Yui.Compressor.dll"  
     [Reflection.Assembly]::LoadFile($libPath)  
       
-    $target = $PSScriptRoot + "\output\";
+    $target = $PSScriptRoot + "\output\src\css\";
     $files = get-childitem $folder -recurse -force -include *.css
     Write-Host "Minifying CSS"
     foreach($file in $files){   

@@ -9,7 +9,7 @@ $libPathCompressor = $PSScriptRoot + "\lib\Yahoo.Yui.Compressor.dll"
 [Reflection.Assembly]::LoadFile($libPathEcma)  
 [Reflection.Assembly]::LoadFile($libPathCompressor)  
   
-$target = $PSScriptRoot + "\output\";
+$target = $PSScriptRoot + "\output\src\scripts\";
 $files = get-childitem $folder -recurse -force -include *.js    
 foreach($file in $files){   
    $content = [IO.File]::ReadAllText($file.FullName)  
