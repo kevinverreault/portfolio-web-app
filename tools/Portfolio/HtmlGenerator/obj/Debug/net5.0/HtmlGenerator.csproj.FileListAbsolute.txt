@@ -1,0 +1,16 @@
+D:\code\portfolio-web\tools\Portfolio\HtmlGenerator\bin\Debug\net5.0\HtmlGenerator.exe
+D:\code\portfolio-web\tools\Portfolio\HtmlGenerator\bin\Debug\net5.0\HtmlGenerator.deps.json
+D:\code\portfolio-web\tools\Portfolio\HtmlGenerator\bin\Debug\net5.0\HtmlGenerator.runtimeconfig.json
+D:\code\portfolio-web\tools\Portfolio\HtmlGenerator\bin\Debug\net5.0\HtmlGenerator.runtimeconfig.dev.json
+D:\code\portfolio-web\tools\Portfolio\HtmlGenerator\bin\Debug\net5.0\HtmlGenerator.dll
+D:\code\portfolio-web\tools\Portfolio\HtmlGenerator\bin\Debug\net5.0\ref\HtmlGenerator.dll
+D:\code\portfolio-web\tools\Portfolio\HtmlGenerator\bin\Debug\net5.0\HtmlGenerator.pdb
+D:\code\portfolio-web\tools\Portfolio\HtmlGenerator\obj\Debug\net5.0\HtmlGenerator.csprojAssemblyReference.cache
+D:\code\portfolio-web\tools\Portfolio\HtmlGenerator\obj\Debug\net5.0\HtmlGenerator.GeneratedMSBuildEditorConfig.editorconfig
+D:\code\portfolio-web\tools\Portfolio\HtmlGenerator\obj\Debug\net5.0\HtmlGenerator.AssemblyInfoInputs.cache
+D:\code\portfolio-web\tools\Portfolio\HtmlGenerator\obj\Debug\net5.0\HtmlGenerator.AssemblyInfo.cs
+D:\code\portfolio-web\tools\Portfolio\HtmlGenerator\obj\Debug\net5.0\HtmlGenerator.csproj.CoreCompileInputs.cache
+D:\code\portfolio-web\tools\Portfolio\HtmlGenerator\obj\Debug\net5.0\HtmlGenerator.dll
+D:\code\portfolio-web\tools\Portfolio\HtmlGenerator\obj\Debug\net5.0\ref\HtmlGenerator.dll
+D:\code\portfolio-web\tools\Portfolio\HtmlGenerator\obj\Debug\net5.0\HtmlGenerator.pdb
+D:\code\portfolio-web\tools\Portfolio\HtmlGenerator\obj\Debug\net5.0\HtmlGenerator.genruntimeconfig.cache

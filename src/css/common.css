@@ -181,7 +181,8 @@ ul.icons li:last-child {
 
 .thumbnails a:hover {
   background-color: rgba(255, 255, 255, 0.25);
-  box-shadow: inset 0 0 0 1px rgba(61, 8, 8, 0.25), 0 0 .5em 0 #37474f
+  box-shadow: inset 0 0 0 1px rgba(61, 8, 8, 0.25), 0 0 .5em 0 #37474f;
+  opacity: 90%;
 }
 
 .thumbnails > div {
@@ -198,18 +199,19 @@ ul.icons li:last-child {
 
 .gallerie-container {
   margin-bottom: 3em;
+  max-width: 60%;
 }
 
 .gallerie > a {
   height: 20vh;
   flex-grow: 1;
-  margin: 5px;
+  margin: 2px;
 }
 
 .gallerie > a:hover {
   background-color: rgba(255, 255, 255, 0.25);
   box-shadow: inset 0 0 0 1px rgba(61, 8, 8, 0.25), 0 0 6px 0 #37474f;
-  /* opacity: 70%; */
+  opacity: 90%;
 }
 
 .gallerie > a > img {
@@ -222,15 +224,11 @@ ul.icons li:last-child {
 
 
 @media screen and (max-width:1440px) {
-  /* .grid-homepage {
-    width: 55%
-  } */
+
 } 
 
 @media screen and (max-width:1024px) {
-  /* .grid-homepage {
-    width: 65%
-  } */
+
 }
 
 @media screen and (max-width:768px) {
@@ -255,6 +253,9 @@ ul.icons li:last-child {
     margin-left: 0em;
   }
 
+  .gallerie-container {
+    max-width: 100%;
+  }
 }
 
 

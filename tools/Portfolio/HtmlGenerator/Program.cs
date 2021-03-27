@@ -6,7 +6,7 @@ namespace Portfolio.HtmlGenerator
     {
         static void Main(string[] args)
         {
-            var type = "paysage";
+            var type = "faune";
             var output = $"{type}html.txt";
             if (File.Exists(output))
             {
@@ -15,11 +15,16 @@ namespace Portfolio.HtmlGenerator
 
             using (var fs = new StreamWriter(File.Create(output)))
             {
-                int galleryItems = 20;
+                int galleryItems = 32;
                 for (var i = 1; i <= galleryItems; ++i)
                 {
-                    fs.WriteLine($@"<a href=""images/highres/{type}/{i}.jpg"" data-lightbox=""portfolio"">");
-                    fs.WriteLine($@"    <img src=""images/{type}/{i}.jpg"" alt="""" />");
+                    fs.WriteLine($@"<a href=""images/{type}/{i}-1600w.jpg"" data-lightbox=""portfolio"">");
+                    fs.WriteLine($@"    <img srcset=""images/{type}/{i}-320w.jpg 320w,");
+                    fs.WriteLine($@"                images/{type}/{i}-640w.jpg 640w,");
+                    fs.WriteLine($@"                images/{type}/{i}-1024w.jpg 1024w,");
+                    fs.WriteLine($@"                images/{type}/{i}-1600w.jpg 1600w""");
+                    fs.WriteLine($@"         sizes=""(max-width:1024px) 50vw, 400px""");
+                    fs.WriteLine($@"         src=""images/{type}/{i}-640w.jpg"" alt=""{type} image {i}"" loading=""lazy""/>");
                     fs.WriteLine($@"</a>");
                 }
             }
