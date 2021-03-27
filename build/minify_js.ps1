@@ -16,7 +16,7 @@ foreach($file in $files){
    $cssCompressor = New-Object -TypeName Yahoo.Yui.Compressor.JavaScriptCompressor  
    $compressedContent = $cssCompressor.Compress($content)
    $result = $target + $file.Name
-   Write-Host $result
+   Write-Host "Minified js: " $result
    #Set-ItemProperty $file.FullName -name IsReadOnly -value $false  
    [IO.File]::WriteAllText($result,$compressedContent)  
 }  
