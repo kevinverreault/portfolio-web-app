@@ -19,13 +19,10 @@ header {
   margin-bottom: 3.5em;
 }
 
-body.is-loading .container {
+body.is-loading div.gallerie-container, body.is-loading div.grid-homepage{
   opacity: 0;
-  filter: blur(1px)
-}
-
-body.is-covered .grid {
-  filter: blur(3px)
+  filter: blur(1px);
+  transition: all .2s ease;
 }
 
 footer:before {

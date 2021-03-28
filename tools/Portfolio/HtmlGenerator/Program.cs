@@ -16,6 +16,7 @@ namespace Portfolio.HtmlGenerator
 
             using var fs = new StreamWriter(File.Create(output));
             int galleryItems = 32;
+            int lazyloading = 20;
             for (var i = 1; i <= galleryItems; ++i)
             {
                 fs.WriteLine($@"<a href=""images/{type}/{i}-1600w.jpg"" data-fancybox=""portfolio"">");
@@ -24,7 +25,11 @@ namespace Portfolio.HtmlGenerator
                 fs.WriteLine($@"                images/{type}/{i}-1024w.jpg 1024w,");
                 fs.WriteLine($@"                images/{type}/{i}-1600w.jpg 1600w""");
                 fs.WriteLine($@"         sizes=""(max-width:1024px) 50vw, 30vw""");
-                fs.WriteLine($@"         src=""images/{type}/{i}-640w.jpg"" alt=""{type} image {i}"" loading=""lazy""/>");
+                if (i > lazyloading)
+                    fs.WriteLine($@"         src=""images/{type}/{i}-640w.jpg"" alt=""{type} image {i}"" loading=""lazy""/>");
+                else
+                    fs.WriteLine($@"         src=""images/{type}/{i}-640w.jpg"" alt=""{type} image {i}"" />");
+                
                 fs.WriteLine($@"</a>");
             }
         }
