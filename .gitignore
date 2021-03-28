@@ -4,3 +4,5 @@
 src/index-min.html
 output/
 *.suo
+bin/
+obj/

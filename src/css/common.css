@@ -176,6 +176,8 @@ ul.icons li:last-child {
 .thumbnails a img {
   display: block;
   width: 100%;
+    /* images moins sharp sur chrome */
+    image-rendering: -webkit-optimize-contrast;
 }
 
 .thumbnails a:hover {
@@ -207,6 +209,7 @@ ul.icons li:last-child {
   height: 20vh;
   flex-grow: 1;
   margin: 2px;
+  max-width: 50%
 }
 
 .gallerie > a:hover {
@@ -221,15 +224,18 @@ ul.icons li:last-child {
   object-fit: cover;
   vertical-align: bottom;
   border-radius: 2px;
+    /* images moins sharp sur chrome */
+    image-rendering: -webkit-optimize-contrast;
 }
-
 
 @media screen and (max-width:1440px) {
 
 } 
 
 @media screen and (max-width:1024px) {
-
+  .gallerie > a {
+    max-width: 100%
+  }
 }
 
 @media screen and (max-width:768px) {

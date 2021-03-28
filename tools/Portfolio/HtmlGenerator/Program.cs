@@ -7,7 +7,8 @@ namespace Portfolio.HtmlGenerator
         static void Main(string[] args)
         {
             var type = "faune";
-            var output = $"{type}html.txt";
+            //var output = $"{type}html.txt";
+            var output = $"faunehtml.txt";
             if (File.Exists(output))
             {
                 File.Delete(output);
@@ -17,12 +18,12 @@ namespace Portfolio.HtmlGenerator
             int galleryItems = 32;
             for (var i = 1; i <= galleryItems; ++i)
             {
-                fs.WriteLine($@"<a href=""images/{type}/{i}-1600w.jpg"" data-lightbox=""portfolio"">");
+                fs.WriteLine($@"<a href=""images/{type}/{i}-1600w.jpg"" data-fancybox=""portfolio"">");
                 fs.WriteLine($@"    <img srcset=""images/{type}/{i}-320w.jpg 320w,");
                 fs.WriteLine($@"                images/{type}/{i}-640w.jpg 640w,");
                 fs.WriteLine($@"                images/{type}/{i}-1024w.jpg 1024w,");
                 fs.WriteLine($@"                images/{type}/{i}-1600w.jpg 1600w""");
-                fs.WriteLine($@"         sizes=""(max-width:1024px) 50vw, 400px""");
+                fs.WriteLine($@"         sizes=""(max-width:1024px) 50vw, 30vw""");
                 fs.WriteLine($@"         src=""images/{type}/{i}-640w.jpg"" alt=""{type} image {i}"" loading=""lazy""/>");
                 fs.WriteLine($@"</a>");
             }
