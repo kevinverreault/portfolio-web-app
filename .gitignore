@@ -6,3 +6,4 @@ output/
 *.suo
 bin
 obj
+.vs
