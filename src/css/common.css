@@ -175,6 +175,9 @@ ul.icons li:last-child {
   width: 100%;
     /* images moins sharp sur chrome */
     image-rendering: -webkit-optimize-contrast;
+    /* image-rendering: optimizeQuality;
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges; */
 }
 
 .thumbnails a:hover {
