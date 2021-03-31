@@ -7,8 +7,7 @@ namespace Portfolio.HtmlGenerator
         static void Main(string[] args)
         {
             var type = "faune";
-            //var output = $"{type}html.txt";
-            var output = $"faunehtml.txt";
+            var output = $"html.txt";
             if (File.Exists(output))
             {
                 File.Delete(output);
