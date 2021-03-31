@@ -4,13 +4,12 @@
     <meta charset="utf-8">
     <meta name="author" content="Kevin Verreault">
     <link type="text/css" rel="stylesheet" href="css/common.css"/>
-    <!-- https://lokeshdhakar.com/projects/lightbox2/ -->
-    <link type="text/css" rel="stylesheet" href="css/lightbox.min.css"/>
+    <link type="text/css" rel="stylesheet" href="css/jquery.fancybox.min.css"/>
     <link type="text/css" rel="stylesheet" href="css/tailwind.css"/>
     <link type="text/css" rel="stylesheet" href="css/font-awesome.min.css"/>
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans:400,700&display=swap" rel="stylesheet"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Kevin Verreault</title>    
+    <title>Kevin Verreault - Photographie</title>    
   </head>
   <body class="is-loading">
     <header>
@@ -22,57 +21,102 @@
                 <li><a href="https://www.flickr.com/photos/152334550@N04/" target="_blank" class="icon fa fa-flickr socialmedia shadow-md transition duration-400 hover:bg-gray-400 bg-gray-300"><span class="label">Flickr</span></a></li>
             </ul>
             <nav>
-                <div class="navigation mt-4 space-x-4">
+                <div class="navigation">
                     <a href="/">
-                        <button class="py-2 px-4 w-28 bg-gray-300 text-gray-800 font-semibold rounded-lg shadow-md transition duration-400 hover:bg-gray-400 focus:outline-none focus:bg-gray-500">accueil</button>
+                        <button class="mt-4 py-2 px-4 w-28 bg-gray-300 text-gray-800 font-semibold rounded-lg shadow-md transition duration-400 hover:bg-gray-400 focus:outline-none focus:bg-gray-500">accueil</button>
                     </a>
                     <a href="/faune">
-                        <button class="py-2 px-4 w-28 bg-gray-300 text-gray-800 font-semibold rounded-lg shadow-md transition duration-400 hover:bg-gray-400 focus:outline-none">faune</button>
+                        <button class="mt-4 py-2 px-4 w-28 bg-gray-300 text-gray-800 font-semibold rounded-lg shadow-md transition duration-400 hover:bg-gray-400 focus:outline-none focus:bg-gray-500">faune</button>
                     </a>
                     <a href="/paysages">
-                        <button class="py-2 px-4 w-28 bg-gray-300 text-gray-800 font-semibold rounded-lg shadow-md transition duration-400 hover:bg-gray-400 focus:outline-none">paysages</button>
+                        <button class="mt-4 py-2 px-4 w-28 bg-gray-300 text-gray-800 font-semibold rounded-lg shadow-md transition duration-400 hover:bg-gray-400 focus:outline-none focus:bg-gray-500">paysages</button>
                     </a>
                     <!-- <a href="index.html">
-                        <button class="py-2 px-4 w-28 bg-gray-300 text-gray-800 font-semibold rounded-lg shadow-md transition duration-400 hover:bg-gray-400 focus:outline-none">à propos</button>
+                        <button class="mt-4 py-2 px-4 w-28 bg-gray-300 text-gray-800 font-semibold rounded-lg shadow-md transition duration-400 hover:bg-gray-400 focus:outline-none focus:bg-gray-500">à propos</button>
                     </a> -->
                 </div>
             </nav>            
         </div>
     </header>
 
-    <div class="grid-homepage container mx-auto min-h-screen">
-        <div class="thumbnails space-x-8">
+    <div class="grid-homepage mx-auto min-h-screen">
+        <div class="thumbnails">
             <div>
-                <a href="images/highres/7.jpg" data-lightbox="portfolio">
-                    <img src="images/7.jpg" alt="" />
+                <a href="images/1-1600w.jpg" data-fancybox="portfolio">
+                    <img srcset="images/1-320w.jpg 320w,
+                            images/1-640w.jpg 640w,
+                            images/1-1024w.jpg 1024w,
+                            images/1-1600w.jpg 1600w"
+                        sizes="(max-width:768px) 33vw, 15vw"
+                        src="images/1-1024w.jpg" alt="acceuil image 1">
                 </a>
-                <a href="images/highres/1.jpg" data-lightbox="portfolio">
-                    <img src="images/1.jpg" alt="" />
+                <a href="images/2-1600w.jpg" data-fancybox="portfolio">
+                    <img srcset="images/2-320w.jpg 320w,
+                            images/2-640w.jpg 640w,
+                            images/2-1024w.jpg 1024w,
+                            images/2-1600w.jpg 1600w"
+                        sizes="(max-width:768px) 33vw, 15vw"
+                        src="images/2-1024w.jpg" alt="acceuil image 2">
                 </a>
-                <a href="images/highres/2.jpg" data-lightbox="portfolio">
-                    <img src="images/2.jpg" alt="" />
+                <a href="images/3-1600w.jpg" data-fancybox="portfolio">
+                    <img srcset="images/3-320w.jpg 320w,
+                            images/3-640w.jpg 640w,
+                            images/3-1024w.jpg 1024w,
+                            images/3-1600w.jpg 1600w"
+                        sizes="(max-width:768px) 33vw, 15vw"
+                        src="images/3-1024w.jpg" alt="acceuil image 3">
                 </a>
             </div>
             <div>
-                <a href="images/highres/9.jpg" data-lightbox="portfolio">
-                    <img src="images/9.jpg" alt="" />
+                <a href="images/4-1600w.jpg" data-fancybox="portfolio">
+                    <img srcset="images/4-320w.jpg 320w,
+                            images/4-640w.jpg 640w,
+                            images/4-1024w.jpg 1024w,
+                            images/4-1600w.jpg 1600w"
+                        sizes="(max-width:768px) 33vw, 15vw"
+                        src="images/4-1024w.jpg" alt="acceuil image 4">
                 </a>
-                <a href="images/highres/5.jpg" data-lightbox="portfolio">
-                    <img src="images/5.jpg" alt="" />
+                <a href="images/5-1600w.jpg" data-fancybox="portfolio">
+                    <img srcset="images/5-320w.jpg 320w,
+                            images/5-640w.jpg 640w,
+                            images/5-1024w.jpg 1024w,
+                            images/5-1600w.jpg 1600w"
+                        sizes="(max-width:768px) 33vw, 15vw"
+                        src="images/5-1024w.jpg" alt="acceuil image 5">
                 </a>
-                <a href="images/highres/6.jpg" data-lightbox="portfolio">
-                    <img src="images/6.jpg" alt="" />
+                <a href="images/6-1600w.jpg" data-fancybox="portfolio">
+                    <img srcset="images/6-320w.jpg 320w,
+                            images/6-640w.jpg 640w,
+                            images/6-1024w.jpg 1024w,
+                            images/6-1600w.jpg 1600w"
+                        sizes="(max-width:768px) 33vw, 15vw"
+                        src="images/6-1024w.jpg" alt="acceuil image 6">
                 </a>
             </div>
             <div>
-                <a href="images/highres/8.jpg" data-lightbox="portfolio">
-                    <img src="images/8.jpg" alt="" />
+                <a href="images/7-1600w.jpg" data-fancybox="portfolio">
+                    <img srcset="images/7-320w.jpg 320w,
+                            images/7-640w.jpg 640w,
+                            images/7-1024w.jpg 1024w,
+                            images/7-1600w.jpg 1600w"
+                        sizes="(max-width:768px) 33vw, 15vw"
+                        src="images/7-1024w.jpg" alt="acceuil image 7">
                 </a>
-                <a href="images/highres/4.jpg" data-lightbox="portfolio">
-                    <img src="images/4.jpg" alt="" />
+                <a href="images/8-1600w.jpg" data-fancybox="portfolio">
+                    <img srcset="images/8-320w.jpg 320w,
+                            images/8-640w.jpg 640w,
+                            images/8-1024w.jpg 1024w,
+                            images/8-1600w.jpg 1600w"
+                        sizes="(max-width:768px) 33vw, 15vw"
+                        src="images/8-1024w.jpg" alt="acceuil image 8">
                 </a>
-                <a href="images/highres/3.jpg" data-lightbox="portfolio">
-                    <img src="images/3.jpg" alt="" />
+                <a href="images/9-1600w.jpg" data-fancybox="portfolio">
+                    <img srcset="images/9-320w.jpg 320w,
+                            images/9-640w.jpg 640w,
+                            images/9-1024w.jpg 1024w,
+                            images/9-1600w.jpg 1600w"
+                        sizes="(max-width:768px) 33vw, 15vw"
+                        src="images/9-1024w.jpg" alt="acceuil image 9">
                 </a>
             </div>
         </div>      
@@ -83,7 +127,7 @@
     </footer>
 
     <script src="scripts/jquery.min.js"></script>
-    <script src="scripts/lightbox.min.js"></script>
+    <script src="scripts/jquery.fancybox.min.js"></script>
     <script src="scripts/common.js"></script>
 
   </body>
