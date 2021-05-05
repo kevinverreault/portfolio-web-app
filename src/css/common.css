@@ -204,11 +204,15 @@ ul.icons li:last-child {
   transition: opacity 1s ease, filter 1s ease;
 }
 
+.gallerie {
+  padding: 0 0.5rem 0 0.5rem;
+}
+
 .gallerie > a {
   transition: all .2s ease;
   height: 20vh;
   flex-grow: 1;
-  margin: 2px;
+  margin: 0.25rem;
   max-width: 50%
 }
 
@@ -225,7 +229,7 @@ ul.icons li:last-child {
   vertical-align: bottom;
   border-radius: 2px;
     /* images moins sharp sur chrome */
-    image-rendering: -webkit-optimize-contrast;
+  image-rendering: -webkit-optimize-contrast;
 }
 
 @media screen and (max-width:1440px) {
@@ -234,7 +238,8 @@ ul.icons li:last-child {
 
 @media screen and (max-width:1024px) {
   .gallerie > a {
-    max-width: 100%
+    max-width: 100%;
+    height: 15vh
   }
 }
 
