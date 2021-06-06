@@ -5,7 +5,6 @@
     <meta name="author" content="Kevin Verreault">
     <link type="text/css" rel="stylesheet" href="css/common.css"/>
     <link type="text/css" rel="stylesheet" href="css/jquery.fancybox.min.css"/>
-    <link type="text/css" rel="stylesheet" href="css/tailwind.css"/>
     <link type="text/css" rel="stylesheet" href="css/font-awesome.min.css"/>
     <link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans:400,700&display=swap" rel="stylesheet"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -14,27 +13,24 @@
   <body class="is-loading">
     <header>
         <div class="entete">
-            <h1 class="titre-principal text-2xl">kevin verreault</h1>
-            <p class="">photographie de la nature du québec</p>
-            <ul class="icons mt-3">
-                <li><a href="https://www.instagram.com/kevinverreault_/" target="_blank" class="icon fa fa-instagram socialmedia shadow-md transition duration-400 hover:bg-gray-400 bg-gray-300"><span class="label">Instagram</span></a></li>
-                <li><a href="https://www.youtube.com/channel/UC0H8kS7v1U5yprgK7RHqQZQ" target="_blank" class="icon fa fa-youtube socialmedia shadow-md transition duration-400 hover:bg-gray-400 bg-gray-300"><span class="label">Youtube</span></a></li>
-                <li><a href="https://www.flickr.com/photos/152334550@N04/" target="_blank" class="icon fa fa-flickr socialmedia shadow-md transition duration-400 hover:bg-gray-400 bg-gray-300"><span class="label">Flickr</span></a></li>
+            <h1 class="titre-principal">kevin verreault</h1>
+            <p class="description">photographie de la nature du québec</p>
+            <ul class="icons">
+                <li><a href="https://www.instagram.com/kevinverreault_/" target="_blank" class="icon fa fa-instagram socialmedia entete-bouton entete-bouton-socialmedia"><span class="label">Instagram</span></a></li>
+                <li><a href="https://www.youtube.com/channel/UC0H8kS7v1U5yprgK7RHqQZQ" target="_blank" class="icon fa fa-youtube-play socialmedia entete-bouton entete-bouton-socialmedia"><span class="label">Youtube</span></a></li>
+                <li><a href="https://www.flickr.com/photos/152334550@N04/" target="_blank" class="icon fa fa-flickr socialmedia entete-bouton entete-bouton-socialmedia"><span class="label">Flickr</span></a></li>
             </ul>
             <nav>
                 <div class="navigation">
                     <a href="/">
-                        <button class="mt-4 py-2 px-4 w-28 bg-gray-300 text-gray-800 font-semibold rounded-lg shadow-md transition duration-400 hover:bg-gray-400 focus:outline-none focus:bg-gray-500">accueil</button>
+                        <button class="entete-bouton entete-bouton-navigation">accueil</button>
                     </a>
                     <a href="/faune">
-                        <button class="mt-4 py-2 px-4 w-28 bg-gray-300 text-gray-800 font-semibold rounded-lg shadow-md transition duration-400 hover:bg-gray-400 focus:outline-none focus:bg-gray-500">faune</button>
+                        <button class="entete-bouton entete-bouton-navigation">faune</button>
                     </a>
                     <a href="/paysages">
-                        <button class="mt-4 py-2 px-4 w-28 bg-gray-300 text-gray-800 font-semibold rounded-lg shadow-md transition duration-400 hover:bg-gray-400 focus:outline-none focus:bg-gray-500">paysages</button>
+                        <button class="entete-bouton entete-bouton-navigation">paysages</button>
                     </a>
-                    <!-- <a href="index.html">
-                        <button class="mt-4 py-2 px-4 w-28 bg-gray-300 text-gray-800 font-semibold rounded-lg shadow-md transition duration-400 hover:bg-gray-400 focus:outline-none focus:bg-gray-500">à propos</button>
-                    </a> -->
                 </div>
             </nav>            
         </div>
@@ -49,7 +45,7 @@
                             images/1-1024w.jpg 1024w,
                             images/1-1600w.jpg 1600w"
                         sizes="(max-width:768px) 33vw, 15vw"
-                        src="images/1-1024w.jpg" alt="acceuil image 1">
+                        src="images/1-1024w.jpg" alt="accueil image 1">
                 </a>
                 <a href="images/2-1600w.jpg" data-fancybox="portfolio">
                     <img srcset="images/2-320w.jpg 320w,
@@ -57,7 +53,7 @@
                             images/2-1024w.jpg 1024w,
                             images/2-1600w.jpg 1600w"
                         sizes="(max-width:768px) 33vw, 15vw"
-                        src="images/2-1024w.jpg" alt="acceuil image 2">
+                        src="images/2-1024w.jpg" alt="accueil image 2">
                 </a>
                 <a href="images/3-1600w.jpg" data-fancybox="portfolio">
                     <img srcset="images/3-320w.jpg 320w,
@@ -65,7 +61,7 @@
                             images/3-1024w.jpg 1024w,
                             images/3-1600w.jpg 1600w"
                         sizes="(max-width:768px) 33vw, 15vw"
-                        src="images/3-1024w.jpg" alt="acceuil image 3">
+                        src="images/3-1024w.jpg" alt="accueil image 3">
                 </a>
             </div>
             <div>
@@ -75,7 +71,7 @@
                             images/4-1024w.jpg 1024w,
                             images/4-1600w.jpg 1600w"
                         sizes="(max-width:768px) 33vw, 15vw"
-                        src="images/4-1024w.jpg" alt="acceuil image 4">
+                        src="images/4-1024w.jpg" alt="accueil image 4">
                 </a>
                 <a href="images/5-1600w.jpg" data-fancybox="portfolio">
                     <img srcset="images/5-320w.jpg 320w,
@@ -83,7 +79,7 @@
                             images/5-1024w.jpg 1024w,
                             images/5-1600w.jpg 1600w"
                         sizes="(max-width:768px) 33vw, 15vw"
-                        src="images/5-1024w.jpg" alt="acceuil image 5">
+                        src="images/5-1024w.jpg" alt="accueil image 5">
                 </a>
                 <a href="images/6-1600w.jpg" data-fancybox="portfolio">
                     <img srcset="images/6-320w.jpg 320w,
@@ -91,7 +87,7 @@
                             images/6-1024w.jpg 1024w,
                             images/6-1600w.jpg 1600w"
                         sizes="(max-width:768px) 33vw, 15vw"
-                        src="images/6-1024w.jpg" alt="acceuil image 6">
+                        src="images/6-1024w.jpg" alt="accueil image 6">
                 </a>
             </div>
             <div>
@@ -101,7 +97,7 @@
                             images/7-1024w.jpg 1024w,
                             images/7-1600w.jpg 1600w"
                         sizes="(max-width:768px) 33vw, 15vw"
-                        src="images/7-1024w.jpg" alt="acceuil image 7">
+                        src="images/7-1024w.jpg" alt="accueil image 7">
                 </a>
                 <a href="images/8-1600w.jpg" data-fancybox="portfolio">
                     <img srcset="images/8-320w.jpg 320w,
@@ -109,7 +105,7 @@
                             images/8-1024w.jpg 1024w,
                             images/8-1600w.jpg 1600w"
                         sizes="(max-width:768px) 33vw, 15vw"
-                        src="images/8-1024w.jpg" alt="acceuil image 8">
+                        src="images/8-1024w.jpg" alt="accueil image 8">
                 </a>
                 <a href="images/9-1600w.jpg" data-fancybox="portfolio">
                     <img srcset="images/9-320w.jpg 320w,
@@ -117,7 +113,7 @@
                             images/9-1024w.jpg 1024w,
                             images/9-1600w.jpg 1600w"
                         sizes="(max-width:768px) 33vw, 15vw"
-                        src="images/9-1024w.jpg" alt="acceuil image 9">
+                        src="images/9-1024w.jpg" alt="accueil image 9">
                 </a>
             </div>
         </div>      
