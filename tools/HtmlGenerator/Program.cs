@@ -7,7 +7,7 @@ namespace Portfolio.HtmlGenerator
         static void Main(string[] args)
         {
             var type = "paysage";
-            var output = $"html.txt";
+            var output = "html.txt";
             if (File.Exists(output))
             {
                 File.Delete(output);
@@ -23,7 +23,7 @@ namespace Portfolio.HtmlGenerator
                 fs.WriteLine($@"                images/{type}/{i}-2x.jpg 640w,");
                 fs.WriteLine($@"                images/{type}/{i}-3x.jpg 1024w,");
                 fs.WriteLine($@"                images/{type}/{i}-4x.jpg 1366w""");
-                fs.WriteLine($@"         sizes=""(max-width:768px) 224px, 320px""");
+                fs.WriteLine($@"         sizes=""(max-width:480px) 100vw, (max-width:768px) 224px, 320px""");
                 if (i > lazyloading)
                     fs.WriteLine($@"         src=""images/{type}/{i}-1x.jpg"" alt=""{type} image {i}"" loading=""lazy""/>");
                 else

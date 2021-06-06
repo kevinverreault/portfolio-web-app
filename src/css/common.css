@@ -215,7 +215,6 @@ ul.icons li:last-child {
 }
 
 .gallerie-container > a:hover {
-  background-color: rgba(207, 72, 72, 0.25);
   box-shadow: inset 0 0 0 1px rgba(61, 8, 8, 0.25), 0 0 6px 0 #37474f;
   opacity: 90%;
 }
@@ -283,6 +282,16 @@ ul.icons li:last-child {
 
 @media screen and (max-width:480px) {
   .gallerie-container {
-    width: 224px;
+    width: 100%;
+    padding: 0 5px 0 5px;
+  }
+
+  .gallerie-container > a {
+    width: 100%;
+    margin: 0 0 5px 0;
+  }
+
+  .gallerie-container > a > img {
+    width: 100%;
   }
 }
