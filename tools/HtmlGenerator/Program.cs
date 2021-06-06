@@ -6,7 +6,7 @@ namespace Portfolio.HtmlGenerator
     {
         static void Main(string[] args)
         {
-            var type = "paysage";
+            var type = "faune";
             var output = "html.txt";
             if (File.Exists(output))
             {
@@ -14,7 +14,7 @@ namespace Portfolio.HtmlGenerator
             }
 
             using var fs = new StreamWriter(File.Create(output));
-            int galleryItems = 24;
+            int galleryItems = 48;
             int lazyloading = 20;
             for (var i = 1; i <= galleryItems; ++i)
             {

@@ -139,7 +139,10 @@ ul.icons li:last-child {
   opacity: 1;
   filter: none;
   margin-bottom: 3em;
-  transition: opacity 1s ease, filter 1s ease
+  transition: opacity 1s ease, filter 1s ease;
+  min-height: 100vh;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .thumbnails {
@@ -206,6 +209,9 @@ ul.icons li:last-child {
   letter-spacing: 0px;
   word-spacing: 0px;
   transition: opacity 1s ease, filter 1s ease;
+  min-height: 100vh;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .gallerie-container > a {
