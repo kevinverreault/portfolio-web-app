@@ -76,12 +76,8 @@ footer:before {
 }
 
 .entete-bouton-socialmedia {
-  box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-  box-sizing: border-box;
   color: rgb(17, 24, 39);
-  cursor: pointer;
   tab-size: 4;
-  
 }
 
 .entete-bouton:hover {
@@ -140,12 +136,6 @@ footer:before {
   margin: 0;
 }
 
-.icon {
-  text-decoration: none;
-  border-bottom: 0;
-  position: relative
-}
-
 .icon:before {
   font-family: FontAwesome;
   font-style: normal;
@@ -162,6 +152,9 @@ footer:before {
   border-radius: 100%;
   display: inline-block;
   padding: .5em;
+  text-decoration: none;
+  border-bottom: 0;
+  position: relative
 }
 
 .icon:before {
