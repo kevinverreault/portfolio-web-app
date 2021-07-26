@@ -5,9 +5,7 @@ import HomeGallery from './HomeGallery';
 export default class Home extends React.Component {
     render() {
         return (
-            <div className="grid-homepage">
-                <HomeGallery />
-            </div>
+            <HomeGallery />
         )
     }
 }

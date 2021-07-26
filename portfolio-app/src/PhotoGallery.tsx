@@ -2,7 +2,28 @@ import React from 'react';
 import './PhotoGallery.css';
 import { Fancybox } from '@fancyapps/ui';
 import "@fancyapps/ui/dist/fancybox.css";
-import GalleryImage from './GalleryImage';
+import GalleryListItem from './GalleryListItem';
+import styled from "styled-components";
+
+const Liste = styled.div`
+    width: 1366px;
+    padding: 0;
+    @media (max-width:1600px) {
+      width: 1020px;
+    }
+    @media (max-width:1366px) {
+        width: 680px;
+    }
+    @media (max-width:768px) {
+        width: 460px;
+        width: 100%;
+        padding: 0 5px 0 5px;
+    }
+    @media (max-width:480px) {
+        width: 100%;
+        padding: 0 5px 0 5px;
+    }
+    `;
 
 export default class PhotoGallery extends React.Component<any> {
     images: Array<JSX.Element>;
@@ -11,9 +32,10 @@ export default class PhotoGallery extends React.Component<any> {
         super(props);
         this.images = new Array<JSX.Element>(props.gallerySize);
         for (let i = 1; i <= props.gallerySize; ++i) {
-            const imageTag = <GalleryImage key={i} imageId={i} galleryName={props.galleryName} />;
+            const imageTag = <GalleryListItem key={i} imageId={i} galleryName={props.galleryName} />;
             this.images.push(imageTag)
         }
+
     }
     
     componentDidMount() {
@@ -22,7 +44,9 @@ export default class PhotoGallery extends React.Component<any> {
 
     render() {
         return (
-            <ul className="gallery-container">{this.images}</ul>
+            <Liste className="gallery-container">
+                <ul className="gallery-list">{this.images}</ul>
+            </Liste>
         )
     }
 }

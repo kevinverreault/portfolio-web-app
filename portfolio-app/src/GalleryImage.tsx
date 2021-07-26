@@ -1,22 +1,41 @@
 import React from 'react';
-import ResponsiveImage from './ResponsiveImage';
+import createImageset from './responsiveImageHelper';
+import styled from "styled-components";
 
-export default class GalleryImage extends React.Component <any>{
-    alt: string;
-    size: string;
-    imagePath: string;
+const ResponsiveImage = styled.img`
+        width: 320px;
+        margin: 10px;
+        border-radius: 2px;
+        image-rendering: -webkit-optimize-contrast;
+        box-sizing: border-box;
+        @media (max-width: 768px) {
+            margin: 2px;
+            width: 220px;
+        }
+        @media (max-width: 480px) {
+            width: 100%;
+        }
+`;
+
+export default class GalleryImage extends React.Component<any> {
+    imageSet: string;
+    imageMaxSize: string;
+    imageMinSize: string;
 
     constructor(props: any) {
         super(props);
 
-        this.size = "(max-width:480px) 100vw, (max-width:768px) 224px, 320px";
-        this.alt = `${props.galleryName} image ${props.imageId}`;
-        this.imagePath= `images/${props.galleryName}`;
-    }
+        const imageset = createImageset(props.imageId, props.imagePath);
 
+        this.imageSet = `${imageset.image1x}, ${imageset.image2x}, ${imageset.image3x}, ${imageset.image4x}, ${imageset.image5x}`;
+        this.imageMaxSize = imageset.imageMaxSize;
+        this.imageMinSize = imageset.imageMinSize;
+    }
     render() {
         return (
-            <li><ResponsiveImage imageId={this.props.imageId} size={this.size} alt={this.alt} imagePath={this.imagePath} /></li>
+            <a href={this.imageMaxSize} data-fancybox="portfolio">
+                <ResponsiveImage srcSet={this.imageSet} sizes={this.props.size} src={this.imageMinSize} alt={this.props.alt} />
+            </a>
         )
     }
 }
