@@ -21,7 +21,7 @@ export default class SocialMediaButton extends React.Component<SocialMediaButton
         
         return ( 
             <li className="icon-listitem">
-                <a href={this.props.target} target="_blank" rel="noreferrer" className="icon socialmedia entete-bouton entete-bouton-socialmedia">
+                <a href={this.props.target} target="_blank" rel="noreferrer" className="icon entete-bouton entete-bouton-socialmedia">
                     {icon}
                 </a>
             </li>

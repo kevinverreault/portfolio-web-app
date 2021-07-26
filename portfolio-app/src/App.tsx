@@ -28,7 +28,7 @@ export default class App extends React.Component {
                       </li>
                       <li>
                         <Link to="/faune" className="navigation-link">
-                        <NavigationButton label="faune" />
+                          <NavigationButton label="faune" />
                         </Link>
                       </li>
                       <li>

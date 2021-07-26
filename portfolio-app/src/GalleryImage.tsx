@@ -2,6 +2,13 @@ import React from 'react';
 import createImageset from './responsiveImageHelper';
 import styled from "styled-components";
 
+const GalleryLink = styled.a`
+     :hover {
+        box-shadow: inset 0 0 0 1px rgba(61, 8, 8, 0.25), 0 0 6px 0 #37474f;
+        opacity: 90%;
+     }   
+`;
+
 const ResponsiveImage = styled.img`
         width: 320px;
         margin: 10px;
@@ -33,9 +40,9 @@ export default class GalleryImage extends React.Component<any> {
     }
     render() {
         return (
-            <a href={this.imageMaxSize} data-fancybox="portfolio">
+            <GalleryLink href={this.imageMaxSize} data-fancybox="portfolio">
                 <ResponsiveImage srcSet={this.imageSet} sizes={this.props.size} src={this.imageMinSize} alt={this.props.alt} />
-            </a>
+            </GalleryLink>
         )
     }
 }

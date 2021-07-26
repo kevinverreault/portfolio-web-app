@@ -25,13 +25,12 @@ const Grid = styled.div`
     }
 `;
 
-
 const Column = styled.div`
     display: flex;
     flex-direction: column;
     margin: 0 1rem 0 1rem;
     width: calc(100% / 3);
-    @media (max-width:768px) {
+    @media (max-width:1280px) {
         margin: 0 0.75rem 0 0.75rem;
     }
     @media (max-width:768px) {
@@ -45,18 +44,18 @@ export default class HomeGallery extends React.Component {
     }
     render() { 
         return (
-            <Grid className="thumbnails">
-                <Column className="thumbnails-column">
+            <Grid className="homegallery">
+                <Column className="homegallery-column">
                     <HomeImage imageId="1" />
                     <HomeImage imageId="2" />
                     <HomeImage imageId="3" />
                 </Column>
-                <Column className="thumbnails-column">
+                <Column className="homegallery-column">
                     <HomeImage imageId="4" />
                     <HomeImage imageId="5" />
                     <HomeImage imageId="6" />
                 </Column>
-                <Column className="thumbnails-column">
+                <Column className="homegallery-column">
                     <HomeImage imageId="7" />
                     <HomeImage imageId="8" />
                     <HomeImage imageId="9" />

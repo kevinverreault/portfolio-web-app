@@ -2,25 +2,58 @@ import React from 'react';
 import createImageset from './responsiveImageHelper';
 import styled from "styled-components";
 
+// const HomeLink = styled.a`
+//     margin: 0 0 2em 0;
+//     transition: all .2s ease;
+//     border-bottom: 0;
+//     display: block;
+//     width: 100%;
+//     text-align: center;
+//     border-radius: 2px;
+//     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+//     background-color: rgba(255, 255, 255, 0.075);
+//     cursor: pointer;
+//     outline: 0;
+//     overflow: hidden;
+//     @media (max-width:1280px) {
+//         margin: 0 0 1.5rem 0;
+//     }
+//     @media (max-width:768px) {
+//         margin: 0 0 1rem 0;
+//     }
+
+//     :hover {
+//         background-color: rgba(255, 255, 255, 0.25);
+//         box-shadow: inset 0 0 0 1px rgba(61, 8, 8, 0.25), 0 0 .5em 0 #37474f;
+//         opacity: 90%;
+//     }
+// `;
+
 const HomeLink = styled.a`
     margin: 0 0 2em 0;
     transition: all .2s ease;
-    border-bottom: 0;
     display: block;
     width: 100%;
-    text-align: center;
     border-radius: 2px;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
-    background-color: rgba(255, 255, 255, 0.075);
-    cursor: pointer;
-    outline: 0;
-    overflow: hidden;
     @media (max-width:1280px) {
         margin: 0 0 1.5rem 0;
     }
     @media (max-width:768px) {
         margin: 0 0 1rem 0;
     }
+
+    :hover {
+        background-color: rgba(255, 255, 255, 0.25);
+        box-shadow: inset 0 0 0 1px rgba(61, 8, 8, 0.25), 0 0 .5em 0 #37474f;
+        opacity: 90%;
+    }
+`;
+
+const ResponsiveImage = styled.img`
+    display: block;
+    width: 100%;
+    image-rendering: -webkit-optimize-contrast;
 `;
 
 export default class HomeImage extends React.Component <any>{
@@ -46,7 +79,7 @@ export default class HomeImage extends React.Component <any>{
     render() {
         return (
             <HomeLink href={this.imageMaxSize} data-fancybox="portfolio">
-                <img srcSet={this.imageSet} sizes={this.size} src={this.imageMinSize} alt={this.alt} />
+                <ResponsiveImage srcSet={this.imageSet} sizes={this.size} src={this.imageMinSize} alt={this.alt} />
             </HomeLink>
         )
     }

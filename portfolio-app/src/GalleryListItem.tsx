@@ -4,6 +4,9 @@ import styled from "styled-components";
 
 const ListItem = styled.li`
         display: inline-block;
+        display: inline-block;
+        transition: all .2s ease;
+        box-sizing: border-box;
         @media (max-width: 480px) {
             display: list-item;
         }

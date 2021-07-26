@@ -1,5 +1,4 @@
 import React from 'react';
-import './PhotoGallery.css';
 import { Fancybox } from '@fancyapps/ui';
 import "@fancyapps/ui/dist/fancybox.css";
 import GalleryListItem from './GalleryListItem';
@@ -8,6 +7,15 @@ import styled from "styled-components";
 const Liste = styled.div`
     width: 1366px;
     padding: 0;
+    display: block;
+    box-sizing: border-box;
+    font-size: 0px;
+    letter-spacing: 0px;
+    word-spacing: 0px;
+    transition: opacity 1s ease, filter 1s ease;
+    min-height: 100vh;
+    margin-right: auto;
+    margin-left: auto;
     @media (max-width:1600px) {
       width: 1020px;
     }
@@ -45,7 +53,7 @@ export default class PhotoGallery extends React.Component<any> {
     render() {
         return (
             <Liste className="gallery-container">
-                <ul className="gallery-list">{this.images}</ul>
+                <ul style={{ padding: 0}}>{this.images}</ul>
             </Liste>
         )
     }

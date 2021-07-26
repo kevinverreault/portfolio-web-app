@@ -87,11 +87,6 @@ header {
     border-bottom: 0;
     position: relative
 }
-
-.socialmedia {
-    --tw-text-opacity: 1;
-    color: rgba(17, 24, 39, var(--tw-text-opacity));
-  }
   
 .icons {
     cursor: default;
