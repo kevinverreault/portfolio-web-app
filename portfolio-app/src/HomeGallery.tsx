@@ -1,9 +1,9 @@
-import React from "react";
+import { useEffect } from "react";
 
 import HomeImage from './HomeImage';
 import { Fancybox } from '@fancyapps/ui';
 import "@fancyapps/ui/dist/fancybox.css";
-import styled from "styled-components";
+import styled from '@emotion/styled'
 
 const Grid = styled.div`
     width: 50%;
@@ -38,30 +38,30 @@ const Column = styled.div`
     }
 `;
 
-export default class HomeGallery extends React.Component {
-    componentDidMount() {
+const HomeGallery = () => {
+    useEffect(() => {
         Fancybox.bind("[data-fancybox]", { zoom: true, protect: true });
-    }
-    render() { 
-        return (
-            <Grid className="homegallery">
-                <Column className="homegallery-column">
-                    <HomeImage imageId="1" />
-                    <HomeImage imageId="2" />
-                    <HomeImage imageId="3" />
-                </Column>
-                <Column className="homegallery-column">
-                    <HomeImage imageId="4" />
-                    <HomeImage imageId="5" />
-                    <HomeImage imageId="6" />
-                </Column>
-                <Column className="homegallery-column">
-                    <HomeImage imageId="7" />
-                    <HomeImage imageId="8" />
-                    <HomeImage imageId="9" />
-                </Column>
-            </Grid>
-        
-        )
-    }
+    });
+
+    return (
+        <Grid className="homegallery">
+            <Column>
+                <HomeImage imageId="1" />
+                <HomeImage imageId="2" />
+                <HomeImage imageId="3" />
+            </Column>
+            <Column>
+                <HomeImage imageId="4" />
+                <HomeImage imageId="5" />
+                <HomeImage imageId="6" />
+            </Column>
+            <Column>
+                <HomeImage imageId="7" />
+                <HomeImage imageId="8" />
+                <HomeImage imageId="9" />
+            </Column>
+        </Grid>
+    )
 }
+
+export default HomeGallery;

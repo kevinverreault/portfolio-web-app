@@ -54,9 +54,9 @@ header {
     background-color:rgb(156, 163, 175);
 }
 
-.entete-bouton:focus {
+/* .entete-bouton:focus {
     background-color: rgba(107,114,128,1);
-}
+} */
 
 .entete-bouton-navigation {
     width: 7rem;

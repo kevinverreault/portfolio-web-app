@@ -10,36 +10,35 @@ import Faune from './Faune';
 import Paysages from './Paysages';
 
 export default class App extends React.Component {
-  render(){
+  render() {
     return (
-      
-        <div className="App">
-          <Router>
-            <header>
-                <div className="entete">
-                    <h1 className="titre-principal">kevin verreault</h1>
-                    <p className="description">photographie de la nature du québec</p>
-                    <SocialMediaList />
-                    <ul className="navigation">
-                      <li>
-                        <Link to="/" className="navigation-link">
-                            <NavigationButton label="accueil" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/faune" className="navigation-link">
-                          <NavigationButton label="faune" />
-                        </Link>
-                      </li>
-                      <li>
-                        <Link to="/paysages" className="navigation-link">
-                          <NavigationButton label="paysages" />
-                        </Link>
-                      </li>  
-                    </ul>           
-                </div>
-            </header>
-            <Switch>
+      <div className="App">
+        <Router>
+          <header>
+            <div className="entete">
+              <h1 className="titre-principal">kevin verreault</h1>
+              <p className="description">photographie de la nature du québec</p>
+              <SocialMediaList />
+              <ul className="navigation">
+                <li>
+                  <Link to="/" className="navigation-link">
+                    <NavigationButton label="accueil" />
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/faune" className="navigation-link">
+                    <NavigationButton label="faune" />
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/paysages" className="navigation-link">
+                    <NavigationButton label="paysages" />
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </header>
+          <Switch>
             <Route exact path="/">
               <Home />
             </Route>
@@ -51,8 +50,10 @@ export default class App extends React.Component {
             </Route>
           </Switch>
         </Router>
-        </div>
-        
+        <footer>
+          <span>© 2021 Kevin Verreault</span>
+        </footer>
+      </div>
     );
   }
 }
