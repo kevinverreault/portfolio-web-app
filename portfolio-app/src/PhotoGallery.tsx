@@ -1,8 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Fancybox } from '@fancyapps/ui';
 import "@fancyapps/ui/dist/fancybox.css";
 import GalleryListItem from './GalleryListItem';
 import styled from '@emotion/styled'
+import LoadingSpinner from './LoadingSpinner';
 
 const Container = styled.div`
     width: 1366px;
@@ -34,20 +35,38 @@ const Container = styled.div`
 
 const PhotoGallery = (props: any) => {
     const lazyLoading = 20;
+
     let images = new Array<JSX.Element>(props.gallerySize);
     for (let i = 1; i <= props.gallerySize; ++i) {
-        const imageTag = <GalleryListItem key={i} imageId={i} galleryName={props.galleryName} />;
+        const imageTag = <GalleryListItem key={i} imageId={i} galleryName={props.galleryName} onLoad={loadedNotification}/>;
         images.push(imageTag)
     }
+    
+    let [loadedCount, setLoaded] = useState(0);
+    let [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
         Fancybox.bind("[data-fancybox]", { zoom: true, protect: true });
-    });
+    }, []);
+
+    useEffect(() => {
+        if (loadedCount >= lazyLoading) {
+            setIsLoading(false);
+            //setTimeout(() => setIsLoading(false), 2500);
+        }
+    }, [loadedCount]);
+
+    function loadedNotification() {
+        setLoaded(loadedCount + 1);
+    }
 
     return (
-        <Container>
-
-            <ul style={{ padding: 0}}>{images}</ul>
-        </Container>
+        <div>
+            <LoadingSpinner loading={isLoading} />
+            <Container>
+                <ul style={{ padding: 0}}>{images}</ul>
+            </Container>
+        </div>
     )
 }
 

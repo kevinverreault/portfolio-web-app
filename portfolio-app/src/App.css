@@ -32,3 +32,12 @@ footer {
   margin-bottom: 50px;
   margin-top: 3em;
 }
+
+.loading {
+  opacity: 1;
+  transition: all 1s ease;
+}
+
+.loaded {
+  opacity: 0;
+}

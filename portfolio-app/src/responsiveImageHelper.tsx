@@ -1,5 +1,3 @@
-import React from 'react';
-
 const createImageset = (imageId: string, imagePath:string) => {
     const imageMaxSize = `${imagePath}/${imageId}-5x.jpg`;
     const imageMinSize = `${imagePath}/${imageId}-1x.jpg`;

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from '@emotion/styled'
 import createImageset from './responsiveImageHelper';
 
 const ListItem = styled.li`
@@ -47,11 +47,15 @@ const GalleryListItem = (props: any) => {
     let imageSet = `${imageset.image1x}, ${imageset.image2x}, ${imageset.image3x}, ${imageset.image4x}, ${imageset.image5x}`;
     let imageMaxSize = imageset.imageMaxSize;
     let imageMinSize = imageset.imageMinSize;
+    
+    function handleLoaded() {
+        props.onLoad();
+    }
 
     return (
             <ListItem>
                 <GalleryLink href={imageMaxSize} data-fancybox="portfolio">
-                    <ResponsiveImage srcSet={imageSet} sizes={sizes} src={imageMinSize} alt={alt} />
+                    <ResponsiveImage srcSet={imageSet} sizes={sizes} src={imageMinSize} alt={alt} onLoad={handleLoaded.bind(this)} />
                 </GalleryLink>
             </ListItem>
         )
