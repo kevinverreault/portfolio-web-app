@@ -9,11 +9,15 @@ const HomeLink = styled.a`
     width: 100%;
     border-radius: 2px;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
-    @media (max-width:1280px) {
+    @media (max-width:1400px) {
         margin: 0 0 1.5rem 0;
     }
     @media (max-width:768px) {
         margin: 0 0 1rem 0;
+    }
+
+    @media (max-width: 480px) {
+        margin: 0 0 0.5rem 0;
     }
 
     :hover {
@@ -30,18 +34,20 @@ const ResponsiveImage = styled.img`
 `;
 
 const HomeImage = (props: any) => {
-    const size = "(max-width:768px) 33vw, (max-width:1280px) 25vw, 15vw";
+    const size = "(max-width:768px) 33vw, (max-width:1400px) 25vw, 15vw";
     const alt = `accueil image ${props.imageId}`;
     const imagePath = "images";
-    const imageset = createImageset(props.imageId, imagePath);
+    const imageProperties = createImageset(props.imageId, imagePath);
 
-    const imageSet = `${imageset.image1x}, ${imageset.image2x}, ${imageset.image3x}, ${imageset.image4x}, ${imageset.image5x}`;
-    const imageMaxSize = imageset.imageMaxSize;
-    const imageMinSize = imageset.imageMinSize;
+    const imageSet = `${imageProperties.image1x}, ${imageProperties.image2x}, ${imageProperties.image3x}, ${imageProperties.image4x}, ${imageProperties.image5x}`;
+
+    function handleImageOnLoad() {
+        props.onLoad();
+    }
 
     return (
-        <HomeLink href={imageMaxSize} data-fancybox="portfolio">
-            <ResponsiveImage srcSet={imageSet} sizes={size} src={imageMinSize} alt={alt} />
+        <HomeLink href={imageProperties.imageMaxSize} data-fancybox="portfolio">
+            <ResponsiveImage srcSet={imageSet} sizes={size} src={imageProperties.imageMinSize} alt={alt} onLoad={handleImageOnLoad.bind(this)}/>
         </HomeLink>
     )
 }

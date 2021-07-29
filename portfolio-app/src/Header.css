@@ -1,30 +1,4 @@
-header {
-    padding-top: 2em;
-    box-shadow: none;
-    margin-bottom: 3.5em;
-}
 
-.entete {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    justify-content: space-around;
-  }
-
-.titre-principal {
-    font-weight: 250;
-    color: #212121;
-    margin: auto;
-    font-size: 1.5rem;
-    line-height: 2rem;
-}
-
-.description {
-    line-height: 24px;
-    margin: 0;
-}
-  
 .entete-bouton {
     transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
     transition-timing-function: cubic-bezier(0.4,0,0.2,1);
@@ -101,20 +75,4 @@ header {
 .icon-listitem {
     display: inline-block!important;
     margin: 0 0.5em 0 0.5em
-}
-
-.navigation {
-    list-style: none;
-    align-items: center;
-    text-align: center;
-    display: flex;
-    justify-content:space-between;
-    padding: 0;
-    margin-top: 0;
-}
-
-.navigation-link {
-  line-height: 24px;
-  text-decoration: inherit;
-  margin: 0 0.5em 0 0.5em
 }

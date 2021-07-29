@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
-import { Fancybox } from '@fancyapps/ui';
-import "@fancyapps/ui/dist/fancybox.css";
 import GalleryListItem from './GalleryListItem';
 import styled from '@emotion/styled'
-import LoadingSpinner from './LoadingSpinner';
+import LoadingOverlay from './LoadingOverlay';
+import useWaitAllImages from './Hooks/useWaitAllImages';
+import useImageGallery from './Hooks/useImageGallery';
 
 const Container = styled.div`
     width: 1366px;
@@ -24,7 +23,7 @@ const Container = styled.div`
         width: 680px;
     }
     @media (max-width:768px) {
-        width: 460px;
+        width: 480px;
         width: 100%;
     }
     @media (max-width:480px) {
@@ -35,34 +34,19 @@ const Container = styled.div`
 
 const PhotoGallery = (props: any) => {
     const lazyLoading = 20;
+    const  { isLoading, onLoadNotification } = useWaitAllImages(lazyLoading);
 
-    let images = new Array<JSX.Element>(props.gallerySize);
+    const images = new Array<JSX.Element>(props.gallerySize);
     for (let i = 1; i <= props.gallerySize; ++i) {
-        const imageTag = <GalleryListItem key={i} imageId={i} galleryName={props.galleryName} onLoad={loadedNotification}/>;
+        const imageTag = <GalleryListItem key={i} imageId={i} galleryName={props.galleryName} onLoad={onLoadNotification}/>;
         images.push(imageTag)
     }
-    
-    let [loadedCount, setLoaded] = useState(0);
-    let [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        Fancybox.bind("[data-fancybox]", { zoom: true, protect: true });
-    }, []);
-
-    useEffect(() => {
-        if (loadedCount >= lazyLoading) {
-            setIsLoading(false);
-            //setTimeout(() => setIsLoading(false), 2500);
-        }
-    }, [loadedCount]);
-
-    function loadedNotification() {
-        setLoaded(loadedCount + 1);
-    }
+    useImageGallery();
 
     return (
         <div>
-            <LoadingSpinner loading={isLoading} />
+            <LoadingOverlay loading={isLoading} />
             <Container>
                 <ul style={{ padding: 0}}>{images}</ul>
             </Container>

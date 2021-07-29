@@ -2,42 +2,17 @@ import React from 'react';
 import './App.css';
 import './index.css';
 import './Header.css';
-import SocialMediaList from './SocialMediaList';
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import NavigationButton from './NavigationButton';
+import { Switch, Route } from "react-router-dom";
 import Home from './Home';
 import Faune from './Faune';
 import Paysages from './Paysages';
+import NavigationHeader from './NavigationHeader';
 
 export default class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Router>
-          <header>
-            <div className="entete">
-              <h1 className="titre-principal">kevin verreault</h1>
-              <p className="description">photographie de la nature du québec</p>
-              <SocialMediaList />
-              <ul className="navigation">
-                <li>
-                  <Link to="/" className="navigation-link">
-                    <NavigationButton label="accueil" />
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/faune" className="navigation-link">
-                    <NavigationButton label="faune" />
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/paysages" className="navigation-link">
-                    <NavigationButton label="paysages" />
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </header>
+          <NavigationHeader />
           <Switch>
             <Route exact path="/">
               <Home />
@@ -49,7 +24,6 @@ export default class App extends React.Component {
               <Paysages />
             </Route>
           </Switch>
-        </Router>
         <footer>
           <span>© 2021 Kevin Verreault</span>
         </footer>
