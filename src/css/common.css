@@ -55,27 +55,85 @@ footer:before {
   justify-content: space-around;
 }
 
+.entete-bouton {
+  transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform;
+  transition-timing-function: cubic-bezier(0.4,0,0.2,1);
+  transition-duration: 0.15s;
+  background-color: rgb(209, 213, 219);
+  border-bottom-color: rgb(17, 24, 39);
+  border-left-color: rgb(229, 231, 235);
+  border-left-style: solid;
+  border-left-width: 0px;
+  border-right-color: rgb(229, 231, 235);
+  border-right-style: solid;
+  border-right-width: 0px;
+  border-top-color: rgb(229, 231, 235);
+  border-top-style: solid;
+  border-top-width: 0px;
+  box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.entete-bouton-socialmedia {
+  color: rgb(17, 24, 39);
+  tab-size: 4;
+}
+
+.entete-bouton:hover {
+  background-color:rgb(156, 163, 175);
+}
+
+.entete-bouton:focus {
+  background-color: rgba(107,114,128,1);
+}
+
+.entete-bouton-navigation {
+  width: 7rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  border-bottom-width: 0px;
+  border-bottom-style:solid;
+  border-bottom-color: rgb(229, 231, 235);
+  margin-top: 1rem;
+  font-weight: 600;
+  border-radius: .5rem;
+  color: rgba(31,41,55,1);
+  appearance: button;
+  background-image: none;
+  font-size: 16px;
+  font-family: inherit;
+  line-height: 24px;
+}
+
 .navigation {
   align-items: center;
   text-align: center;
   justify-content: space-around;
 }
 
+.navigation > a {
+  line-height: 24px;
+  text-decoration: inherit;
+}
+
 .navigation > a:not(:first-child) {
   margin-left: 1em;
 }
 
-
 .titre-principal {
   font-weight: 250;
   color: #212121;
-  margin: auto
+  margin: auto;
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
-.icon {
-  text-decoration: none;
-  border-bottom: 0;
-  position: relative
+.description {
+  line-height: 24px;
+  margin: 0;
 }
 
 .icon:before {
@@ -94,6 +152,9 @@ footer:before {
   border-radius: 100%;
   display: inline-block;
   padding: .5em;
+  text-decoration: none;
+  border-bottom: 0;
+  position: relative
 }
 
 .icon:before {
@@ -102,10 +163,6 @@ footer:before {
   height: 1.25em;
   line-height: 1.25em;
   font-size: 1.35em
-}
-
-.icon:hover {
-  background-color: #bdbdbd
 }
 
 .socialmedia {
@@ -122,7 +179,9 @@ ul.icons {
   padding-left: 1em;
   cursor: default;
   list-style: none;
-  padding-left: 0
+  padding-left: 0;
+  margin-top: 0.75rem;
+  margin-block-end: 0px;
 }
 
 ul.icons li {
@@ -139,7 +198,10 @@ ul.icons li:last-child {
   opacity: 1;
   filter: none;
   margin-bottom: 3em;
-  transition: opacity 1s ease, filter 1s ease
+  transition: opacity 1s ease, filter 1s ease;
+  min-height: 100vh;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .thumbnails {
@@ -206,6 +268,9 @@ ul.icons li:last-child {
   letter-spacing: 0px;
   word-spacing: 0px;
   transition: opacity 1s ease, filter 1s ease;
+  min-height: 100vh;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .gallerie-container > a {
@@ -244,8 +309,6 @@ ul.icons li:last-child {
     width: 100%;
     padding: 0 0.5em 0 0.5em;
   }
-
-
 }
 
 @media screen and (max-width:768px) {
