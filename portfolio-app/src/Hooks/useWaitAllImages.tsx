@@ -12,7 +12,6 @@ function useWaitAllImages(imageCount: number) {
 
     const onLoadNotification = () => {
         setImageLoadedCount(imagesLoadedCount + 1);
-        //console.debug(imagesLoadedCount + 1);
     }
 
     return { isLoading, onLoadNotification };

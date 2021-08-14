@@ -1,7 +1,7 @@
 import PhotoGallery from './PhotoGallery';
 
 const Paysages = () => {
-    return <PhotoGallery gallerySize={24} galleryName="paysage" />
+    return <PhotoGallery GallerySize={24} GalleryName="Paysages" />
 }
 
 export default Paysages;

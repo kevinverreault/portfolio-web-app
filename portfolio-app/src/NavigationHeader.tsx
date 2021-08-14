@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-import NavigationButton from './NavigationButton';
+import TextButton from './TextButton';
 import SocialMediaList from './SocialMediaList';
 import styled from '@emotion/styled'
 
-const Header = styled.div`
+const Header = styled.header`
     padding-top: 2em;
     box-shadow: none;
     margin-bottom: 2em;
@@ -27,7 +27,7 @@ const Description = styled.p`
     margin: 0;
 `;
 
-const NavigationList = styled.u`
+const NavigationList = styled.ul`
     list-style: none;
     align-items: center;
     text-align: center;
@@ -45,29 +45,34 @@ const NavigationList = styled.u`
 const NavListItem = styled.li`
     line-height: 24px;
     text-decoration: inherit;
-    margin: 0 0.5em 0 0.5em
+    margin: 1em 0.5em 0 0.5em
 `;
 
 const NavigationHeader = () => {
     return (
         <Header>
             <Title>kevin verreault</Title>
-            <Description className="description">photographie de la nature du québec</Description>
+            <Description>photographie de la nature du québec</Description>
             <SocialMediaList />
             <NavigationList>
                 <NavListItem>
                     <Link to="/">
-                        <NavigationButton label="accueil" />
+                        <TextButton label="accueil" />
                     </Link>
                 </NavListItem>
                 <NavListItem>
                     <Link to="/faune">
-                        <NavigationButton label="faune" />
+                        <TextButton label="faune" />
                     </Link>
                 </NavListItem>
                 <NavListItem>
                     <Link to="/paysages">
-                        <NavigationButton label="paysages" />
+                        <TextButton label="paysages" />
+                    </Link>
+                </NavListItem>
+                <NavListItem>
+                    <Link to="/contact">
+                        <TextButton label="contact" />
                     </Link>
                 </NavListItem>
             </NavigationList>

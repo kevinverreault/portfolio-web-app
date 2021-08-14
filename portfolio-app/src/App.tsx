@@ -1,4 +1,3 @@
-import React from 'react';
 import './App.css';
 import './index.css';
 import './Header.css';
@@ -7,27 +6,29 @@ import Home from './Home';
 import Faune from './Faune';
 import Paysages from './Paysages';
 import NavigationHeader from './NavigationHeader';
+import Contact from './Contact';
 
-export default class App extends React.Component {
-  render() {
+export default function App() {
     return (
-      <div className="App">
-          <NavigationHeader />
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/faune">
-              <Faune />
-            </Route>
-            <Route path="/paysages">
-              <Paysages />
-            </Route>
-          </Switch>
-        <footer>
-          <span>© 2021 Kevin Verreault</span>
-        </footer>
-      </div>
+        <div className="App">
+            <NavigationHeader />
+            <Switch>
+                <Route exact path="/">
+                    <Home />
+                </Route>
+                <Route path="/faune">
+                    <Faune />
+                </Route>
+                <Route path="/paysages">
+                    <Paysages />
+                </Route>
+                <Route path="/contact">
+                    <Contact />
+                </Route>
+            </Switch>
+            <footer>
+                <span>© 2021 Kevin Verreault</span>
+            </footer>
+        </div>
     );
-  }
 }

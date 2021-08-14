@@ -1,14 +1,14 @@
 
-import HomeImage from './HomeImage';
+import HomeGridItem from './HomeGridItem';
 import styled from '@emotion/styled'
 import LoadingOverlay from './LoadingOverlay';
 import useWaitAllImages from "./Hooks/useWaitAllImages";
 import useImageGallery from "./Hooks/useImageGallery";
 
-const breakpoints = [480, 768, 1400];
+const breakpoints = [480, 768, 1280];
 
 const mq = breakpoints.map(
-  bp => `@media (max-width: ${bp}px)`
+    bp => `@media (max-width: ${bp}px)`
 )
 
 const Grid = styled.div`
@@ -40,7 +40,6 @@ const Column = styled.div`
     ${mq[1]} {
         margin: 0 0.5rem 0 0.5rem;
     }
-
     ${mq[0]} {
         margin: 0 0.25rem 0 0.25rem;
     }
@@ -48,32 +47,32 @@ const Column = styled.div`
 
 const HomeGallery = () => {
     const imageCount = 9;
-    const  { isLoading, onLoadNotification } = useWaitAllImages(imageCount);
+    const { isLoading, onLoadNotification } = useWaitAllImages(imageCount);
 
     useImageGallery();
 
     return (
         <div>
-            <LoadingOverlay loading={isLoading} />
+            <LoadingOverlay isLoading={isLoading} />
             <Grid className="homegallery">
-            <Column>
-                <HomeImage imageId="1" onLoad={onLoadNotification}/>
-                <HomeImage imageId="2" onLoad={onLoadNotification}/>
-                <HomeImage imageId="3" onLoad={onLoadNotification}/>
-            </Column>
-            <Column>
-                <HomeImage imageId="4" onLoad={onLoadNotification}/>
-                <HomeImage imageId="5" onLoad={onLoadNotification}/>
-                <HomeImage imageId="6" onLoad={onLoadNotification}/>
-            </Column>
-            <Column>
-                <HomeImage imageId="7" onLoad={onLoadNotification}/>
-                <HomeImage imageId="8" onLoad={onLoadNotification}/>
-                <HomeImage imageId="9" onLoad={onLoadNotification}/>
-            </Column>
-        </Grid>
+                <Column>
+                    <HomeGridItem imageId="1" onLoad={onLoadNotification} />
+                    <HomeGridItem imageId="2" onLoad={onLoadNotification} />
+                    <HomeGridItem imageId="3" onLoad={onLoadNotification} />
+                </Column>
+                <Column>
+                    <HomeGridItem imageId="4" onLoad={onLoadNotification} />
+                    <HomeGridItem imageId="5" onLoad={onLoadNotification} />
+                    <HomeGridItem imageId="6" onLoad={onLoadNotification} />
+                </Column>
+                <Column>
+                    <HomeGridItem imageId="7" onLoad={onLoadNotification} />
+                    <HomeGridItem imageId="8" onLoad={onLoadNotification} />
+                    <HomeGridItem imageId="9" onLoad={onLoadNotification} />
+                </Column>
+            </Grid>
         </div>
-        
+
     )
 }
 

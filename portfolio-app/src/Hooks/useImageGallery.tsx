@@ -4,7 +4,7 @@ import "@fancyapps/ui/dist/fancybox.css";
 
 function useImageGallery() {
     useEffect(() => {
-        Fancybox.bind("[data-fancybox]", { zoom: true, protect: true });
+        Fancybox.bind("[data-fancybox]", { zoom: true, protect: true, hideScrollbar: false, preload:4 });
     }, []);
 }
 

@@ -1,6 +1,5 @@
-import React from 'react';
-import createImageset from './responsiveImageHelper';
 import styled from '@emotion/styled'
+import createImageProperties from './responsiveImageHelper';
 
 const HomeLink = styled.a`
     margin: 0 0 2em 0;
@@ -9,7 +8,7 @@ const HomeLink = styled.a`
     width: 100%;
     border-radius: 2px;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
-    @media (max-width:1400px) {
+    @media (max-width:1280px) {
         margin: 0 0 1.5rem 0;
     }
     @media (max-width:768px) {
@@ -33,13 +32,13 @@ const ResponsiveImage = styled.img`
     image-rendering: -webkit-optimize-contrast;
 `;
 
-const HomeImage = (props: any) => {
-    const size = "(max-width:768px) 33vw, (max-width:1400px) 25vw, 15vw";
+const HomeGridItem = (props: any) => {
+    const size = "(max-width:768px) 33vw, (max-width:1280px) 25vw, 15vw";
     const alt = `accueil image ${props.imageId}`;
     const imagePath = "images";
-    const imageProperties = createImageset(props.imageId, imagePath);
+    const imageProperties = createImageProperties(props.imageId, imagePath);
 
-    const imageSet = `${imageProperties.image1x}, ${imageProperties.image2x}, ${imageProperties.image3x}, ${imageProperties.image4x}, ${imageProperties.image5x}`;
+    const imageSet = `${imageProperties.image1x}, ${imageProperties.image2x}, ${imageProperties.image3x}, ${imageProperties.image4x}`;
 
     function handleImageOnLoad() {
         props.onLoad();
@@ -47,9 +46,9 @@ const HomeImage = (props: any) => {
 
     return (
         <HomeLink href={imageProperties.imageMaxSize} data-fancybox="portfolio">
-            <ResponsiveImage srcSet={imageSet} sizes={size} src={imageProperties.imageMinSize} alt={alt} onLoad={handleImageOnLoad.bind(this)}/>
+            <ResponsiveImage srcSet={imageSet} sizes={size} src={imageProperties.imageMinSize} alt={alt} onLoad={handleImageOnLoad.bind(this)} />
         </HomeLink>
     )
 }
 
-export default HomeImage;
+export default HomeGridItem;

@@ -2,7 +2,7 @@ import PhotoGallery from './PhotoGallery';
 
 const Faune = () => {
     return (
-        <PhotoGallery gallerySize={48} galleryName="faune" />
+        <PhotoGallery GallerySize={48} GalleryName="Faune" />
     )
 }
 
