@@ -5,8 +5,7 @@
   "dependencies": {
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "^11.3.0",
-    "@fancyapps/fancybox": "github:fancyapps/fancybox",
-    "@fancyapps/ui": "^4.0.0-alpha.4",
+    "@fancyapps/ui": "^4.0.0-beta.2",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-brands-svg-icons": "^5.15.3",
     "@fortawesome/free-regular-svg-icons": "^5.15.3",

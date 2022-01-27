@@ -16,7 +16,9 @@ const Contact = () => {
     return (
         <React.Fragment>
             <LoadingOverlay isLoading={headerImageIsLoading} />
-            <LoadingOverlay isLoading={isLoading} margin="500px" hideIndicator={true}/>
+
+            <LoadingOverlay isLoading={isLoading} margin="500px" hideIndicator />
+
             <ImageHeader imageIsLoading={headerImageIsLoading} headerUrl={headerUrl}>
                 <TextHeader>Contact</TextHeader>
                 <TextSubHeader>Questions et commentaires</TextSubHeader>
