@@ -1,7 +1,7 @@
 import styled from '@emotion/styled'
-import createImageProperties from './responsiveImageHelper';
+import { createImageProperties, createHorizontalImageProperties, createVerticalImageProperties } from './responsiveImageHelper';
 
-const HomeLink = styled.a`
+const GalleryLink = styled.a`
     margin: 0 0 2em 0;
     transition: all .2s ease;
     display: block;
@@ -33,21 +33,28 @@ const ResponsiveImage = styled.img`
 `;
 
 const HomeGridItem = (props: any) => {
-    const size = "(max-width:768px) 33vw, (max-width:1280px) 25vw, 15vw";
+    const size = "(max-width:768px) 33vw, (max-width:1280px) 25vw, 20vw";
     const alt = `accueil image ${props.imageId}`;
     const imagePath = "images";
-    const imageProperties = createImageProperties(props.imageId, imagePath);
+    let imageProperties = null;
+    if (props.horizontal){
+        imageProperties = createHorizontalImageProperties(props.imageId, imagePath);
+    }  else if (props.vertical) {
+        imageProperties = createVerticalImageProperties(props.imageId, imagePath);
+    } else {
+        imageProperties = createImageProperties(props.imageId, imagePath);
+    }
 
-    const imageSet = `${imageProperties.image1x}, ${imageProperties.image2x}, ${imageProperties.image3x}, ${imageProperties.image4x}`;
+    const imageSet = `${imageProperties.image1x}, ${imageProperties.image2x}, ${imageProperties.image3x}, ${imageProperties.image4x}, ${imageProperties.image5x}, ${imageProperties.image6x}`;
 
     function handleImageOnLoad() {
         props.onLoad();
     }
 
     return (
-        <HomeLink href={imageProperties.imageMaxSize} data-fancybox="portfolio">
+        <GalleryLink href={imageProperties.imageMaxSize} data-fancybox="portfolio">
             <ResponsiveImage srcSet={imageSet} sizes={size} src={imageProperties.imageMinSize} alt={alt} onLoad={handleImageOnLoad.bind(this)} />
-        </HomeLink>
+        </GalleryLink>
     )
 }
 

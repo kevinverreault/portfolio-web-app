@@ -57,17 +57,17 @@ const HomeGallery = () => {
             <Grid className="homegallery">
                 <Column>
                     <HomeGridItem imageId="1" onLoad={onLoadNotification} />
-                    <HomeGridItem imageId="2" onLoad={onLoadNotification} />
+                    <HomeGridItem imageId="2" onLoad={onLoadNotification} horizontal/>
                     <HomeGridItem imageId="3" onLoad={onLoadNotification} />
                 </Column>
                 <Column>
-                    <HomeGridItem imageId="4" onLoad={onLoadNotification} />
-                    <HomeGridItem imageId="5" onLoad={onLoadNotification} />
-                    <HomeGridItem imageId="6" onLoad={onLoadNotification} />
+                    <HomeGridItem imageId="4" onLoad={onLoadNotification} horizontal />
+                    <HomeGridItem imageId="5" onLoad={onLoadNotification} vertical />
+                    <HomeGridItem imageId="6" onLoad={onLoadNotification} horizontal />
                 </Column>
                 <Column>
                     <HomeGridItem imageId="7" onLoad={onLoadNotification} />
-                    <HomeGridItem imageId="8" onLoad={onLoadNotification} />
+                    <HomeGridItem imageId="8" onLoad={onLoadNotification} horizontal />
                     <HomeGridItem imageId="9" onLoad={onLoadNotification} />
                 </Column>
             </Grid>

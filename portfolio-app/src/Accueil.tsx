@@ -1,7 +1,7 @@
 import HomeGallery from './HomeGallery';
 
-const Home = () => {
+const Accueil = () => {
     return <HomeGallery />
 }
 
-export default Home;
+export default Accueil;

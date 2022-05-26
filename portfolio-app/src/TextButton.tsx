@@ -13,9 +13,9 @@ const Button = styled.button<{ width?: string | null }>`
     width: ${props => props.width ?? "7rem"};
     padding-top: .5rem;
     padding-bottom: .5rem;
-    font-weight: 600;
+    font-weight: 500;
     transition: all .2s ease;
-    font-size: 16px;
+    font-size: 18px;
     font-family: inherit;
     line-height: 24px;
     :hover {

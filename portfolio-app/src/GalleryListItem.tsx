@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import ResponsiveImage from './ResponsiveImage';
-import createImageProperties from './responsiveImageHelper';
+import { createImageProperties } from './responsiveImageHelper';
 
 const ListItem = styled.li`
     display: inline-block;

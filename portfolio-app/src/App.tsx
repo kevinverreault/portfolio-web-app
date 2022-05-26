@@ -1,33 +1,36 @@
 import './App.css';
 import './index.css';
-import './Header.css';
-import { Switch, Route } from "react-router-dom";
-import Home from './Home';
+import { useLocation, Routes, Route } from "react-router-dom";
+import { useEffect } from 'react';
+import Accueil from './Accueil';
 import Faune from './Faune';
 import Paysages from './Paysages';
 import NavigationHeader from './NavigationHeader';
 import Contact from './Contact';
+import * as Panelbear from "@panelbear/panelbear-js";
 
 export default function App() {
+    let location = useLocation();
+
+    useEffect(() => {
+        Panelbear.load("AeZ5DJBsV9X");
+    }, []);
+
+    useEffect(() => {
+        Panelbear.trackPageview();
+    }, [location]);
+
     return (
         <div className="App">
             <NavigationHeader />
-            <Switch>
-                <Route exact path="/">
-                    <Home />
-                </Route>
-                <Route path="/faune">
-                    <Faune />
-                </Route>
-                <Route path="/paysages">
-                    <Paysages />
-                </Route>
-                <Route path="/contact">
-                    <Contact />
-                </Route>
-            </Switch>
+            <Routes>
+                <Route path="/" element={<Accueil />} />
+                <Route path="/faune" element={<Faune />} />
+                <Route path="/paysages" element={<Paysages />} />
+                <Route path="/contact" element={<Contact />} />
+            </Routes>
             <footer>
-                <span>© 2021 Kevin Verreault</span>
+                <span>© 2022 Kevin Verreault</span>
             </footer>
         </div>
     );
