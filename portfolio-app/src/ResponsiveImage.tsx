@@ -1,6 +1,6 @@
 const ResponsiveImage = (props: any) => {
 
-    const imageSet = `${props.imageProperties.image1x}, ${props.imageProperties.image2x}, ${props.imageProperties.image3x}, ${props.imageProperties.image4x}, ${props.imageProperties.image5x}`;
+    const imageSet = `${props.imageProperties.image1x}, ${props.imageProperties.image2x}, ${props.imageProperties.image3x}, ${props.imageProperties.image4x}, ${props.imageProperties.image5x}, ${props.imageProperties.image6x}`;
 
     function handleImageOnLoad() {
         props.onLoad();

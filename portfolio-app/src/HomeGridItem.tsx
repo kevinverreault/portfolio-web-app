@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { createImageProperties, createHorizontalImageProperties, createVerticalImageProperties } from './responsiveImageHelper';
+import { createImageProperties, createVerticalImageProperties } from './responsiveImageHelper';
 
 const GalleryLink = styled.a`
     margin: 0 0 2em 0;
@@ -37,9 +37,7 @@ const HomeGridItem = (props: any) => {
     const alt = `accueil image ${props.imageId}`;
     const imagePath = "images";
     let imageProperties = null;
-    if (props.horizontal){
-        imageProperties = createHorizontalImageProperties(props.imageId, imagePath);
-    }  else if (props.vertical) {
+    if (props.vertical) {
         imageProperties = createVerticalImageProperties(props.imageId, imagePath);
     } else {
         imageProperties = createImageProperties(props.imageId, imagePath);

@@ -7,7 +7,7 @@ import {  ImageHeader, TextHeader, TextSubHeader } from './Components/Forms/Shar
 import useWaitImageLoad from './Hooks/useWaitImageLoad';
 
 const Container = styled.div`
-    width: 1366px;
+    width: 1920px;
     padding: 0;
     display: block;
     box-sizing: border-box;
@@ -19,17 +19,10 @@ const Container = styled.div`
     margin-right: auto;
     margin-left: auto;
     margin-top: 2rem;
-    @media (max-width:1600px) {
-        width: 1020px;
+    @media (max-width:1920px) {
+        width: 1366px;
     }
     @media (max-width:1366px) {
-        width: 680px;
-    }
-    @media (max-width:768px) {
-        width: 480px;
-        width: 100%;
-    }
-    @media (max-width:480px) {
         width: 100%;
     }
     `
