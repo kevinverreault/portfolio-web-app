@@ -7,7 +7,15 @@ const ResponsiveImage = (props: any) => {
     }
 
     return (
-        <img style={props.style} sizes={props.sizes} srcSet={imageSet} src={props.imageProperties.imageMinSize} alt={props.alt} onLoad={handleImageOnLoad.bind(this)} onError={handleImageOnLoad.bind(this)} ></img>
+        <img style={props.style} 
+            sizes={props.sizes} 
+            srcSet={imageSet} 
+            src={props.imageProperties.imageMinSize} 
+            alt={props.alt} 
+            onLoad={handleImageOnLoad.bind(this)} 
+            onError={handleImageOnLoad.bind(this)} 
+            /> 
+
     )
 }
 

@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import styled from '@emotion/styled'
 import ResponsiveImage from './ResponsiveImage';
 import { createImageProperties } from './responsiveImageHelper';
@@ -8,6 +9,7 @@ const ListItem = styled.li`
     transition: all .2s ease;
     box-sizing: border-box;
     margin: 0 10px 20px 10px;
+
     @media (max-width: 1366px) {
         width:50%;
         padding: 0 10px 0 10px;
@@ -38,19 +40,20 @@ const imageStyle = {
     boxSizing: "border-box"
 }
 
-const GalleryListItem = (props: any) => {
+const GalleryListItem = (props: any, ref: any) => {
     const sizes = "(max-width:768px) 90vw, (max-width:1366px) 50vw, 500px";
+    //const sizes = "500px";
     const alt = `${props.galleryName} image ${props.imageId}`;
     const imagePath= `images/${props.galleryName}`;
     const imageProperties = createImageProperties(props.imageId, imagePath);
 
     return (
-        <ListItem>
+         <ListItem ref={ref}>
             <GalleryLink href={imageProperties.imageMaxSize} data-fancybox="portfolio">
-                <ResponsiveImage onLoad={props.onLoad} style={imageStyle} imagePath={imagePath} imageId={props.imageId} sizes={sizes} alt={alt} imageProperties={imageProperties}/>
+                <ResponsiveImage onLoad={props.onLoad} style={imageStyle} imagePath={imagePath} imageId={props.imageId} sizes={sizes} alt={alt} imageProperties={imageProperties} lazyLoading={props.lazyLoading}/>;
             </GalleryLink>
         </ListItem>
-    )
+    );
 }
 
-export default GalleryListItem;
+export default forwardRef(GalleryListItem);

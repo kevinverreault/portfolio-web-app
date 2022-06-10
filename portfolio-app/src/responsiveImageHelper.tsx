@@ -2,10 +2,10 @@ const createImageProperties = (imageId: string, imagePath:string) => {
     const imageMaxSize = `${imagePath}/${imageId}-7x.jpg`;
     const imageMinSize = `${imagePath}/${imageId}-1x.jpg`;
 
-    const image1x = `${imageMinSize} 480w`;
-    const image2x = `${imagePath}/${imageId}-2x.jpg 640w`;
-    const image3x = `${imagePath}/${imageId}-3x.jpg 800w`;
-    const image4x = `${imagePath}/${imageId}-4x.jpg 1024w`;
+    const image1x = `${imageMinSize} 300w`;
+    const image2x = `${imagePath}/${imageId}-2x.jpg 500w`;
+    const image3x = `${imagePath}/${imageId}-3x.jpg 750w`;
+    const image4x = `${imagePath}/${imageId}-4x.jpg 1000w`;
     const image5x = `${imagePath}/${imageId}-5x.jpg 1300w`;
     const image6x = `${imagePath}/${imageId}-6x.jpg 1600w`;
     const image7x = `${imageMaxSize} 1920w`;

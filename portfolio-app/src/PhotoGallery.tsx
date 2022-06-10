@@ -1,3 +1,4 @@
+import { useEffect, useState, useRef } from 'react';
 import GalleryListItem from './GalleryListItem';
 import styled from '@emotion/styled'
 import LoadingOverlay from './LoadingOverlay';
@@ -19,6 +20,7 @@ const Container = styled.div`
     margin-right: auto;
     margin-left: auto;
     margin-top: 2rem;
+
     @media (max-width:1920px) {
         width: 1366px;
     }
@@ -34,14 +36,55 @@ type PhotoGalleryProps = {
 }
 
 const PhotoGallery = (props: PhotoGalleryProps) => {
-    const lazyLoading = 20;
+    const pageSize = 12;
+    const totalPages = Math.ceil(props.GallerySize / pageSize);
     
-    const { isLoading, onLoadNotification } = useWaitAllImages(lazyLoading);
+    const [pageNumber, setPageNumber] = useState(1);
+//    const [listItems, setListItems] = useState<number[]>([...Array(pageSize+1).keys()].slice(1)); 
+    const [listItems, setListItems] = useState<number[]>([]); 
+    const { isLoading, onLoadNotification } = useWaitAllImages(pageSize);
 
-    const imageIds = [...Array(props.GallerySize+1).keys()].slice(1);
-    const images = imageIds.map(x => {
-        return <GalleryListItem key={x.toString()} imageId={x} galleryName={props.GalleryName} onLoad={onLoadNotification} onError={onLoadNotification} />;
+    const lastElement = useRef(null);
+    const observer = useRef<IntersectionObserver>();
+
+    useEffect(() => {
+        const options = {
+            root: document,
+            rootMargin: "20px",
+            threshold: 1
+        };
+
+        const callback = (entries : any) => {
+            const first = entries[0];
+            if (first.isIntersecting) {
+                setPageNumber((no) => no + 1);
+            }
+        };
+
+        observer.current = new IntersectionObserver(callback, options);
+
+        if (lastElement.current) {
+            observer.current.observe(lastElement.current);
+          }
+        return () => {
+            observer?.current?.disconnect();
+        };
     });
+
+    useEffect(() => {
+        const addPage = () => {
+            const imagesToLoad : number[] = [];
+            for (var i = ((pageNumber - 1) * pageSize) + 1; (i <= pageNumber * pageSize) && (i <= props.GallerySize); ++i) {
+                imagesToLoad.push(i);
+            }
+    
+            setListItems(l => [...l, ...imagesToLoad]);
+        };
+
+        if (pageNumber <= totalPages) {
+            addPage();
+        }
+    }, [pageNumber, totalPages, props.GallerySize]);
 
     const headerUrl = `images/${props.GalleryName}-header.jpg`;
     const headerImageIsLoading = useWaitImageLoad(headerUrl);
@@ -55,10 +98,18 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
                     <TextHeader>{props.GalleryName}</TextHeader>
                     <TextSubHeader></TextSubHeader>
             </ImageHeader>
-            <Container>     
-                <ul style={{ padding: 0 }}>{images}</ul>
+            <Container>
+                <ul style={{ padding: 0 }}>
+                    {
+                        listItems.map((x) => {
+                            return x === listItems.length ?
+                                <GalleryListItem ref={lastElement} key={`${props.GalleryName}-${x.toString()}`} imageId={x} galleryName={props.GalleryName} onLoad={onLoadNotification}/> :
+                                <GalleryListItem key={`${props.GalleryName}-${x.toString()}`} imageId={x} galleryName={props.GalleryName} onLoad={onLoadNotification}/>;
+                        })
+                    }
+                </ul>
+                <div />
             </Container>
-            
         </div>
     )
 }
