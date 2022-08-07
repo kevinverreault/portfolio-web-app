@@ -40,9 +40,11 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
     const totalPages = Math.ceil(props.GallerySize / pageSize);
     
     const [pageNumber, setPageNumber] = useState(1);
-//    const [listItems, setListItems] = useState<number[]>([...Array(pageSize+1).keys()].slice(1)); 
-    const [listItems, setListItems] = useState<number[]>([]); 
+    const [imageKeys, setImageKeys] = useState<number[]>([]); 
     const { isLoading, onLoadNotification } = useWaitAllImages(pageSize);
+
+    const headerUrl = `images/${props.GalleryName}-header.jpg`;
+    const headerImageIsLoading = useWaitImageLoad(headerUrl);
 
     const lastElement = useRef(null);
     const observer = useRef<IntersectionObserver>();
@@ -78,16 +80,13 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
                 imagesToLoad.push(i);
             }
     
-            setListItems(l => [...l, ...imagesToLoad]);
+            setImageKeys(previousList => [...previousList, ...imagesToLoad]);
         };
 
         if (pageNumber <= totalPages) {
             addPage();
         }
     }, [pageNumber, totalPages, props.GallerySize]);
-
-    const headerUrl = `images/${props.GalleryName}-header.jpg`;
-    const headerImageIsLoading = useWaitImageLoad(headerUrl);
 
     useImageGallery();
 
@@ -101,14 +100,13 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
             <Container>
                 <ul style={{ padding: 0 }}>
                     {
-                        listItems.map((x) => {
-                            return x === listItems.length ?
+                        imageKeys.map((x) => {
+                            return x === imageKeys.length ?
                                 <GalleryListItem ref={lastElement} key={`${props.GalleryName}-${x.toString()}`} imageId={x} galleryName={props.GalleryName} onLoad={onLoadNotification}/> :
                                 <GalleryListItem key={`${props.GalleryName}-${x.toString()}`} imageId={x} galleryName={props.GalleryName} onLoad={onLoadNotification}/>;
                         })
                     }
                 </ul>
-                <div />
             </Container>
         </div>
     )

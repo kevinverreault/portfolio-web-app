@@ -28,7 +28,7 @@ const TextSubHeader = styled.h2`
     ${headerStyle}
     margin-left: 0.67em;
     margin-right: 0.67em;
-    `
+`
 
 const HeaderWrapper = styled.div`
     border-radius: 5px;

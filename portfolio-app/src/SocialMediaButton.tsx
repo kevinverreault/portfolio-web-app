@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFlickr, faInstagram, faYoutubeSquare } from '@fortawesome/free-brands-svg-icons';
+import { faFlickr, faInstagram, faYoutubeSquare, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import styled from '@emotion/styled';
 
 interface SocialMediaButtonProps {
@@ -46,9 +46,12 @@ const SocialMediaButton = (props: SocialMediaButtonProps) => {
     } else if (props.label === "youtube") {
         icon = <FontAwesomeIcon icon={faYoutubeSquare} size="lg" />;
         label = <span style={{ display: "none" }}>Youtube</span>;
-    } else {
+    } else if (props.label === "flickr") {
         icon = <FontAwesomeIcon icon={faFlickr} size="lg" />;
         label = <span style={{ display: "none" }}>Flickr</span>;
+    } else {
+        icon = <FontAwesomeIcon icon={faTwitter} size="lg" />;
+        label = <span style={{ display: "none" }}>Twitter</span>;
     }
 
     return (
