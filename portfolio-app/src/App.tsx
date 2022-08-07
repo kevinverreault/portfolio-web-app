@@ -13,7 +13,9 @@ export default function App() {
     let location = useLocation();
 
     useEffect(() => {
-        Panelbear.load("AeZ5DJBsV9X");
+        if (process.env.REACT_APP_ANALYTICS_KEY) {
+            Panelbear.load(process.env.REACT_APP_ANALYTICS_KEY);
+        }
     }, []);
 
     useEffect(() => {

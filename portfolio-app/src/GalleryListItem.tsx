@@ -5,6 +5,7 @@ import { createImageProperties } from './responsiveImageHelper';
 
 const ListItem = styled.li`
     width:500px;
+    min-height:500px;
     display: inline-block;
     transition: all .2s ease;
     box-sizing: border-box;
@@ -12,12 +13,14 @@ const ListItem = styled.li`
 
     @media (max-width: 1366px) {
         width:50%;
+        min-height:50%;
         padding: 0 10px 0 10px;
         margin-right: auto;
         margin-left: auto;
     }
     @media (max-width: 768px) {
         width: 90%;
+        min-height:90%;
         display: list-item;
         padding: 2px;
     }
