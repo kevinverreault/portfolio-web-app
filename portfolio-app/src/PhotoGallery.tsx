@@ -36,7 +36,7 @@ type PhotoGalleryProps = {
 }
 
 const PhotoGallery = (props: PhotoGalleryProps) => {
-    const pageSize = 12;
+    const pageSize = 20;
     const totalPages = Math.ceil(props.GallerySize / pageSize);
     
     const [pageNumber, setPageNumber] = useState(1);
@@ -101,7 +101,7 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
                 <ul style={{ padding: 0 }}>
                     {
                         imageKeys.map((x) => {
-                            return x === imageKeys.length ?
+                            return x === Math.round(imageKeys.length / 2)?
                                 <GalleryListItem ref={lastElement} key={`${props.GalleryName}-${x.toString()}`} imageId={x} galleryName={props.GalleryName} onLoad={onLoadNotification}/> :
                                 <GalleryListItem key={`${props.GalleryName}-${x.toString()}`} imageId={x} galleryName={props.GalleryName} onLoad={onLoadNotification}/>;
                         })

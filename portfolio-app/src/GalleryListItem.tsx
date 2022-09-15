@@ -45,7 +45,6 @@ const imageStyle = {
 
 const GalleryListItem = (props: any, ref: any) => {
     const sizes = "(max-width:768px) 90vw, (max-width:1366px) 50vw, 500px";
-    //const sizes = "500px";
     const alt = `${props.galleryName} image ${props.imageId}`;
     const imagePath= `images/${props.galleryName}`;
     const imageProperties = createImageProperties(props.imageId, imagePath);
