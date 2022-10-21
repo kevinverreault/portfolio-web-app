@@ -1,5 +1,5 @@
-import SocialMediaButton from './SocialMediaButton';
-import styled from '@emotion/styled';
+import SocialMediaButton from './SocialMediaButton'
+import styled from '@emotion/styled'
 
 const IconList = styled.ul`
     cursor: default;
@@ -9,17 +9,17 @@ const IconList = styled.ul`
     padding: 0;
     display: flex;
     justify-content:space-between;
-`;
+`
 
 const SocialMediaList = () => {
-        return (
+  return (
             <IconList>
                 <SocialMediaButton target="https://www.instagram.com/kevinverreault_/" label="instagram" />
                 <SocialMediaButton target="https://twitter.com/kevinverreault" label="twitter" />
                 <SocialMediaButton target="https://www.youtube.com/channel/UC0H8kS7v1U5yprgK7RHqQZQ" label="youtube" />
                 <SocialMediaButton target="https://www.flickr.com/photos/152334550@N04/" label="flickr" />
             </IconList>
-        )
+  )
 }
 
-export default SocialMediaList;
+export default SocialMediaList

@@ -1,7 +1,7 @@
-import styled from "@emotion/styled"
-import { css } from "@emotion/react";
+import styled from '@emotion/styled'
+import { css } from '@emotion/react'
 
-const headerHeight = "240px";
+const headerHeight = '240px'
 
 const ImageHeader = styled.div<{ imageIsLoading?: boolean | null, headerUrl: string, opacity?: string }>`
     height: ${headerHeight};
@@ -14,7 +14,7 @@ const ImageHeader = styled.div<{ imageIsLoading?: boolean | null, headerUrl: str
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    opacity: ${props => props.opacity ? props.opacity : "1.0"};
+    opacity: ${props => props.opacity ? props.opacity : '1.0'};
 `
 
 const headerStyle = css`
@@ -37,4 +37,4 @@ const HeaderWrapper = styled.div`
     padding-right: 0.67em;
     padding-left: 0.67em;
 `
-export { ImageHeader, TextHeader, TextSubHeader, HeaderWrapper}
+export { ImageHeader, TextHeader, TextSubHeader, HeaderWrapper }

@@ -1,4 +1,4 @@
-import styled from '@emotion/styled';
+import styled from '@emotion/styled'
 
 const Button = styled.button<{ width?: string | null }>`
     background-color: rgb(209, 213, 219);
@@ -10,7 +10,7 @@ const Button = styled.button<{ width?: string | null }>`
     border-radius: .5rem;
     box-sizing: border-box;
     cursor: pointer;
-    width: ${props => props.width ?? "7rem"};
+    width: ${props => props.width ?? '7rem'};
     padding-top: .5rem;
     padding-bottom: .5rem;
     font-weight: 500;
@@ -32,15 +32,13 @@ const Button = styled.button<{ width?: string | null }>`
 `
 
 interface ButtonProps {
-    label: string;
-    type?: "button" | "reset" | "submit" | null
-    width?: string | null
+  label: string
+  type?: 'button' | 'reset' | 'submit' | null
+  width?: string | null
 }
-
-
 
 const TextButton = (props: ButtonProps) => {
-    return <Button type={props.type ?? "button"} width={props.width}>{props.label}</Button>
+  return <Button type={props.type ?? 'button'} width={props.width}>{props.label}</Button>
 }
 
-export default TextButton;
+export default TextButton

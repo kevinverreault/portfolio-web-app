@@ -1,14 +1,14 @@
 
-import HomeGridItem from './HomeGridItem';
+import HomeGridItem from './HomeGridItem'
 import styled from '@emotion/styled'
-import LoadingOverlay from './LoadingOverlay';
-import useWaitAllImages from "./Hooks/useWaitAllImages";
-import useImageGallery from "./Hooks/useImageGallery";
+import LoadingOverlay from './LoadingOverlay'
+import useWaitAllImages from './Hooks/useWaitAllImages'
+import useImageGallery from './Hooks/useImageGallery'
 
-const breakpoints = [480, 768, 1280];
+const breakpoints = [480, 768, 1280]
 
 const mq = breakpoints.map(
-    bp => `@media (max-width: ${bp}px)`
+  bp => `@media (max-width: ${bp}px)`
 )
 
 const Grid = styled.div`
@@ -27,7 +27,7 @@ const Grid = styled.div`
     ${mq[1]} {
         width: 100%;
     }
-`;
+`
 
 const Column = styled.div`
     display: flex;
@@ -43,15 +43,15 @@ const Column = styled.div`
     ${mq[0]} {
         margin: 0 0.25rem 0 0.25rem;
     }
-`;
+`
 
 const HomeGallery = () => {
-    const imageCount = 9;
-    const { isLoading, onLoadNotification } = useWaitAllImages(imageCount);
+  const imageCount = 9
+  const { isLoading, onLoadNotification } = useWaitAllImages(imageCount)
 
-    useImageGallery();
+  useImageGallery()
 
-    return (
+  return (
         <div>
             <LoadingOverlay isLoading={isLoading} />
             <Grid className="homegallery">
@@ -73,7 +73,7 @@ const HomeGallery = () => {
             </Grid>
         </div>
 
-    )
+  )
 }
 
-export default HomeGallery;
+export default HomeGallery

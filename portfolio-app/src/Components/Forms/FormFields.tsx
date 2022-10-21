@@ -1,6 +1,6 @@
-import { css } from "@emotion/react";
-import styled from "@emotion/styled";
-import { useField } from "formik";
+import { css } from '@emotion/react'
+import styled from '@emotion/styled'
+import { useField } from 'formik'
 
 const InputCss = css`
     border: 0px;    
@@ -25,18 +25,20 @@ const InputElement = styled.input`
 `
 
 const TextInput = ({ label, ...props }: any) => {
-    const [field, meta] = useField(props);
+  const [field, meta] = useField(props)
 
-    return (
+  return (
         <>
             <label htmlFor={props.id || props.name}>{label}</label>
             <InputElement {...field} {...props} />
-            {meta.touched && meta.error ? (
+            {meta.touched && meta.error
+              ? (
                 <div className="error">{meta.error}</div>
-            ) : null}
+                )
+              : null}
         </>
-    );
-};
+  )
+}
 
 const TextareaElement = styled.textarea`
     ${InputCss}
@@ -44,18 +46,20 @@ const TextareaElement = styled.textarea`
   `
 
 const Textarea = ({ label, ...props }: any) => {
-    const [field, meta] = useField(props);
+  const [field, meta] = useField(props)
 
-    return (
+  return (
         <>
             <label htmlFor={props.id || props.name}>{label}</label>
             <TextareaElement {...field} {...props} />
-            {meta.touched && meta.error ? (
+            {meta.touched && meta.error
+              ? (
                 <div className="error">{meta.error}</div>
-            ) : null}
+                )
+              : null}
         </>
-    );
-};
+  )
+}
 
 const FormWrapper = styled.div`
     margin-right: auto;
@@ -77,7 +81,7 @@ const FormWrapper = styled.div`
 `
 
 const FormSection = styled.div<{ width?: string | null }>`
-    width: ${props => props.width ?? "50%"};
+    width: ${props => props.width ?? '50%'};
     margin:20px;
     @media (max-width: 768px) { 
         margin: 0;
@@ -89,8 +93,8 @@ const FormSection = styled.div<{ width?: string | null }>`
 const FormRow = styled.div<{ lastrow?: boolean | null, height?: string | null }>`
     width:100%;
     display: flex;
-    height: ${props => props.height ?? "100px"};
-    margin-bottom: ${props => props.lastrow ? "5px" : null}
+    height: ${props => props.height ?? '100px'};
+    margin-bottom: ${props => props.lastrow ? '5px' : null}
 `
 
-export {TextInput, Textarea, FormWrapper, FormSection, FormRow}
+export { TextInput, Textarea, FormWrapper, FormSection, FormRow }

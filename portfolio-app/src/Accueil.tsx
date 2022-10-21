@@ -1,7 +1,7 @@
-import HomeGallery from './HomeGallery';
+import HomeGallery from './HomeGallery'
 
 const Accueil = () => {
-    return <HomeGallery />
+  return <HomeGallery />
 }
 
-export default Accueil;
+export default Accueil

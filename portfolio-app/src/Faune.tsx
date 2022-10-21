@@ -1,9 +1,9 @@
-import PhotoGallery from './PhotoGallery';
+import PhotoGallery from './PhotoGallery'
 
 const Faune = () => {
-    return (
-        <PhotoGallery GallerySize={63} GalleryName="Faune" />
-    )
+  return (
+        <PhotoGallery GallerySize={60} GalleryName="Faune" />
+  )
 }
 
-export default Faune;
+export default Faune

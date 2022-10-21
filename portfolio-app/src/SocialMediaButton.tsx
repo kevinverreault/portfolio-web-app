@@ -1,16 +1,16 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFlickr, faInstagram, faYoutubeSquare, faTwitter } from '@fortawesome/free-brands-svg-icons';
-import styled from '@emotion/styled';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFlickr, faInstagram, faYoutubeSquare, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import styled from '@emotion/styled'
 
 interface SocialMediaButtonProps {
-    target: string;
-    label: string;
+  target: string
+  label: string
 }
 
 const IconListItem = styled.li`
     display: inline-block!important;
     margin: 0 0.5em 0 0.5em;
-`;
+`
 
 const SocialMediaLink = styled.a`
     background-color: rgb(209, 213, 219);
@@ -36,33 +36,32 @@ const SocialMediaLink = styled.a`
                     rgba(0, 0, 0, 0.1) 0px 2px 3px -0.5px, 
                     rgba(0, 0, 0, 0.06) 0px 1px 2px -0.5px;
     }
-`;
+`
 
 const SocialMediaButton = (props: SocialMediaButtonProps) => {
-    let icon: {}, label: {};
-    if (props.label === "instagram") {
-        icon = <FontAwesomeIcon icon={faInstagram} size="lg" />;
-        label = <span style={{ display: "none" }}>Instagram</span>;
-    } else if (props.label === "youtube") {
-        icon = <FontAwesomeIcon icon={faYoutubeSquare} size="lg" />;
-        label = <span style={{ display: "none" }}>Youtube</span>;
-    } else if (props.label === "flickr") {
-        icon = <FontAwesomeIcon icon={faFlickr} size="lg" />;
-        label = <span style={{ display: "none" }}>Flickr</span>;
-    } else {
-        icon = <FontAwesomeIcon icon={faTwitter} size="lg" />;
-        label = <span style={{ display: "none" }}>Twitter</span>;
-    }
+  let icon: {}, label: {}
+  if (props.label === 'instagram') {
+    icon = <FontAwesomeIcon icon={faInstagram} size="lg" />
+    label = <span style={{ display: 'none' }}>Instagram</span>
+  } else if (props.label === 'youtube') {
+    icon = <FontAwesomeIcon icon={faYoutubeSquare} size="lg" />
+    label = <span style={{ display: 'none' }}>Youtube</span>
+  } else if (props.label === 'flickr') {
+    icon = <FontAwesomeIcon icon={faFlickr} size="lg" />
+    label = <span style={{ display: 'none' }}>Flickr</span>
+  } else {
+    icon = <FontAwesomeIcon icon={faTwitter} size="lg" />
+    label = <span style={{ display: 'none' }}>Twitter</span>
+  }
 
-    return (
+  return (
         <IconListItem>
             <SocialMediaLink href={props.target} target="_blank" rel="noreferrer">
                 {icon}
                 {label}
             </SocialMediaLink>
         </IconListItem>
-    )
-
+  )
 }
 
-export default SocialMediaButton;
+export default SocialMediaButton

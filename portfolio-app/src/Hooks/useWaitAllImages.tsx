@@ -1,20 +1,20 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react'
 
-function useWaitAllImages(imageCount: number) {
-    const [imagesLoadedCount, setImageLoadedCount] = useState(0);
-    const [isLoading, setIsLoading] = useState(true);
+function useWaitAllImages (imageCount: number) {
+  const [imagesLoadedCount, setImageLoadedCount] = useState(0)
+  const [isLoading, setIsLoading] = useState(true)
 
-    useEffect(() => {
-        if (imagesLoadedCount >= imageCount && isLoading) {
-            setIsLoading(false);
-        }
-    }, [imageCount, imagesLoadedCount, isLoading]);
-
-    const onLoadNotification = () => {
-        setImageLoadedCount(imagesLoadedCount + 1);
+  useEffect(() => {
+    if (imagesLoadedCount >= imageCount && isLoading) {
+      setIsLoading(false)
     }
+  }, [imageCount, imagesLoadedCount, isLoading])
 
-    return { isLoading, onLoadNotification };
+  const onLoadNotification = () => {
+    setImageLoadedCount(imagesLoadedCount + 1)
+  }
+
+  return { isLoading, onLoadNotification }
 }
 
-export default useWaitAllImages;
+export default useWaitAllImages

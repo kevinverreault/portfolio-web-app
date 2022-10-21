@@ -1,7 +1,7 @@
-import { forwardRef } from 'react';
+import { forwardRef } from 'react'
 import styled from '@emotion/styled'
-import ResponsiveImage from './ResponsiveImage';
-import { createImageProperties } from './responsiveImageHelper';
+import ResponsiveImage from './ResponsiveImage'
+import { createImageProperties } from './responsiveImageHelper'
 
 const ListItem = styled.li`
     width:500px;
@@ -24,7 +24,7 @@ const ListItem = styled.li`
         display: list-item;
         padding: 2px;
     }
-`;
+`
 
 const GalleryLink = styled.a`
     width: 100%;
@@ -34,28 +34,27 @@ const GalleryLink = styled.a`
         box-shadow: inset 0 0 0 1px rgba(61, 8, 8, 0.25), 0 0 6px 0 #37474f;
         opacity: 90%;
      }
-`;
+`
 
 const imageStyle = {
-    width: '100%',
-    borderRadius: "2px",
-    imageRendering: "-webkit-optimize-contrast",
-    boxSizing: "border-box"
+  width: '100%',
+  borderRadius: '2px',
+  imageRendering: '-webkit-optimize-contrast',
+  boxSizing: 'border-box'
 }
 
 const GalleryListItem = (props: any, ref: any) => {
-    const sizes = "(max-width:768px) 90vw, (max-width:1366px) 50vw, 500px";
-    const alt = `${props.galleryName} image ${props.imageId}`;
-    const imagePath= `images/${props.galleryName}`;
-    const imageProperties = createImageProperties(props.imageId, imagePath);
+  const sizes = '(max-width:768px) 90vw, (max-width:1366px) 50vw, 500px'
+  const alt = `${props.galleryName} image ${props.imageId}`
+  const imageProperties = createImageProperties(props.imageId, props.galleryName)
 
-    return (
+  return (
          <ListItem ref={ref}>
-            <GalleryLink href={imageProperties.imageMaxSize} data-fancybox="portfolio">
-                <ResponsiveImage onLoad={props.onLoad} style={imageStyle} imagePath={imagePath} imageId={props.imageId} sizes={sizes} alt={alt} imageProperties={imageProperties} lazyLoading={props.lazyLoading}/>;
+            <GalleryLink href={imageProperties.imageMaxSize} data-fancybox='portfolio'>
+                <ResponsiveImage onLoad={props.onLoad} style={imageStyle} imageId={props.imageId} sizes={sizes} alt={alt} imageProperties={imageProperties} lazyLoading={props.lazyLoading}/>;
             </GalleryLink>
         </ListItem>
-    );
+  )
 }
 
-export default forwardRef(GalleryListItem);
+export default forwardRef(GalleryListItem)
