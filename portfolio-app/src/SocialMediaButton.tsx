@@ -39,7 +39,7 @@ const SocialMediaLink = styled.a`
 `
 
 const SocialMediaButton = (props: SocialMediaButtonProps) => {
-  let icon: {}, label: {}
+  let icon: React.ReactNode, label: React.ReactNode
   if (props.label === 'instagram') {
     icon = <FontAwesomeIcon icon={faInstagram} size="lg" />
     label = <span style={{ display: 'none' }}>Instagram</span>
