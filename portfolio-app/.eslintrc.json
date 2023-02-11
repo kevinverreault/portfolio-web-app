@@ -23,7 +23,8 @@
       "@typescript-eslint/strict-boolean-expressions": "off",
       "@typescript-eslint/restrict-template-expressions": "warn",
       "@typescript-eslint/no-floating-promises": "warn",
-      "@typescript-eslint/explicit-function-return-type": "off"
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/quotes": "warn"
     },
     "settings": {
       "react": {

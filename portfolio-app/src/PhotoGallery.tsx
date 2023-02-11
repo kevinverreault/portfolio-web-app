@@ -55,7 +55,7 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
       threshold: 1
     }
 
-    const callback = (entries: any): void => {
+    const callback = (entries: IntersectionObserverEntry[]): void => {
       const first = entries[0]
       if (first.isIntersecting) {
         setPageNumber((no) => no + 1)

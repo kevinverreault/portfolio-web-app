@@ -7,19 +7,19 @@ import Faune from './Faune'
 import Paysages from './Paysages'
 import NavigationHeader from './NavigationHeader'
 import Contact from './Contact'
-import * as Panelbear from '@panelbear/panelbear-js'
+import * as Cronitor from '@cronitorio/cronitor-rum-js'
 
 export default function App () {
   const location = useLocation()
 
   useEffect(() => {
     if (process.env.REACT_APP_ANALYTICS_KEY != null) {
-      Panelbear.load(process.env.REACT_APP_ANALYTICS_KEY)
+      Cronitor.load(process.env.REACT_APP_ANALYTICS_KEY)
     }
   }, [])
 
   useEffect(() => {
-    Panelbear.trackPageview()
+    Cronitor.track('Pageview')
   }, [location])
 
   return (
@@ -32,7 +32,7 @@ export default function App () {
                 <Route path="/contact" element={<Contact />} />
             </Routes>
             <footer>
-                <span>© 2022 Kevin Verreault</span>
+                <span>© 2023 Kevin Verreault</span>
             </footer>
         </div>
   )

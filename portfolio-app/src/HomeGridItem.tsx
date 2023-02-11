@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { createImageProperties, createVerticalImageProperties } from './responsiveImageHelper'
-import * as Panelbear from '@panelbear/panelbear-js'
+import AnalyticsService from './Services/AnalyticsService'
 
 const GalleryLink = styled.a`
     margin: 0 0 2em 0;
@@ -46,7 +46,7 @@ const HomeGridItem = (props: any) => {
   }
 
   function handleOnClick () {
-    Panelbear.track(imageProperties.imageName)
+    AnalyticsService.sendEvent(imageProperties.imageName)
   }
 
   return (
