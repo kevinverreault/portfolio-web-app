@@ -24,12 +24,13 @@
       "@typescript-eslint/restrict-template-expressions": "warn",
       "@typescript-eslint/no-floating-promises": "warn",
       "@typescript-eslint/explicit-function-return-type": "off",
-      "@typescript-eslint/quotes": "warn"
+      "@typescript-eslint/quotes": "warn",
+      "@typescript-eslint/space-before-function-paren": "off"
     },
     "settings": {
       "react": {
         "version": "detect"
       }
   },
-  "ignorePatterns": ["*.js", "*.css", "*.d.ts"]
+  "ignorePatterns": ["*.js", "*.css", "*.d.ts", "*.json"]
 }

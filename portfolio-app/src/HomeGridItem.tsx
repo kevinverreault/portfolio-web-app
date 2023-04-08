@@ -1,6 +1,9 @@
 import styled from '@emotion/styled'
 import { createImageProperties, createVerticalImageProperties } from './responsiveImageHelper'
 import AnalyticsService from './Services/AnalyticsService'
+import { MetadataContext } from './Context/MetadataContext'
+import { useContext } from 'react'
+import MetadataService from './Services/MetadataService'
 
 const GalleryLink = styled.a`
     margin: 0 0 2em 0;
@@ -33,13 +36,20 @@ const ResponsiveImage = styled.img`
     image-rendering: -webkit-optimize-contrast;
 `
 
-const HomeGridItem = (props: any) => {
+interface HomeGridItemProps {
+  imageId: string
+  onLoad: () => void
+  vertical?: boolean
+}
+
+const HomeGridItem = (props: HomeGridItemProps) => {
+  const metadataContext = useContext(MetadataContext)
   const size = '(max-width:768px) 33vw, (max-width:1280px) 25vw, 20vw'
   const alt = `accueil image ${props.imageId}`
   const album = 'Accueil'
   const imageProperties = props.vertical ? createVerticalImageProperties(props.imageId, album) : createImageProperties(props.imageId, album)
 
-  const imageSet = `${imageProperties.image1x}, ${imageProperties.image2x}, ${imageProperties.image3x}, ${imageProperties.image4x}, ${imageProperties.image5x}, ${imageProperties.image6x}`
+  const imageSet = imageProperties.imageSet.slice(0, -1).join(', ')
 
   function handleImageOnLoad () {
     props.onLoad()
@@ -49,9 +59,11 @@ const HomeGridItem = (props: any) => {
     AnalyticsService.sendEvent(imageProperties.imageName)
   }
 
+  const metadataKey = MetadataService.getMetadataKey(album, props.imageId)
+
   return (
         <GalleryLink href={imageProperties.imageMaxSize}
-                    data-fancybox="portfolio">
+                    data-fancybox="portfolio" data-caption={metadataContext.has(metadataKey) ? metadataContext.get(metadataKey) : ''}>
             <ResponsiveImage srcSet={imageSet}
                             sizes={size}
                             src={imageProperties.imageMinSize}

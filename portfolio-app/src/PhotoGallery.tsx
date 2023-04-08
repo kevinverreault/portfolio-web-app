@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
-import GalleryListItem from './GalleryListItem'
+import { GalleryListItem } from './GalleryListItem'
 import styled from '@emotion/styled'
 import LoadingOverlay from './LoadingOverlay'
 import useWaitAllImages from './Hooks/useWaitAllImages'
@@ -35,17 +35,17 @@ interface PhotoGalleryProps {
 }
 
 const PhotoGallery = (props: PhotoGalleryProps) => {
-  const pageSize = 20
+  const pageSize = 15
   const totalPages = Math.ceil(props.GallerySize / pageSize)
 
   const [pageNumber, setPageNumber] = useState(1)
   const [imageKeys, setImageKeys] = useState<number[]>([])
   const { isLoading, onLoadNotification } = useWaitAllImages(pageSize)
 
-  const headerUrl = `images/${props.GalleryName}-header.jpg`
+  const headerUrl = `images/${props.GalleryName.toLowerCase()}-header.jpg`
   const headerImageIsLoading = useWaitImageLoad(headerUrl)
 
-  const lastElement = useRef(null)
+  const lastElement = useRef<HTMLLIElement>(null)
   const observer = useRef<IntersectionObserver>()
 
   useEffect(() => {
@@ -101,8 +101,8 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
                     {
                         imageKeys.map((x) => {
                           return x === Math.round(imageKeys.length / 2)
-                            ? <GalleryListItem ref={lastElement} key={`${props.GalleryName}-${x.toString()}`} imageId={x} galleryName={props.GalleryName} onLoad={onLoadNotification}/>
-                            : <GalleryListItem key={`${props.GalleryName}-${x.toString()}`} imageId={x} galleryName={props.GalleryName} onLoad={onLoadNotification}/>
+                            ? <GalleryListItem ref={lastElement} key={`${props.GalleryName}-${x.toString()}`} imageId={x.toString()} galleryName={props.GalleryName} onLoad={onLoadNotification}/>
+                            : <GalleryListItem key={`${props.GalleryName}-${x.toString()}`} imageId={x.toString()} galleryName={props.GalleryName} onLoad={onLoadNotification}/>
                         })
                     }
                 </ul>

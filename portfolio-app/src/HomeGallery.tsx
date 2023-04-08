@@ -1,4 +1,3 @@
-
 import HomeGridItem from './HomeGridItem'
 import styled from '@emotion/styled'
 import LoadingOverlay from './LoadingOverlay'
@@ -7,8 +6,8 @@ import useImageGallery from './Hooks/useImageGallery'
 
 const breakpoints = [480, 768, 1280]
 
-const mq = breakpoints.map(
-  bp => `@media (max-width: ${bp}px)`
+const mediaQueries = breakpoints.map(
+  breakpoint => `@media (max-width: ${breakpoint}px)`
 )
 
 const Grid = styled.div`
@@ -21,10 +20,10 @@ const Grid = styled.div`
     min-height: 100vh;
     margin-right: auto;
     margin-left: auto;
-    ${mq[2]} {
+    ${mediaQueries[2]} {
         width:75%;
     }
-    ${mq[1]} {
+    ${mediaQueries[1]} {
         width: 100%;
     }
 `
@@ -34,13 +33,13 @@ const Column = styled.div`
     flex-direction: column;
     margin: 0 1rem 0 1rem;
     width: calc(100% / 3);
-    ${mq[2]} {
+    ${mediaQueries[2]} {
         margin: 0 0.75rem 0 0.75rem;
     }
-    ${mq[1]} {
+    ${mediaQueries[1]} {
         margin: 0 0.5rem 0 0.5rem;
     }
-    ${mq[0]} {
+    ${mediaQueries[0]} {
         margin: 0 0.25rem 0 0.25rem;
     }
 `

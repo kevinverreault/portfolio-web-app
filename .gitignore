@@ -8,6 +8,7 @@ bin
 obj
 .vs
 *.user
+.env
 
 .DS_STORE
 node_modules

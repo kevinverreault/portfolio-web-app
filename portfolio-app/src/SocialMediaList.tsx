@@ -13,11 +13,11 @@ const IconList = styled.ul`
 
 const SocialMediaList = () => {
   return (
-            <IconList>
-                <SocialMediaButton target="https://www.instagram.com/kevinverreault_/" label="instagram" />
-                <SocialMediaButton target="https://www.youtube.com/channel/UC0H8kS7v1U5yprgK7RHqQZQ" label="youtube" />
-                <SocialMediaButton target="https://www.flickr.com/photos/152334550@N04/" label="flickr" />
-            </IconList>
+    <IconList>
+      <SocialMediaButton target="https://www.instagram.com/kevinverreault_/" label="instagram" />
+      <SocialMediaButton target="https://www.youtube.com/channel/UC0H8kS7v1U5yprgK7RHqQZQ" label="youtube" />
+      <SocialMediaButton target="https://www.flickr.com/photos/152334550@N04/" label="flickr" />
+    </IconList>
   )
 }
 

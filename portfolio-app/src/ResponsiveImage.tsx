@@ -1,7 +1,23 @@
 import AnalyticsService from './Services/AnalyticsService'
+import { ImageProperties } from './responsiveImageHelper'
 
-const ResponsiveImage = (props: any) => {
-  const imageSet = `${props.imageProperties.image1x}, ${props.imageProperties.image2x}, ${props.imageProperties.image3x}, ${props.imageProperties.image4x}, ${props.imageProperties.image5x}, ${props.imageProperties.image6x}`
+interface ResponsiveImageProps {
+  imageProperties: ImageProperties
+  customStyle?: boolean
+  imageId: string
+  alt: string
+  sizes: string
+  onLoad: () => void
+}
+const imageStyle = {
+  width: '100%',
+  borderRadius: '2px',
+  imageRendering: '-webkit-optimize-contrast',
+  boxSizing: 'border-box'
+}
+
+const ResponsiveImage = (props: ResponsiveImageProps) => {
+  const imageSet = props.imageProperties.imageSet.slice(0, -1).join(', ')
 
   function handleImageOnLoad () {
     props.onLoad()
@@ -12,7 +28,7 @@ const ResponsiveImage = (props: any) => {
   }
 
   return (
-        <img style={props.style}
+        <img style={props.customStyle ? imageStyle as React.CSSProperties : {}}
             sizes={props.sizes}
             srcSet={imageSet}
             src={props.imageProperties.imageMinSize}

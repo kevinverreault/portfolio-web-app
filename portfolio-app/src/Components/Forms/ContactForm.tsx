@@ -54,8 +54,6 @@ const ContactForm = (props: { isLoadingCallback: (isLoading: boolean) => void })
           }
         })
       }
-    }, reason => {
-      console.log(`erreur dans l'envoi du message: ${reason}`)
     }).finally(() => {
       if (mountedRef.current) {
         isLoadingCallback(false)
@@ -73,6 +71,8 @@ const ContactForm = (props: { isLoadingCallback: (isLoading: boolean) => void })
         backgroundColor: 'rgb(209, 213, 219, 0.7)',
         minWidth: '300px'
       }
+    }).catch((reason: Error) => {
+      console.log(`erreur dans l'envoi du message: ${reason.message}`)
     })
   }, [onSubmitEvent, isLoadingCallback])
 

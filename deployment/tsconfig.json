@@ -1,0 +1,17 @@
+
+{
+  "compilerOptions": {
+    "module": "ESNext",
+    "esModuleInterop": true,
+    "target": "ES2020",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "dist",
+    "rootDir": "./src",
+    "lib": ["ESNext", "ES2021.String"]
+  },
+  "lib": ["ESNext", "ES2021.String"],
+  "include": [
+    "./src/**/*"
+  ]
+}

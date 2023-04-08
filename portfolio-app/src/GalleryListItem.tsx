@@ -1,7 +1,9 @@
-import { forwardRef } from 'react'
+import { forwardRef, useContext } from 'react'
 import styled from '@emotion/styled'
 import ResponsiveImage from './ResponsiveImage'
 import { createImageProperties } from './responsiveImageHelper'
+import { MetadataContext } from './Context/MetadataContext'
+import MetadataService from './Services/MetadataService'
 
 const ListItem = styled.li`
     width:500px;
@@ -36,25 +38,31 @@ const GalleryLink = styled.a`
      }
 `
 
-const imageStyle = {
-  width: '100%',
-  borderRadius: '2px',
-  imageRendering: '-webkit-optimize-contrast',
-  boxSizing: 'border-box'
+interface GalleryListItemProps {
+  ref: React.RefObject<HTMLLinkElement>
+  onLoad: () => void
+  galleryName: string
+  imageId: string
 }
 
-const GalleryListItem = (props: any, ref: any) => {
+const GalleryListItem = forwardRef((props: GalleryListItemProps, ref: React.ForwardedRef<HTMLLIElement>) => {
   const sizes = '(max-width:768px) 90vw, (max-width:1366px) 50vw, 500px'
   const alt = `${props.galleryName} image ${props.imageId}`
   const imageProperties = createImageProperties(props.imageId, props.galleryName)
+  const metadataContext = useContext(MetadataContext)
+
+  const metadataKey = MetadataService.getMetadataKey(props.galleryName, props.imageId)
 
   return (
          <ListItem ref={ref}>
-            <GalleryLink href={imageProperties.imageMaxSize} data-fancybox='portfolio'>
-                <ResponsiveImage onLoad={props.onLoad} style={imageStyle} imageId={props.imageId} sizes={sizes} alt={alt} imageProperties={imageProperties} lazyLoading={props.lazyLoading}/>;
+            <GalleryLink href={imageProperties.imageMaxSize} data-fancybox='portfolio' data-caption={metadataContext.has(metadataKey) ? metadataContext.get(metadataKey) : ''}>
+                <ResponsiveImage onLoad={props.onLoad} imageId={props.imageId} sizes={sizes} alt={alt} imageProperties={imageProperties} customStyle/>;
             </GalleryLink>
         </ListItem>
   )
-}
+})
 
-export default forwardRef(GalleryListItem)
+GalleryListItem.displayName = 'GalleryListItem'
+
+export { GalleryListItem }
+export type { GalleryListItemProps }
