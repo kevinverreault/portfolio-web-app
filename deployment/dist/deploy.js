@@ -27,17 +27,14 @@ async function uploadBuildOutput() {
         source: f,
         destination: f.replace(buildPath, '').replace(IMAGES_DIRECTORY, `${IMAGES_DIRECTORY}${TEMP}`)
     });
-    let getAllFiles = async () => {
-        for await (const localFile of recursiveFileSearch('../portfolio-app/build')) {
-            if (localFile.includes(IMAGES_DIRECTORY)) {
-                images.push(createPaths(localFile));
-            }
-            else {
-                sourceFiles.push(createPaths(localFile));
-            }
+    for await (const localFile of recursiveFileSearch('../portfolio-app/build')) {
+        if (localFile.includes(IMAGES_DIRECTORY)) {
+            images.push(createPaths(localFile));
         }
-    };
-    await getAllFiles();
+        else {
+            sourceFiles.push(createPaths(localFile));
+        }
+    }
     const ftpClient = new jsftp({
         host: 'ftp.kevinverreault.planethoster.world',
         port: 21,

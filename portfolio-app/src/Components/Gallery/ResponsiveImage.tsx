@@ -1,5 +1,5 @@
-import AnalyticsService from './Services/AnalyticsService'
-import { ImageProperties } from './responsiveImageHelper'
+import AnalyticsService from '../../Services/AnalyticsService'
+import { ImageProperties } from '../../responsiveImageHelper'
 
 interface ResponsiveImageProps {
   imageProperties: ImageProperties

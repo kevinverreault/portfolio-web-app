@@ -1,8 +1,8 @@
 import HomeGridItem from './HomeGridItem'
 import styled from '@emotion/styled'
-import LoadingOverlay from './LoadingOverlay'
-import useWaitAllImages from './Hooks/useWaitAllImages'
-import useImageGallery from './Hooks/useImageGallery'
+import LoadingOverlay from '../../Shared/LoadingOverlay'
+import useWaitAllImages from '../../../Hooks/useWaitAllImages'
+import useImageGallery from '../../../Hooks/useImageGallery'
 
 const breakpoints = [480, 768, 1280]
 

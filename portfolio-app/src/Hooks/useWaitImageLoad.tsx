@@ -8,6 +8,9 @@ const useWaitImageLoad = (headerUrl: string) => {
     headerImage.addEventListener('load', function () {
       setimageIsLoading(false)
     }, false)
+    headerImage.addEventListener('error', function () {
+      setimageIsLoading(false)
+    }, false)
     headerImage.src = headerUrl
   }, [headerUrl])
 

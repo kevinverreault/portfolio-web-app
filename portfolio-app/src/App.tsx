@@ -1,32 +1,19 @@
 import './App.css'
 import './index.css'
-import { useLocation, Routes, Route } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import Accueil from './Accueil'
-import Faune from './Faune'
-import Paysages from './Paysages'
-import NavigationHeader from './NavigationHeader'
-import Contact from './Contact'
-import * as Cronitor from '@cronitorio/cronitor-rum-js'
-import MetadataService from './Services/MetadataService'
+import { Routes, Route } from 'react-router-dom'
+import Accueil from './Components/Gallery/Home/Accueil'
+import Faune from './Components/Gallery/Faune'
+import Paysages from './Components/Gallery/Paysages'
+import NavigationHeader from './Components/Header/NavigationHeader'
+import Contact from './Components/Forms/Contact'
 import { MetadataContext } from './Context/MetadataContext'
+import { useAnalyticsEngine, usePageViewTracking } from './Hooks/useAnalytics'
+import useMetadata from './Hooks/useMetadata'
 
 export default function App () {
-  const location = useLocation()
-
-  const [metadata, setMetadata] = useState(new Map<string, string>())
-
-  useEffect(() => {
-    if (process.env.REACT_APP_ANALYTICS_KEY != null) {
-      Cronitor.load(process.env.REACT_APP_ANALYTICS_KEY)
-    }
-
-    setMetadata(MetadataService.getMetadata())
-  }, [])
-
-  useEffect(() => {
-    Cronitor.track('Pageview')
-  }, [location])
+  useAnalyticsEngine()
+  usePageViewTracking()
+  const metadata = useMetadata()
 
   return (
         <div className="App">

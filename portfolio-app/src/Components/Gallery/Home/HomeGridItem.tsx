@@ -1,9 +1,9 @@
 import styled from '@emotion/styled'
-import { createImageProperties, createVerticalImageProperties } from './responsiveImageHelper'
-import AnalyticsService from './Services/AnalyticsService'
-import { MetadataContext } from './Context/MetadataContext'
+import { createImageProperties, createVerticalImageProperties } from '../../../responsiveImageHelper'
+import AnalyticsService from '../../../Services/AnalyticsService'
+import { MetadataContext } from '../../../Context/MetadataContext'
 import { useContext } from 'react'
-import MetadataService from './Services/MetadataService'
+import MetadataService from '../../../Services/MetadataService'
 
 const GalleryLink = styled.a`
     margin: 0 0 2em 0;
@@ -63,13 +63,14 @@ const HomeGridItem = (props: HomeGridItemProps) => {
 
   return (
         <GalleryLink href={imageProperties.imageMaxSize}
-                    data-fancybox="portfolio" data-caption={metadataContext.has(metadataKey) ? metadataContext.get(metadataKey) : ''}>
-            <ResponsiveImage srcSet={imageSet}
-                            sizes={size}
-                            src={imageProperties.imageMinSize}
-                            alt={alt}
-                            onLoad={handleImageOnLoad.bind(this)}
-                            onClick={handleOnClick.bind(this)} />
+                    data-fancybox="portfolio" data-caption={metadataContext.get(metadataKey) ?? ''}>
+            <ResponsiveImage
+              srcSet={imageSet}
+              sizes={size}
+              src={imageProperties.imageMinSize}
+              alt={alt}
+              onLoad={handleImageOnLoad.bind(this)}
+              onClick={handleOnClick.bind(this)} />
         </GalleryLink>
   )
 }

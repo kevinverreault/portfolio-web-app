@@ -1,6 +1,6 @@
 import { Formik, Form } from 'formik'
 import * as Yup from 'yup'
-import TextButton from '../../TextButton'
+import TextButton from '../Shared/TextButton'
 import useWindowDimensions from '../../Hooks/useWindowDimensions'
 import React, { useRef, useState, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'

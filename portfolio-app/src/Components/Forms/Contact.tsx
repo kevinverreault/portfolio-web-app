@@ -1,9 +1,9 @@
 import React, { useState, useCallback } from 'react'
-import ContactForm from './Components/Forms/ContactForm'
-import LoadingOverlay from './LoadingOverlay'
+import ContactForm from './ContactForm'
+import LoadingOverlay from '../Shared/LoadingOverlay'
 
-import { ImageHeader, TextHeader, TextSubHeader } from './Components/Forms/Shared/ImageHeader'
-import useWaitImageLoad from './Hooks/useWaitImageLoad'
+import { ImageHeader, TextHeader, TextSubHeader } from '../Shared/ImageHeader'
+import useWaitImageLoad from '../../Hooks/useWaitImageLoad'
 
 const Contact = () => {
   const [isLoading, setIsLoading] = useState(false)

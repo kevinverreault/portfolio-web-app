@@ -1,11 +1,11 @@
 import { useEffect, useState, useRef } from 'react'
 import { GalleryListItem } from './GalleryListItem'
 import styled from '@emotion/styled'
-import LoadingOverlay from './LoadingOverlay'
-import useWaitAllImages from './Hooks/useWaitAllImages'
-import useImageGallery from './Hooks/useImageGallery'
-import { ImageHeader, TextHeader, TextSubHeader } from './Components/Forms/Shared/ImageHeader'
-import useWaitImageLoad from './Hooks/useWaitImageLoad'
+import LoadingOverlay from '../Shared/LoadingOverlay'
+import useWaitAllImages from '../../Hooks/useWaitAllImages'
+import useImageGallery from '../../Hooks/useImageGallery'
+import { ImageHeader, TextHeader, TextSubHeader } from '../Shared/ImageHeader'
+import useWaitImageLoad from '../../Hooks/useWaitImageLoad'
 
 const Container = styled.div`
     width: 1920px;
@@ -92,18 +92,24 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
   return (
         <div style={{ minHeight: '100vh' }}>
             <LoadingOverlay isLoading={isLoading || headerImageIsLoading} />
-            <ImageHeader imageIsLoading={headerImageIsLoading} headerUrl={headerUrl} opacity="0.85">
-                    <TextHeader>{props.GalleryName}</TextHeader>
-                    <TextSubHeader></TextSubHeader>
+            <ImageHeader
+              imageIsLoading={headerImageIsLoading}
+              headerUrl={headerUrl}
+              opacity="0.85">
+                <TextHeader>{props.GalleryName}</TextHeader>
+                <TextSubHeader></TextSubHeader>
             </ImageHeader>
             <Container>
                 <ul style={{ padding: 0 }}>
                     {
-                        imageKeys.map((x) => {
-                          return x === Math.round(imageKeys.length / 2)
-                            ? <GalleryListItem ref={lastElement} key={`${props.GalleryName}-${x.toString()}`} imageId={x.toString()} galleryName={props.GalleryName} onLoad={onLoadNotification}/>
-                            : <GalleryListItem key={`${props.GalleryName}-${x.toString()}`} imageId={x.toString()} galleryName={props.GalleryName} onLoad={onLoadNotification}/>
-                        })
+                        imageKeys.map((listNumber) =>
+                          <GalleryListItem
+                            ref={listNumber >= Math.round(imageKeys.length - (pageSize * 0.70)) ? lastElement : undefined}
+                            key={`${props.GalleryName}-${listNumber.toString()}`}
+                            imageId={listNumber.toString()}
+                            galleryName={props.GalleryName}
+                            onLoad={onLoadNotification}/>
+                        )
                     }
                 </ul>
             </Container>

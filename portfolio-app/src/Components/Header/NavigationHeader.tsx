@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import TextButton from './TextButton'
+import TextButton from '../Shared/TextButton'
 import SocialMediaList from './SocialMediaList'
 import styled from '@emotion/styled'
 

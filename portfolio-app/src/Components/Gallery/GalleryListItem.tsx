@@ -1,9 +1,9 @@
 import { forwardRef, useContext } from 'react'
 import styled from '@emotion/styled'
 import ResponsiveImage from './ResponsiveImage'
-import { createImageProperties } from './responsiveImageHelper'
-import { MetadataContext } from './Context/MetadataContext'
-import MetadataService from './Services/MetadataService'
+import { createImageProperties } from '../../responsiveImageHelper'
+import { MetadataContext } from '../../Context/MetadataContext'
+import MetadataService from '../../Services/MetadataService'
 
 const ListItem = styled.li`
     width:500px;
@@ -37,15 +37,15 @@ const GalleryLink = styled.a`
         opacity: 90%;
      }
 `
+type ListItemForwardedRef = React.ForwardedRef<HTMLLIElement>
 
 interface GalleryListItemProps {
-  ref: React.RefObject<HTMLLinkElement>
   onLoad: () => void
   galleryName: string
   imageId: string
 }
 
-const GalleryListItem = forwardRef((props: GalleryListItemProps, ref: React.ForwardedRef<HTMLLIElement>) => {
+const GalleryListItem = forwardRef((props: GalleryListItemProps, ref: ListItemForwardedRef) => {
   const sizes = '(max-width:768px) 90vw, (max-width:1366px) 50vw, 500px'
   const alt = `${props.galleryName} image ${props.imageId}`
   const imageProperties = createImageProperties(props.imageId, props.galleryName)
@@ -55,8 +55,8 @@ const GalleryListItem = forwardRef((props: GalleryListItemProps, ref: React.Forw
 
   return (
          <ListItem ref={ref}>
-            <GalleryLink href={imageProperties.imageMaxSize} data-fancybox='portfolio' data-caption={metadataContext.has(metadataKey) ? metadataContext.get(metadataKey) : ''}>
-                <ResponsiveImage onLoad={props.onLoad} imageId={props.imageId} sizes={sizes} alt={alt} imageProperties={imageProperties} customStyle/>;
+            <GalleryLink href={imageProperties.imageMaxSize} data-fancybox='portfolio' data-caption={metadataContext.get(metadataKey) ?? ''}>
+                <ResponsiveImage onLoad={props.onLoad} imageId={props.imageId} sizes={sizes} alt={alt} imageProperties={imageProperties} customStyle />;
             </GalleryLink>
         </ListItem>
   )
