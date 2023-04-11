@@ -55,8 +55,17 @@ const GalleryListItem = forwardRef((props: GalleryListItemProps, ref: ListItemFo
 
   return (
          <ListItem ref={ref}>
-            <GalleryLink href={imageProperties.imageMaxSize} data-fancybox='portfolio' data-caption={metadataContext.get(metadataKey) ?? ''}>
-                <ResponsiveImage onLoad={props.onLoad} imageId={props.imageId} sizes={sizes} alt={alt} imageProperties={imageProperties} customStyle />;
+            <GalleryLink
+              href={imageProperties.imageMaxSize}
+              data-fancybox='portfolio'
+              data-caption={metadataContext.get(metadataKey) ?? ''}>
+                <ResponsiveImage
+                  onLoad={props.onLoad}
+                  imageId={props.imageId}
+                  sizes={sizes}
+                  alt={alt}
+                  imageProperties={imageProperties}
+                  customStyle />;
             </GalleryLink>
         </ListItem>
   )

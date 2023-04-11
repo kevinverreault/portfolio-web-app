@@ -49,7 +49,7 @@ const HomeGridItem = (props: HomeGridItemProps) => {
   const album = 'Accueil'
   const imageProperties = props.vertical ? createVerticalImageProperties(props.imageId, album) : createImageProperties(props.imageId, album)
 
-  const imageSet = imageProperties.imageSet.slice(0, -1).join(', ')
+  const imageSet = imageProperties.sourceSet.slice(0, -1).join(', ')
 
   function handleImageOnLoad () {
     props.onLoad()

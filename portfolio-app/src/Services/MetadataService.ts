@@ -1,4 +1,4 @@
-import metadata from '../../src/metadaja.json'
+import metadata from '../../src/metadata.json'
 
 class MetadataService {
   public getMetadata(): Map<string, string> {

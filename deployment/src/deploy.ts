@@ -4,6 +4,7 @@ import * as dotenv from 'dotenv'
 import * as fs from 'fs'
 import { recursiveFileSearch } from './utilities'
 
+const sourceSetSize = 7
 const SOURCE = "./public_html"
 const TEMP = "_temp"
 const TO_DELETE = "_todelete"
@@ -46,7 +47,7 @@ async function uploadBuildOutput() {
   }
 
   const ftpClient = new jsftp({
-    host: 'ftp.kevinverreault.planethoster.world',
+    host: process.env.FTP_HOST,
     port: 21,
     user: process.env.FTP_USERNAME,
     pass: process.env.FTP_PASSWORD
@@ -57,25 +58,10 @@ async function uploadBuildOutput() {
     await uploadDirectory(ftpClient, images)
     await cleanupSource(ftpClient)
     await uploadDirectory(ftpClient, sourceFiles)
-    await swapTempImages(ftpClient)
+    await swapImagesDirectories(ftpClient)
     await cleanupOldImages(ftpClient)
 
     quit(ftpClient)
-  })
-}
-
-async function put(ftpClient: jsftp, sourcePath: string, destinationPath: string) {
-  console.log(`put ${sourcePath} to ${SOURCE}${destinationPath}`)
-  let buffer = fs.readFileSync(sourcePath)
-  await new Promise<void>((resolve, reject) => {
-    ftpClient.put(buffer, `${SOURCE}${destinationPath}`, err => {
-      if (err) {
-        reject()
-        return console.log(err)
-      }
-      console.log(`${destinationPath} transferred successfully`);
-      resolve()
-    });
   })
 }
 
@@ -96,7 +82,7 @@ async function stage(ftpClient: jsftp) {
   console.log('staging temp folders')
   try {
     await createDirectory(ftpClient, `${SOURCE}/${IMAGES_DIRECTORY}${TEMP}`)
-    for (let i = 1; i <= 7; ++i) {
+    for (let i = 1; i <= sourceSetSize; ++i) {
       await createDirectory(ftpClient, `${SOURCE}/${IMAGES_DIRECTORY}${TEMP}/${i}x`)
     }
     console.log('staging finished')
@@ -121,7 +107,7 @@ async function cleanupSource(ftpClient: jsftp) {
 async function cleanupOldImages(ftpClient: jsftp) {
   try {
     console.log('cleanup started')
-    for (let i = 1; i <= 7; ++i) {
+    for (let i = 1; i <= sourceSetSize; ++i) {
       await emptyDirectory(ftpClient, `${SOURCE}/${IMAGES_DIRECTORY}${TO_DELETE}/${i}x`)
       await deleteDirectory(ftpClient, `${SOURCE}/${IMAGES_DIRECTORY}${TO_DELETE}/${i}x`)
     }
@@ -133,7 +119,7 @@ async function cleanupOldImages(ftpClient: jsftp) {
   }
 }
 
-async function swapTempImages(ftpClient: jsftp) {
+async function swapImagesDirectories(ftpClient: jsftp) {
   try {
     console.log('swapping images directory')
     await rename(ftpClient, `${SOURCE}/${IMAGES_DIRECTORY}`, `${SOURCE}/${IMAGES_DIRECTORY}${TO_DELETE}`)
@@ -142,6 +128,21 @@ async function swapTempImages(ftpClient: jsftp) {
   } catch (exception) {
     console.log('swapping images directory failed')
   }
+}
+
+async function put(ftpClient: jsftp, sourcePath: string, destinationPath: string) {
+  console.log(`put ${sourcePath} to ${SOURCE}${destinationPath}`)
+  let buffer = fs.readFileSync(sourcePath)
+  await new Promise<void>((resolve, reject) => {
+    ftpClient.put(buffer, `${SOURCE}${destinationPath}`, err => {
+      if (err) {
+        reject()
+        return console.log(err)
+      }
+      console.log(`${destinationPath} transferred successfully`);
+      resolve()
+    });
+  })
 }
 
 async function emptyDirectory(ftpClient: jsftp, directory: string) {

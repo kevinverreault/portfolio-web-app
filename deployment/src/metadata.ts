@@ -8,26 +8,25 @@ main()
 async function main() {
   try {
     const publicPath = path.resolve('../portfolio-app')
-    const imagesPath = `${publicPath}\\public\\images\\1x`
+    const imagesPath = path.resolve('../portfolio-app/public/images/7x')
 
-    console.log(`generating metadata: ${publicPath}\\images`)
+    console.log('generating metadata')
 
-    const allImages = await getFlatFileList(imagesPath)
-    const imagesMetadata = getDescriptionFromExif(imagesPath, allImages)
+    const images = await getFlatFileList(imagesPath)
+    const imagesMetadata = getDescriptionFromExif(imagesPath, images)
 
-    console.log(`metadata.json: `)
     console.log(imagesMetadata)
 
-    fs.writeFileSync(`${publicPath}/src/metadaja.json`, JSON.stringify(Object.fromEntries(imagesMetadata)), 'utf-8')
+    fs.writeFileSync(`${publicPath}/src/metadata.json`, JSON.stringify(Object.fromEntries(imagesMetadata)), 'utf-8')
   } catch (exception) {
     console.log(exception)
   }
 }
 
-function getDescriptionFromExif(imagesPath: string, allImages: string[]): Map<string, string> {
+function getDescriptionFromExif(imagesPath: string, images: string[]): Map<string, string> {
   const imagesMetadata: Map<string, string> = new Map<string, string>()
 
-  for (const image of allImages) {
+  for (const image of images) {
     const exifdata = exif.create(fs.readFileSync(image))
     try {
       const description = exifdata.parse().tags['ImageDescription']

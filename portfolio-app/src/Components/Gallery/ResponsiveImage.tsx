@@ -9,6 +9,7 @@ interface ResponsiveImageProps {
   sizes: string
   onLoad: () => void
 }
+
 const imageStyle = {
   width: '100%',
   borderRadius: '2px',
@@ -17,7 +18,7 @@ const imageStyle = {
 }
 
 const ResponsiveImage = (props: ResponsiveImageProps) => {
-  const imageSet = props.imageProperties.imageSet.slice(0, -1).join(', ')
+  const sourceSet = props.imageProperties.sourceSet.slice(0, -1).join(', ')
 
   function handleImageOnLoad () {
     props.onLoad()
@@ -28,14 +29,15 @@ const ResponsiveImage = (props: ResponsiveImageProps) => {
   }
 
   return (
-        <img style={props.customStyle ? imageStyle as React.CSSProperties : {}}
-            sizes={props.sizes}
-            srcSet={imageSet}
-            src={props.imageProperties.imageMinSize}
-            alt={props.alt}
-            onLoad={handleImageOnLoad.bind(this)}
-            onError={handleImageOnLoad.bind(this)}
-            onClick={handleOnClick.bind(this)}
+        <img
+          style={props.customStyle ? imageStyle as React.CSSProperties : {}}
+          sizes={props.sizes}
+          srcSet={sourceSet}
+          src={props.imageProperties.imageMinSize}
+          alt={props.alt}
+          onLoad={handleImageOnLoad.bind(this)}
+          onError={handleImageOnLoad.bind(this)}
+          onClick={handleOnClick.bind(this)}
             />
 
   )

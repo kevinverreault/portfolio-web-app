@@ -23,9 +23,9 @@ Export() {
 }
 
 Toggle() {
-	Sleep(1000)
+	Sleep(500)
 	Click
-	Sleep(1000)
+	Sleep(500)
 }
 
 ToggleRecipe1() {
@@ -99,10 +99,9 @@ Sleep(2000)
 
 Acceuil()
 Click 100, 625
+
 Sleep(1000)
-
 Send "^+{F11}"
-
 Sleep(1000)
 
 ExportTab()

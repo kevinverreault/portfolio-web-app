@@ -29,6 +29,14 @@ const Container = styled.div`
     }
     `
 
+const GalleryList = styled.ul`
+    padding: 0;
+    `
+
+const Gallery = styled.div`
+    min-height: 100vh;
+`
+
 interface PhotoGalleryProps {
   GalleryName: string
   GallerySize: number
@@ -90,7 +98,7 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
   useImageGallery()
 
   return (
-        <div style={{ minHeight: '100vh' }}>
+        <Gallery>
             <LoadingOverlay isLoading={isLoading || headerImageIsLoading} />
             <ImageHeader
               imageIsLoading={headerImageIsLoading}
@@ -100,20 +108,20 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
                 <TextSubHeader></TextSubHeader>
             </ImageHeader>
             <Container>
-                <ul style={{ padding: 0 }}>
+                <GalleryList>
                     {
-                        imageKeys.map((listNumber) =>
-                          <GalleryListItem
-                            ref={listNumber >= Math.round(imageKeys.length - (pageSize * 0.70)) ? lastElement : undefined}
-                            key={`${props.GalleryName}-${listNumber.toString()}`}
-                            imageId={listNumber.toString()}
-                            galleryName={props.GalleryName}
-                            onLoad={onLoadNotification}/>
-                        )
+                      imageKeys.map((listNumber) =>
+                        <GalleryListItem
+                          ref={listNumber >= Math.round(imageKeys.length - (pageSize * 0.70)) ? lastElement : undefined}
+                          key={`${props.GalleryName}-${listNumber.toString()}`}
+                          imageId={listNumber.toString()}
+                          galleryName={props.GalleryName}
+                          onLoad={onLoadNotification}/>
+                      )
                     }
-                </ul>
+                </GalleryList>
             </Container>
-        </div>
+        </Gallery>
   )
 }
 
