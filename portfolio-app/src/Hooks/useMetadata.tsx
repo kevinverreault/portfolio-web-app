@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import MetadataService from '../Services/MetadataService'
+import metadataFile from '../metadata.json'
 
 const useMetadata = (): Map<string, string> => {
   const [metadata, setMetadata] = useState(new Map<string, string>())
 
   useEffect(() => {
-    setMetadata(MetadataService.getMetadata())
+    setMetadata(new Map<string, string>(Object.entries(metadataFile)))
   }, [])
 
   return metadata

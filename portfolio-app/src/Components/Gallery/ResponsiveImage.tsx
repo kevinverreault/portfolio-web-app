@@ -1,36 +1,31 @@
-import AnalyticsService from '../../Services/AnalyticsService'
+import { useImageClickedTracking } from '../../Hooks/useAnalytics'
 import { ImageProperties } from '../../responsiveImageHelper'
 
 interface ResponsiveImageProps {
   imageProperties: ImageProperties
-  customStyle?: boolean
+  customStyle?: React.CSSProperties
   imageId: string
+  description: string
   alt: string
   sizes: string
   onLoad: () => void
 }
 
-const imageStyle = {
-  width: '100%',
-  borderRadius: '2px',
-  imageRendering: '-webkit-optimize-contrast',
-  boxSizing: 'border-box'
-}
-
 const ResponsiveImage = (props: ResponsiveImageProps) => {
   const sourceSet = props.imageProperties.sourceSet.slice(0, -1).join(', ')
+  const imageClickedTracking = useImageClickedTracking()
 
   function handleImageOnLoad () {
     props.onLoad()
   }
 
   function handleOnClick () {
-    AnalyticsService.sendEvent(props.imageProperties.imageName)
+    imageClickedTracking(props.imageProperties.imageName, props.description)
   }
 
   return (
         <img
-          style={props.customStyle ? imageStyle as React.CSSProperties : {}}
+          style={props.customStyle ? props.customStyle : {}}
           sizes={props.sizes}
           srcSet={sourceSet}
           src={props.imageProperties.imageMinSize}
@@ -38,7 +33,7 @@ const ResponsiveImage = (props: ResponsiveImageProps) => {
           onLoad={handleImageOnLoad.bind(this)}
           onError={handleImageOnLoad.bind(this)}
           onClick={handleOnClick.bind(this)}
-            />
+          />
 
   )
 }

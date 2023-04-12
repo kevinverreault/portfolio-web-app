@@ -1,21 +1,29 @@
 import { useEffect } from 'react'
-import * as Cronitor from '@cronitorio/cronitor-rum-js'
 import { useLocation } from 'react-router-dom'
+import { usePostHog } from 'posthog-js/react'
 
-const useAnalyticsEngine = () => {
-  useEffect(() => {
-    if (process.env.REACT_APP_ANALYTICS_KEY != null) {
-      Cronitor.load(process.env.REACT_APP_ANALYTICS_KEY)
-    }
-  }, [])
+type TrackImageClickedEvent = (imageName: string, description: string) => void
+
+const useImageClickedTracking = (): TrackImageClickedEvent => {
+  const engine = usePostHog()
+
+  const trackImageClickedEvent = (imageName: string, imageDescription: string) => {
+    engine?.capture('Imageclicked', {
+      image: imageName,
+      description: imageDescription
+    })
+  }
+
+  return trackImageClickedEvent
 }
 
 const usePageViewTracking = () => {
+  const engine = usePostHog()
   const location = useLocation()
 
   useEffect(() => {
-    Cronitor.track('Pageview')
+    engine?.capture('$pageview')
   }, [location])
 }
 
-export { useAnalyticsEngine, usePageViewTracking }
+export { useImageClickedTracking, usePageViewTracking }

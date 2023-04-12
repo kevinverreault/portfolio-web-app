@@ -1,9 +1,9 @@
 import styled from '@emotion/styled'
 import { createImageProperties, createVerticalImageProperties } from '../../../responsiveImageHelper'
-import AnalyticsService from '../../../Services/AnalyticsService'
 import { MetadataContext } from '../../../Context/MetadataContext'
 import { useContext } from 'react'
 import MetadataService from '../../../Services/MetadataService'
+import ResponsiveImage from '../ResponsiveImage'
 
 const GalleryLink = styled.a`
     margin: 0 0 2em 0;
@@ -30,12 +30,6 @@ const GalleryLink = styled.a`
     }
 `
 
-const ResponsiveImage = styled.img`
-    display: block;
-    width: 100%;
-    image-rendering: -webkit-optimize-contrast;
-`
-
 interface HomeGridItemProps {
   imageId: string
   onLoad: () => void
@@ -44,33 +38,30 @@ interface HomeGridItemProps {
 
 const HomeGridItem = (props: HomeGridItemProps) => {
   const metadataContext = useContext(MetadataContext)
+
   const size = '(max-width:768px) 33vw, (max-width:1280px) 25vw, 20vw'
   const alt = `accueil image ${props.imageId}`
   const album = 'Accueil'
-  const imageProperties = props.vertical ? createVerticalImageProperties(props.imageId, album) : createImageProperties(props.imageId, album)
-
-  const imageSet = imageProperties.sourceSet.slice(0, -1).join(', ')
-
-  function handleImageOnLoad () {
-    props.onLoad()
-  }
-
-  function handleOnClick () {
-    AnalyticsService.sendEvent(imageProperties.imageName)
-  }
-
-  const metadataKey = MetadataService.getMetadataKey(album, props.imageId)
+  const description = metadataContext.get(MetadataService.getMetadataKey(album, props.imageId)) ?? ''
+  const imageProperties = props.vertical
+    ? createVerticalImageProperties(props.imageId, album)
+    : createImageProperties(props.imageId, album)
 
   return (
         <GalleryLink href={imageProperties.imageMaxSize}
-                    data-fancybox="portfolio" data-caption={metadataContext.get(metadataKey) ?? ''}>
+                    data-fancybox="portfolio" data-caption={description}>
             <ResponsiveImage
-              srcSet={imageSet}
+              onLoad={props.onLoad}
+              imageId={props.imageId}
+              description={description}
               sizes={size}
-              src={imageProperties.imageMinSize}
               alt={alt}
-              onLoad={handleImageOnLoad.bind(this)}
-              onClick={handleOnClick.bind(this)} />
+              imageProperties={imageProperties}
+              customStyle={{
+                display: 'block',
+                width: '100%',
+                imageRendering: '-webkit-optimize-contrast'
+              }} />
         </GalleryLink>
   )
 }
