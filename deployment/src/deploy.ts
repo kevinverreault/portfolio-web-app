@@ -17,8 +17,10 @@ main()
 async function main() {
   try {
     dotenv.config()
-  
-    await uploadBuildOutput()
+
+    const uploadSourcesOnly = process.argv.length === 3 ? process.argv[2] === '-s' : false
+
+    await uploadBuildOutput(uploadSourcesOnly)
   } catch (exception) {
     console.log(exception)
   }
@@ -29,7 +31,7 @@ interface FilePaths {
   destination: string;
 }
 
-async function uploadBuildOutput() {
+async function uploadBuildOutput(uploadSourcesOnly: boolean) {
   const sourceFiles : FilePaths[] = []
   const images : FilePaths[] = []
   const buildPath = path.resolve('../portfolio-app/build')
@@ -54,13 +56,19 @@ async function uploadBuildOutput() {
   })
 
   ftpClient.auth(process.env.FTP_USERNAME, process.env.FTP_PASSWORD, async () => {
-    await stage(ftpClient)
-    await uploadDirectory(ftpClient, images)
+    if (!uploadSourcesOnly) {
+      await stageTempDirectories(ftpClient)
+      await uploadDirectory(ftpClient, images)
+    }
+
     await cleanupSource(ftpClient)
     await uploadDirectory(ftpClient, sourceFiles)
-    await swapImagesDirectories(ftpClient)
-    await cleanupOldImages(ftpClient)
 
+    if (!uploadSourcesOnly) {
+      await swapImagesDirectories(ftpClient)
+      await cleanupOldImages(ftpClient)
+    }
+    
     quit(ftpClient)
   })
 }
@@ -78,7 +86,7 @@ async function uploadDirectory(ftpClient: jsftp, files: FilePaths[]) {
   }
 }
 
-async function stage(ftpClient: jsftp) {
+async function stageTempDirectories(ftpClient: jsftp) {
   console.log('staging temp folders')
   try {
     await createDirectory(ftpClient, `${SOURCE}/${IMAGES_DIRECTORY}${TEMP}`)

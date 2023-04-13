@@ -66,7 +66,7 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
     const callback = (entries: IntersectionObserverEntry[]): void => {
       const first = entries[0]
       if (first.isIntersecting) {
-        setPageNumber((no) => no + 1)
+        setPageNumber((pageNumber) => pageNumber + 1)
       }
     }
 
@@ -111,8 +111,8 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
                 <GalleryList>
                     {
                       imageKeys.map((listNumber) =>
-                        <GalleryListItem
-                          ref={listNumber >= Math.round(imageKeys.length - (pageSize * 0.70)) ? lastElement : undefined}
+                         <GalleryListItem
+                          ref={listNumber === Math.round(imageKeys.length - (pageSize * 0.33)) ? lastElement : undefined}
                           key={`${props.GalleryName}-${listNumber.toString()}`}
                           imageId={listNumber.toString()}
                           galleryName={props.GalleryName}
