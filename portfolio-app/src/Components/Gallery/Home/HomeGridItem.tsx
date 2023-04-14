@@ -1,9 +1,7 @@
 import styled from '@emotion/styled'
-import { createImageProperties, createVerticalImageProperties } from '../../../responsiveImageHelper'
-import { MetadataContext } from '../../../Context/MetadataContext'
+import { MetadataContext, getMetadataKey } from '../../../Contexts/MetadataContext'
 import { useContext } from 'react'
-import MetadataService from '../../../Services/MetadataService'
-import ResponsiveImage from '../ResponsiveImage'
+import { ResponsiveImage, createImageProperties, createVerticalImageProperties } from '../ResponsiveImage'
 
 const GalleryLink = styled.a`
     margin: 0 0 2em 0;
@@ -32,8 +30,8 @@ const GalleryLink = styled.a`
 
 interface HomeGridItemProps {
   imageId: string
-  onLoad: () => void
   vertical?: boolean
+  onLoad: () => void
 }
 
 const HomeGridItem = (props: HomeGridItemProps) => {
@@ -42,27 +40,26 @@ const HomeGridItem = (props: HomeGridItemProps) => {
   const size = '(max-width:768px) 33vw, (max-width:1280px) 25vw, 20vw'
   const alt = `accueil image ${props.imageId}`
   const album = 'Accueil'
-  const description = metadataContext.get(MetadataService.getMetadataKey(album, props.imageId)) ?? ''
+  const description = metadataContext.get(getMetadataKey(album, props.imageId)) ?? ''
   const imageProperties = props.vertical
     ? createVerticalImageProperties(props.imageId, album)
     : createImageProperties(props.imageId, album)
 
   return (
-        <GalleryLink href={imageProperties.imageMaxSize}
-                    data-fancybox="portfolio" data-caption={description}>
-            <ResponsiveImage
-              onLoad={props.onLoad}
-              imageId={props.imageId}
-              description={description}
-              sizes={size}
-              alt={alt}
-              imageProperties={imageProperties}
-              customStyle={{
-                display: 'block',
-                width: '100%',
-                imageRendering: '-webkit-optimize-contrast'
-              }} />
-        </GalleryLink>
+    <GalleryLink
+      href={imageProperties.imageMaxSize}
+      data-fancybox="portfolio" data-caption={description}>
+        <ResponsiveImage
+          onLoad={props.onLoad}
+          imageId={props.imageId}
+          description={description}
+          sizes={size}
+          alt={alt}
+          imageProperties={imageProperties}
+          customStyle={{
+            display: 'block'
+          }} />
+    </GalleryLink>
   )
 }
 

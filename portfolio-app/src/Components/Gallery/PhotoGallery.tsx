@@ -98,30 +98,30 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
   useImageGallery()
 
   return (
-        <Gallery>
-            <LoadingOverlay isLoading={isLoading || headerImageIsLoading} />
-            <ImageHeader
-              imageIsLoading={headerImageIsLoading}
-              headerUrl={headerUrl}
-              opacity="0.85">
-                <TextHeader>{props.GalleryName}</TextHeader>
-                <TextSubHeader></TextSubHeader>
-            </ImageHeader>
-            <Container>
-                <GalleryList>
-                    {
-                      imageKeys.map((listNumber) =>
-                         <GalleryListItem
-                          ref={listNumber === Math.round(imageKeys.length - (pageSize * 0.33)) ? lastElement : undefined}
-                          key={`${props.GalleryName}-${listNumber.toString()}`}
-                          imageId={listNumber.toString()}
-                          galleryName={props.GalleryName}
-                          onLoad={onLoadNotification}/>
-                      )
-                    }
-                </GalleryList>
-            </Container>
-        </Gallery>
+    <Gallery>
+        <LoadingOverlay isLoading={isLoading || headerImageIsLoading} />
+        <ImageHeader
+          imageIsLoading={headerImageIsLoading}
+          headerUrl={headerUrl}
+          opacity="0.85">
+            <TextHeader>{props.GalleryName}</TextHeader>
+            <TextSubHeader></TextSubHeader>
+        </ImageHeader>
+        <Container>
+          <GalleryList>
+            {
+              imageKeys.map((listNumber) =>
+                <GalleryListItem
+                  ref={listNumber === Math.round(imageKeys.length - (pageSize * 0.33)) ? lastElement : undefined}
+                  key={`${props.GalleryName}-${listNumber.toString()}`}
+                  imageId={listNumber.toString()}
+                  galleryName={props.GalleryName}
+                  onLoad={onLoadNotification}/>
+              )
+            }
+          </GalleryList>
+        </Container>
+    </Gallery>
   )
 }
 

@@ -6,10 +6,10 @@ main();
 async function main() {
     try {
         const publicPath = path.resolve('../portfolio-app');
-        const imagesPath = path.resolve('../portfolio-app/public/images/7x');
+        const imagesPath = path.resolve('../portfolio-app/public/images/1x');
         console.log('generating metadata');
         const images = await getFlatFileList(imagesPath);
-        const imagesMetadata = getDescriptionFromExif(imagesPath, images);
+        const imagesMetadata = buildMetadataFromExif(imagesPath, images);
         console.log(imagesMetadata);
         fs.writeFileSync(`${publicPath}/src/metadata.json`, JSON.stringify(Object.fromEntries(imagesMetadata)), 'utf-8');
     }
@@ -17,15 +17,17 @@ async function main() {
         console.log(exception);
     }
 }
-function getDescriptionFromExif(imagesPath, images) {
+function buildMetadataFromExif(imagesPath, images) {
     const imagesMetadata = new Map();
     for (const image of images) {
-        const exifdata = exif.create(fs.readFileSync(image));
         try {
-            const description = exifdata.parse().tags['ImageDescription'];
+            const exifData = exif.create(fs.readFileSync(image)).parse();
+            const description = exifData.tags['ImageDescription'];
+            const dateTaken = exifData.tags.DateTimeOriginal;
             if (description) {
                 const imageKey = image.replace(imagesPath, '').replace('.jpg', '').replace('\\', '');
-                imagesMetadata.set(imageKey, description);
+                const caption = description + (dateTaken ? ` - ${new Date(dateTaken * 1000).getFullYear()}` : '');
+                imagesMetadata.set(imageKey, caption);
             }
         }
         catch (error) {
