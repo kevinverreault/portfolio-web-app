@@ -19,5 +19,8 @@ async function getFlatFileList(dir) {
     }
     return allFiles;
 }
-export { recursiveFileSearch, getFlatFileList };
+function hasProcessArgument(argument) {
+    return process.argv.length === 3 ? process.argv[2] === argument : false;
+}
+export { recursiveFileSearch, getFlatFileList, hasProcessArgument };
 //# sourceMappingURL=utilities.js.map

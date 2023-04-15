@@ -1,5 +1,11 @@
 import { useImageClickedTracking } from '../../Hooks/useAnalytics'
-import { ImageProperties } from '../../responsiveImageHelper'
+
+interface ImageProperties {
+  imageMaxSize: string
+  imageMinSize: string
+  sourceSet: string[]
+  imageName: string
+}
 
 interface ResponsiveImageProps {
   imageProperties: ImageProperties
@@ -9,6 +15,11 @@ interface ResponsiveImageProps {
   alt: string
   sizes: string
   onLoad: () => void
+}
+
+const defaultStyle: React.CSSProperties = {
+  width: '100%',
+  imageRendering: '-webkit-optimize-contrast'
 }
 
 const ResponsiveImage = (props: ResponsiveImageProps) => {
@@ -24,18 +35,59 @@ const ResponsiveImage = (props: ResponsiveImageProps) => {
   }
 
   return (
-        <img
-          style={props.customStyle ? props.customStyle : {}}
-          sizes={props.sizes}
-          srcSet={sourceSet}
-          src={props.imageProperties.imageMinSize}
-          alt={props.alt}
-          onLoad={handleImageOnLoad.bind(this)}
-          onError={handleImageOnLoad.bind(this)}
-          onClick={handleOnClick.bind(this)}
-          />
-
+    <img
+      style={ props.customStyle ? { ...props.customStyle, ...defaultStyle } : defaultStyle }
+      sizes={props.sizes}
+      srcSet={sourceSet}
+      src={props.imageProperties.imageMinSize}
+      alt={props.alt}
+      onLoad={handleImageOnLoad.bind(this)}
+      onError={handleImageOnLoad.bind(this)}
+      onClick={handleOnClick.bind(this)}
+      />
   )
 }
 
-export default ResponsiveImage
+const getImageProperties = (sourceSet: string[], imageName: string): ImageProperties => {
+  return {
+    imageMinSize: sourceSet[0].substring(0, sourceSet[0].lastIndexOf(' ')),
+    imageMaxSize: sourceSet[sourceSet.length - 1].substring(0, sourceSet[0].lastIndexOf(' ')),
+    sourceSet,
+    imageName
+  }
+}
+
+const createImageProperties = (imageId: string, album: string): ImageProperties => {
+  const imageName = `${album}-${imageId}.jpg`
+
+  const sourceSet: string[] = [
+    `images/1x/${imageName} 300w`,
+    `images/2x/${imageName} 500w`,
+    `images/3x/${imageName} 750w`,
+    `images/4x/${imageName} 1000w`,
+    `images/5x/${imageName} 1300w`,
+    `images/6x/${imageName} 1600w`,
+    `images/7x/${imageName} 1920w`
+  ]
+
+  return getImageProperties(sourceSet, imageName)
+}
+
+const createVerticalImageProperties = (imageId: string, album: string): ImageProperties => {
+  const imageName = `${album}-${imageId}.jpg`
+
+  const sourceSet: string[] = [
+    `images/1x/${imageName} 240w`,
+    `images/2x/${imageName} 320w`,
+    `images/3x/${imageName} 400w`,
+    `images/4x/${imageName} 512w`,
+    `images/5x/${imageName} 650w`,
+    `images/6x/${imageName} 800w`,
+    `images/7x/${imageName} 960w`
+  ]
+
+  return getImageProperties(sourceSet, imageName)
+}
+
+export { ResponsiveImage, createImageProperties, createVerticalImageProperties }
+export type { ImageProperties }

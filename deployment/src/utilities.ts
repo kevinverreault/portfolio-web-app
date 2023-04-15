@@ -22,4 +22,8 @@ async function getFlatFileList(dir: string): Promise<string[]> {
   return allFiles
 }
 
-export { recursiveFileSearch, getFlatFileList }
+function hasProcessArgument(argument: string) {
+  return process.argv.length === 3 ? process.argv[2] === argument : false
+}
+
+export { recursiveFileSearch, getFlatFileList, hasProcessArgument }

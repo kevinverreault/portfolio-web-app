@@ -2,7 +2,7 @@ import jsftp from 'jsftp'
 import * as path from 'path'
 import * as dotenv from 'dotenv'
 import * as fs from 'fs'
-import { recursiveFileSearch } from './utilities'
+import { hasProcessArgument, recursiveFileSearch } from './utilities'
 
 const sourceSetSize = 7
 const SOURCE = "./public_html"
@@ -18,7 +18,7 @@ async function main() {
   try {
     dotenv.config()
 
-    const uploadSourcesOnly = process.argv.length === 3 ? process.argv[2] === '-s' : false
+    const uploadSourcesOnly = hasProcessArgument('-s')
 
     await uploadBuildOutput(uploadSourcesOnly)
   } catch (exception) {
@@ -34,13 +34,14 @@ interface FilePaths {
 async function uploadBuildOutput(uploadSourcesOnly: boolean) {
   const sourceFiles : FilePaths[] = []
   const images : FilePaths[] = []
-  const buildPath = path.resolve('../portfolio-app/build')
+  const buildRelativePath = '../portfolio-app/build'
+  const buildPath = path.resolve(buildRelativePath)
   const createPaths = (f: string): FilePaths => ({
     source: f,
     destination: f.replace(buildPath, '').replace(IMAGES_DIRECTORY, `${IMAGES_DIRECTORY}${TEMP}`)
   })
 
-  for await (const localFile of recursiveFileSearch('../portfolio-app/build')) {
+  for await (const localFile of recursiveFileSearch(buildRelativePath)) {
     if (localFile.includes(IMAGES_DIRECTORY)) {
       images.push(createPaths(localFile))
     } else {

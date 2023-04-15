@@ -1,9 +1,7 @@
 import { forwardRef, useContext } from 'react'
 import styled from '@emotion/styled'
-import ResponsiveImage from './ResponsiveImage'
-import { createImageProperties } from '../../responsiveImageHelper'
-import { MetadataContext } from '../../Context/MetadataContext'
-import MetadataService from '../../Services/MetadataService'
+import { MetadataContext, getMetadataKey } from '../../Contexts/MetadataContext'
+import { ResponsiveImage, createImageProperties } from './ResponsiveImage'
 
 const ListItem = styled.li`
     width:500px;
@@ -40,9 +38,9 @@ const GalleryLink = styled.a`
 type ListItemForwardedRef = React.ForwardedRef<HTMLLIElement>
 
 interface GalleryListItemProps {
-  onLoad: () => void
   galleryName: string
   imageId: string
+  onLoad: () => void
 }
 
 const GalleryListItem = forwardRef((props: GalleryListItemProps, ref: ListItemForwardedRef) => {
@@ -50,30 +48,28 @@ const GalleryListItem = forwardRef((props: GalleryListItemProps, ref: ListItemFo
 
   const sizes = '(max-width:768px) 90vw, (max-width:1366px) 50vw, 500px'
   const alt = `${props.galleryName} image ${props.imageId}`
-  const description = metadataContext.get(MetadataService.getMetadataKey(props.galleryName, props.imageId)) ?? ''
+  const description = metadataContext.get(getMetadataKey(props.galleryName, props.imageId)) ?? ''
   const imageProperties = createImageProperties(props.imageId, props.galleryName)
 
   return (
-         <ListItem ref={ref}>
-            <GalleryLink
-              href={imageProperties.imageMaxSize}
-              data-fancybox='portfolio'
-              data-caption={description}>
-                <ResponsiveImage
-                  onLoad={props.onLoad}
-                  imageId={props.imageId}
-                  description={description}
-                  sizes={sizes}
-                  alt={alt}
-                  imageProperties={imageProperties}
-                  customStyle={{
-                    width: '100%',
-                    borderRadius: '2px',
-                    imageRendering: '-webkit-optimize-contrast',
-                    boxSizing: 'border-box'
-                  }} />;
-            </GalleryLink>
-        </ListItem>
+    <ListItem ref={ref}>
+      <GalleryLink
+        href={imageProperties.imageMaxSize}
+        data-fancybox='portfolio'
+        data-caption={description}>
+          <ResponsiveImage
+            onLoad={props.onLoad}
+            imageId={props.imageId}
+            description={description}
+            sizes={sizes}
+            alt={alt}
+            imageProperties={imageProperties}
+            customStyle={{
+              borderRadius: '2px',
+              boxSizing: 'border-box'
+            }} />;
+      </GalleryLink>
+  </ListItem>
   )
 })
 
