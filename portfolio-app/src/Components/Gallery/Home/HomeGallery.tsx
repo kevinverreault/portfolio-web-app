@@ -53,7 +53,7 @@ const HomeGallery = () => {
   return (
         <div>
             <LoadingOverlay isLoading={isLoading} />
-            <Grid className="homegallery">
+            <Grid>
                 <Column>
                     <HomeGridItem imageId="1" onLoad={onLoadNotification} />
                     <HomeGridItem imageId="2" onLoad={onLoadNotification} />

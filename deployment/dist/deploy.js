@@ -2,7 +2,7 @@ import jsftp from 'jsftp';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
-import { hasProcessArgument, recursiveFileSearch } from './utilities';
+import { hasProcessArgument, recursiveFileSearch } from './utilities.mjs';
 const sourceSetSize = 7;
 const SOURCE = "./public_html";
 const TEMP = "_temp";

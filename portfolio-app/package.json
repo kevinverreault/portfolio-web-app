@@ -37,16 +37,16 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "npx eslint src/** && react-scripts build",
-    "clean-build": "npx eslint src/** && node --es-module-specifier-resolution=node ../deployment/dist/metadata.js && node ../exif-utility/src/exif-overwrite.js && react-scripts build",
+    "clean-build": "npx eslint src/** && npm run metadata && npm run overwrite && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "npx eslint src/** --fix",
-    "deploy": "node --es-module-specifier-resolution=node ../deployment/dist/deploy.js",
-    "deploy-sources": "node --es-module-specifier-resolution=node ../deployment/dist/deploy.js -s",
-    "metadata": "node --es-module-specifier-resolution=node ../deployment/dist/metadata.js",
-    "sanitize": "node ../exif-utility/src/exif-overwrite.js",
-    "refresh": "node --es-module-specifier-resolution=node ../deployment/dist/loader.js",
-    "refresh-all": "node --es-module-specifier-resolution=node ../deployment/dist/loader.js -a"
+    "deploy": "node ../deployment/dist/deploy.js",
+    "deploy-sources": "node ../deployment/dist/deploy.js -s",
+    "metadata": "node ../deployment/dist/metadata.js",
+    "overwrite": "node ../exif-utility/src/exif-overwrite.js",
+    "refresh": "node ../deployment/dist/loader.js",
+    "refresh-all": "node ../deployment/dist/loader.js -a"
   },
   "eslintConfig": {
     "extends": [
