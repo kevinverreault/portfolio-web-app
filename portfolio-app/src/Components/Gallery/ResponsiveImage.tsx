@@ -65,8 +65,8 @@ const createImageProperties = (imageId: string, album: string): ImageProperties 
     `images/2x/${imageName} 500w`,
     `images/3x/${imageName} 750w`,
     `images/4x/${imageName} 1000w`,
-    `images/5x/${imageName} 1300w`,
-    `images/6x/${imageName} 1600w`,
+    `images/5x/${imageName} 1280w`,
+    `images/6x/${imageName} 1440w`,
     `images/7x/${imageName} 1920w`
   ]
 
@@ -77,13 +77,13 @@ const createVerticalImageProperties = (imageId: string, album: string): ImagePro
   const imageName = `${album}-${imageId}.jpg`
 
   const sourceSet: string[] = [
-    `images/1x/${imageName} 240w`,
-    `images/2x/${imageName} 320w`,
-    `images/3x/${imageName} 400w`,
-    `images/4x/${imageName} 512w`,
-    `images/5x/${imageName} 650w`,
-    `images/6x/${imageName} 800w`,
-    `images/7x/${imageName} 960w`
+    `images/1x/${imageName} 225w`,
+    `images/2x/${imageName} 375w`,
+    `images/3x/${imageName} 562w`,
+    `images/4x/${imageName} 750w`,
+    `images/5x/${imageName} 960w`,
+    `images/6x/${imageName} 1080w`,
+    `images/7x/${imageName} 1440w`
   ]
 
   return getImageProperties(sourceSet, imageName)

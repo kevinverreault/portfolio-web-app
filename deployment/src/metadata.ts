@@ -1,7 +1,7 @@
 import * as exif from 'exif-parser'
 import * as path from 'path'
 import * as fs from 'fs'
-import { getFlatFileList } from './utilities'
+import { getFlatFileList } from './utilities.mjs'
 
 main()
 
@@ -29,7 +29,7 @@ function buildMetadataFromExif(imagesPath: string, images: string[]): Map<string
   for (const image of images) {
     try {
       const exifData = exif.create(fs.readFileSync(image)).parse()
-      const description = exifData.tags['ImageDescription']
+      const description = exifData.tags.ImageDescription
       const dateTaken = exifData.tags.DateTimeOriginal
       if (description) {
         const imageKey = image.replace(imagesPath, '').replace('.jpg', '').replace('\\', '')

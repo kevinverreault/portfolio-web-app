@@ -50,7 +50,7 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
   const [imageKeys, setImageKeys] = useState<number[]>([])
   const { isLoading, onLoadNotification } = useWaitAllImages(pageSize)
 
-  const headerUrl = `images/${props.GalleryName.toLowerCase()}-header.jpg`
+  const headerUrl = `${props.GalleryName.toLowerCase()}-header.jpg`
   const headerImageIsLoading = useWaitImageLoad(headerUrl)
 
   const lastElement = useRef<HTMLLIElement>(null)
