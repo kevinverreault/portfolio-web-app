@@ -12,7 +12,7 @@ const IMAGES_DIRECTORY = "images"
 const STATIC_DIRECTORY = "static"
 const EXCLUSIONS = ['.htaccess', '.well-known', 'cgi-bin', 'fonts', '1x', '2x', '3x', '4x', '5x', '6x', '7x', 'images', 'images_temp', 'static']
 
-main()
+await main()
 
 async function main() {
   try {
@@ -57,21 +57,25 @@ async function uploadBuildOutput(uploadSourcesOnly: boolean) {
   })
 
   ftpClient.auth(process.env.FTP_USERNAME, process.env.FTP_PASSWORD, async () => {
-    if (!uploadSourcesOnly) {
+    if (uploadSourcesOnly) {
+      await uploadSources(ftpClient, sourceFiles)
+    } else {
       await stageTempDirectories(ftpClient)
       await uploadDirectory(ftpClient, images)
-    }
 
-    await cleanupSource(ftpClient)
-    await uploadDirectory(ftpClient, sourceFiles)
+      await uploadSources(ftpClient, sourceFiles)
 
-    if (!uploadSourcesOnly) {
       await swapImagesDirectories(ftpClient)
       await cleanupOldImages(ftpClient)
     }
     
     quit(ftpClient)
   })
+}
+
+async function uploadSources(ftpClient: jsftp, sourceFiles: FilePaths[]) {
+  await cleanupSource(ftpClient)
+  await uploadDirectory(ftpClient, sourceFiles)
 }
 
 async function uploadDirectory(ftpClient: jsftp, files: FilePaths[]) {
@@ -143,14 +147,7 @@ async function put(ftpClient: jsftp, sourcePath: string, destinationPath: string
   console.log(`put ${sourcePath} to ${SOURCE}${destinationPath}`)
   let buffer = fs.readFileSync(sourcePath)
   await new Promise<void>((resolve, reject) => {
-    ftpClient.put(buffer, `${SOURCE}${destinationPath}`, err => {
-      if (err) {
-        reject()
-        return console.log(err)
-      }
-      console.log(`${destinationPath} transferred successfully`);
-      resolve()
-    });
+    ftpClient.put(buffer, `${SOURCE}${destinationPath}`, asyncCallback(resolve, reject, () => console.log(`${destinationPath} transferred successfully`)));
   })
 }
 
@@ -220,11 +217,15 @@ async function rename(ftpClient: jsftp, from: string, to:string) {
   }
 }
 
-function asyncCallback(resolve: (value: void | PromiseLike<void>) => void, reject: (reason?: any) => void) {
+function asyncCallback(resolve: (value: void | PromiseLike<void>) => void, reject: (reason?: any) => void, action?: () => void) {
   return (err: Error) => { 
       if (err) {
         reject()
         return console.error(err)
+      }
+
+      if (action) {
+        action()
       }
 
       resolve()

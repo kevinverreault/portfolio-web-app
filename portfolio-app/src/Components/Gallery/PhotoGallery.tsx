@@ -93,7 +93,7 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
     if (pageNumber <= totalPages) {
       addPage()
     }
-  }, [pageNumber, totalPages, props.GallerySize])
+  }, [pageNumber, props.GallerySize])
 
   useImageGallery()
 

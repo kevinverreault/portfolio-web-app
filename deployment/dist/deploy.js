@@ -10,7 +10,7 @@ const TO_DELETE = "_todelete";
 const IMAGES_DIRECTORY = "images";
 const STATIC_DIRECTORY = "static";
 const EXCLUSIONS = ['.htaccess', '.well-known', 'cgi-bin', 'fonts', '1x', '2x', '3x', '4x', '5x', '6x', '7x', 'images', 'images_temp', 'static'];
-main();
+await main();
 async function main() {
     try {
         dotenv.config();
@@ -45,18 +45,22 @@ async function uploadBuildOutput(uploadSourcesOnly) {
         pass: process.env.FTP_PASSWORD
     });
     ftpClient.auth(process.env.FTP_USERNAME, process.env.FTP_PASSWORD, async () => {
-        if (!uploadSourcesOnly) {
+        if (uploadSourcesOnly) {
+            await uploadSources(ftpClient, sourceFiles);
+        }
+        else {
             await stageTempDirectories(ftpClient);
             await uploadDirectory(ftpClient, images);
-        }
-        await cleanupSource(ftpClient);
-        await uploadDirectory(ftpClient, sourceFiles);
-        if (!uploadSourcesOnly) {
+            await uploadSources(ftpClient, sourceFiles);
             await swapImagesDirectories(ftpClient);
             await cleanupOldImages(ftpClient);
         }
         quit(ftpClient);
     });
+}
+async function uploadSources(ftpClient, sourceFiles) {
+    await cleanupSource(ftpClient);
+    await uploadDirectory(ftpClient, sourceFiles);
 }
 async function uploadDirectory(ftpClient, files) {
     console.log('upload started');
@@ -127,14 +131,7 @@ async function put(ftpClient, sourcePath, destinationPath) {
     console.log(`put ${sourcePath} to ${SOURCE}${destinationPath}`);
     let buffer = fs.readFileSync(sourcePath);
     await new Promise((resolve, reject) => {
-        ftpClient.put(buffer, `${SOURCE}${destinationPath}`, err => {
-            if (err) {
-                reject();
-                return console.log(err);
-            }
-            console.log(`${destinationPath} transferred successfully`);
-            resolve();
-        });
+        ftpClient.put(buffer, `${SOURCE}${destinationPath}`, asyncCallback(resolve, reject, () => console.log(`${destinationPath} transferred successfully`)));
     });
 }
 async function emptyDirectory(ftpClient, directory) {
@@ -202,11 +199,14 @@ async function rename(ftpClient, from, to) {
         console.log(`rename error: ${from} to ${to}, error: ${error}`);
     }
 }
-function asyncCallback(resolve, reject) {
+function asyncCallback(resolve, reject, action) {
     return (err) => {
         if (err) {
             reject();
             return console.error(err);
+        }
+        if (action) {
+            action();
         }
         resolve();
     };
