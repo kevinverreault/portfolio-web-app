@@ -3,7 +3,7 @@ import * as path from 'path'
 import * as fs from 'fs'
 import { getFlatFileList } from './utilities.mjs'
 
-main()
+await main()
 
 async function main() {
   try {

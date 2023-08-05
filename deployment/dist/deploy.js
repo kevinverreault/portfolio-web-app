@@ -3,14 +3,14 @@ import * as path from 'path';
 import * as dotenv from 'dotenv';
 import * as fs from 'fs';
 import { hasProcessArgument, recursiveFileSearch } from './utilities.mjs';
-const sourceSetSize = 7;
-const SOURCE = "./public_html";
-const TEMP = "_temp";
-const TO_DELETE = "_todelete";
-const IMAGES_DIRECTORY = "images";
-const STATIC_DIRECTORY = "static";
+const IMAGE_SET_SIZE = 7;
+const SERVER_SOURCE_DIRECTORY = './public_html';
+const TEMP = '_temp';
+const TO_DELETE = '_todelete';
+const IMAGES_DIRECTORY = 'images';
+const STATIC_DIRECTORY = 'static';
 const EXCLUSIONS = ['.htaccess', '.well-known', 'cgi-bin', 'fonts', '1x', '2x', '3x', '4x', '5x', '6x', '7x', 'images', 'images_temp', 'static'];
-main();
+await main();
 async function main() {
     try {
         dotenv.config();
@@ -26,9 +26,12 @@ async function uploadBuildOutput(uploadSourcesOnly) {
     const images = [];
     const buildRelativePath = '../portfolio-app/build';
     const buildPath = path.resolve(buildRelativePath);
-    const createPaths = (f) => ({
-        source: f,
-        destination: f.replace(buildPath, '').replace(IMAGES_DIRECTORY, `${IMAGES_DIRECTORY}${TEMP}`)
+    const createPaths = (filePath) => ({
+        source: filePath,
+        destination: `${SERVER_SOURCE_DIRECTORY}${filePath
+            .replace(buildPath, '')
+            .replace(IMAGES_DIRECTORY, `${IMAGES_DIRECTORY}${TEMP}`)
+            .split('\\').join('/')}`
     });
     for await (const localFile of recursiveFileSearch(buildRelativePath)) {
         if (localFile.includes(IMAGES_DIRECTORY)) {
@@ -45,178 +48,201 @@ async function uploadBuildOutput(uploadSourcesOnly) {
         pass: process.env.FTP_PASSWORD
     });
     ftpClient.auth(process.env.FTP_USERNAME, process.env.FTP_PASSWORD, async () => {
-        if (!uploadSourcesOnly) {
-            await stageTempDirectories(ftpClient);
-            await uploadDirectory(ftpClient, images);
+        try {
+            if (uploadSourcesOnly) {
+                await uploadSources(ftpClient, sourceFiles);
+            }
+            else {
+                await stageTempDirectories(ftpClient);
+                await uploadDirectory(ftpClient, images);
+                await uploadSources(ftpClient, sourceFiles);
+                await swapImagesDirectories(ftpClient);
+                await cleanupOldImages(ftpClient);
+            }
         }
-        await cleanupSource(ftpClient);
-        await uploadDirectory(ftpClient, sourceFiles);
-        if (!uploadSourcesOnly) {
-            await swapImagesDirectories(ftpClient);
-            await cleanupOldImages(ftpClient);
+        catch (exception) {
+            console.log(`upload build output failed: ${exception}`);
         }
-        quit(ftpClient);
+        finally {
+            await quit(ftpClient);
+        }
     });
+}
+async function uploadSources(ftpClient, sourceFiles) {
+    await cleanupSource(ftpClient);
+    await uploadDirectory(ftpClient, sourceFiles);
 }
 async function uploadDirectory(ftpClient, files) {
     console.log('upload started');
     try {
         for (const file of files) {
-            await put(ftpClient, file.source, file.destination.split('\\').join('/'));
+            await upload(ftpClient, file.source, file.destination);
         }
         console.log('upload finished');
     }
-    catch (err) {
-        console.log(err);
+    catch (exception) {
         console.log('upload error');
+        throw exception;
     }
 }
 async function stageTempDirectories(ftpClient) {
     console.log('staging temp folders');
     try {
-        await createDirectory(ftpClient, `${SOURCE}/${IMAGES_DIRECTORY}${TEMP}`);
-        for (let i = 1; i <= sourceSetSize; ++i) {
-            await createDirectory(ftpClient, `${SOURCE}/${IMAGES_DIRECTORY}${TEMP}/${i}x`);
+        await createDirectory(ftpClient, `${SERVER_SOURCE_DIRECTORY}/${IMAGES_DIRECTORY}${TEMP}`);
+        for (let i = 1; i <= IMAGE_SET_SIZE; ++i) {
+            await createDirectory(ftpClient, `${SERVER_SOURCE_DIRECTORY}/${IMAGES_DIRECTORY}${TEMP}/${i}x`);
         }
         console.log('staging finished');
     }
-    catch (err) {
-        console.log(err);
+    catch (exception) {
         console.log('staging failed');
+        throw exception;
     }
 }
 async function cleanupSource(ftpClient) {
     try {
         console.log('cleanup source started');
-        await emptyDirectory(ftpClient, `${SOURCE}/${STATIC_DIRECTORY}/js`);
-        await emptyDirectory(ftpClient, `${SOURCE}/${STATIC_DIRECTORY}/css`);
-        await emptyDirectory(ftpClient, `${SOURCE}`);
-        console.log("cleanup finished");
+        await emptyDirectory(ftpClient, `${SERVER_SOURCE_DIRECTORY}/${STATIC_DIRECTORY}/js`);
+        await emptyDirectory(ftpClient, `${SERVER_SOURCE_DIRECTORY}/${STATIC_DIRECTORY}/css`);
+        await emptyDirectory(ftpClient, `${SERVER_SOURCE_DIRECTORY}`);
+        console.log('cleanup finished');
     }
     catch (exception) {
         console.log('cleanup failed');
+        throw exception;
     }
 }
 async function cleanupOldImages(ftpClient) {
     try {
         console.log('cleanup started');
-        for (let i = 1; i <= sourceSetSize; ++i) {
-            await emptyDirectory(ftpClient, `${SOURCE}/${IMAGES_DIRECTORY}${TO_DELETE}/${i}x`);
-            await deleteDirectory(ftpClient, `${SOURCE}/${IMAGES_DIRECTORY}${TO_DELETE}/${i}x`);
+        for (let directoryIndex = 1; directoryIndex <= IMAGE_SET_SIZE; ++directoryIndex) {
+            await emptyDirectory(ftpClient, `${SERVER_SOURCE_DIRECTORY}/${IMAGES_DIRECTORY}${TO_DELETE}/${directoryIndex}x`);
+            await deleteDirectory(ftpClient, `${SERVER_SOURCE_DIRECTORY}/${IMAGES_DIRECTORY}${TO_DELETE}/${directoryIndex}x`);
         }
-        await emptyDirectory(ftpClient, `${SOURCE}/${IMAGES_DIRECTORY}${TO_DELETE}`);
-        await deleteDirectory(ftpClient, `${SOURCE}/${IMAGES_DIRECTORY}${TO_DELETE}`);
-        console.log("cleanup finished");
+        await emptyDirectory(ftpClient, `${SERVER_SOURCE_DIRECTORY}/${IMAGES_DIRECTORY}${TO_DELETE}`);
+        await deleteDirectory(ftpClient, `${SERVER_SOURCE_DIRECTORY}/${IMAGES_DIRECTORY}${TO_DELETE}`);
+        console.log('cleanup finished');
     }
     catch (exception) {
         console.log('cleanup failed');
+        throw exception;
     }
 }
 async function swapImagesDirectories(ftpClient) {
     try {
         console.log('swapping images directory');
-        await rename(ftpClient, `${SOURCE}/${IMAGES_DIRECTORY}`, `${SOURCE}/${IMAGES_DIRECTORY}${TO_DELETE}`);
-        await rename(ftpClient, `${SOURCE}/${IMAGES_DIRECTORY}${TEMP}`, `${SOURCE}/${IMAGES_DIRECTORY}`);
-        console.log("swapping finished");
+        await rename(ftpClient, `${SERVER_SOURCE_DIRECTORY}/${IMAGES_DIRECTORY}`, `${SERVER_SOURCE_DIRECTORY}/${IMAGES_DIRECTORY}${TO_DELETE}`);
+        await rename(ftpClient, `${SERVER_SOURCE_DIRECTORY}/${IMAGES_DIRECTORY}${TEMP}`, `${SERVER_SOURCE_DIRECTORY}/${IMAGES_DIRECTORY}`);
+        console.log('swapping finished');
     }
     catch (exception) {
         console.log('swapping images directory failed');
+        throw exception;
     }
 }
-async function put(ftpClient, sourcePath, destinationPath) {
-    console.log(`put ${sourcePath} to ${SOURCE}${destinationPath}`);
-    let buffer = fs.readFileSync(sourcePath);
-    await new Promise((resolve, reject) => {
-        ftpClient.put(buffer, `${SOURCE}${destinationPath}`, err => {
-            if (err) {
-                reject();
-                return console.log(err);
-            }
-            console.log(`${destinationPath} transferred successfully`);
-            resolve();
-        });
-    });
+async function upload(ftpClient, sourcePath, destinationPath) {
+    try {
+        console.log(`uploading ${sourcePath} to ${destinationPath}`);
+        let buffer = fs.readFileSync(sourcePath);
+        await runAsyncCommand((callback) => ftpClient.put(buffer, destinationPath, callback));
+        console.log(`${destinationPath} transferred successfully`);
+    }
+    catch (exception) {
+        console.log(`uploading ${sourcePath} to ${destinationPath} failed`);
+        throw exception;
+    }
 }
 async function emptyDirectory(ftpClient, directory) {
     try {
-        await new Promise((resolve, reject) => {
-            ftpClient.ls(directory, (err, res) => {
-                if (err) {
-                    console.log('ls error: ' + err);
-                    reject();
+        console.log(`emptying directory ${directory}`);
+        await runCustomAsyncCommand((callbacks) => {
+            ftpClient.ls(directory, async (error, result) => {
+                if (error) {
+                    console.log(`ls error: ${error}`);
+                    callbacks.reject();
                     return;
                 }
-                res.forEach(async (file) => {
+                for (const file of result) {
                     if (EXCLUSIONS.findIndex((exlusion) => exlusion === file.name) < 0) {
                         await deleteFile(ftpClient, `${directory}/${file.name}`);
                     }
-                });
-                resolve();
+                }
+                callbacks.resolve();
             });
         });
     }
     catch (exception) {
-        console.log("emptyDirectory error: " + directory);
+        console.log('emptyDirectory error: ' + directory);
+        throw exception;
     }
 }
 async function createDirectory(ftpClient, path) {
     try {
-        await new Promise((resolve, reject) => {
-            ftpClient.raw('mkd', path, asyncCallback(resolve, reject));
-        });
+        console.log(`creating directory ${path}`);
+        await runAsyncCommand((callback) => ftpClient.raw('mkd', path, callback));
     }
-    catch (error) {
-        console.log(`mkdir error: ${path}, error: ${error}`);
+    catch (exception) {
+        console.log(`mkdir error: ${path}, error: ${exception}`);
+        throw exception;
     }
 }
 async function deleteDirectory(ftpClient, path) {
     try {
-        await new Promise((resolve, reject) => {
-            ftpClient.raw('rmd', path, asyncCallback(resolve, reject));
-        });
+        console.log(`deleting directory ${path}`);
+        await runAsyncCommand((callback) => ftpClient.raw('rmd', path, callback));
     }
-    catch (error) {
-        console.log(`rmdir error: ${path}, error: ${error}`);
+    catch (exception) {
+        console.log(`rmdir error: ${path}, error: ${exception}`);
+        throw exception;
     }
 }
 async function deleteFile(ftpClient, path) {
     try {
-        await new Promise((resolve, reject) => {
-            ftpClient.raw('dele', path, asyncCallback(resolve, reject));
-        });
+        console.log(`deleting file ${path}`);
+        await runAsyncCommand((callback) => ftpClient.raw('dele', path, callback));
     }
-    catch (error) {
-        console.log(`remove error: ${path}, error: ${error}`);
+    catch (exception) {
+        console.log(`delete file error: ${path}`);
+        throw exception;
     }
 }
 async function rename(ftpClient, from, to) {
     try {
-        await new Promise((resolve, reject) => {
-            ftpClient.raw('rnfr', from, asyncCallback(resolve, reject));
-        });
-        await new Promise((resolve, reject) => {
-            ftpClient.raw('rnto', to, asyncCallback(resolve, reject));
-        });
+        console.log(`renaming from ${from} to ${to}`);
+        await runAsyncCommand((callback) => ftpClient.raw('rnfr', from, callback));
+        await runAsyncCommand((callback) => ftpClient.raw('rnto', to, callback));
     }
-    catch (error) {
-        console.log(`rename error: ${from} to ${to}, error: ${error}`);
+    catch (exception) {
+        console.log(`rename failed: ${from} to ${to}`);
+        throw exception;
     }
 }
-function asyncCallback(resolve, reject) {
-    return (err) => {
-        if (err) {
-            reject();
-            return console.error(err);
-        }
-        resolve();
-    };
+async function quit(ftpClient) {
+    await runCustomAsyncCommand((callbacks) => {
+        ftpClient.raw('quit', (err, data) => {
+            if (err) {
+                callbacks.reject();
+                return console.error(err);
+            }
+            callbacks.resolve();
+        });
+    });
+    console.log('ended ftp connection');
 }
-function quit(ftpClient) {
-    ftpClient.raw("quit", (err, data) => {
-        if (err) {
-            return console.error(err);
-        }
-        console.log("ending ftp connection");
+async function runAsyncCommand(command) {
+    return new Promise((resolve, reject) => {
+        command((err) => {
+            if (err) {
+                reject();
+                return console.error(err);
+            }
+            resolve();
+        });
+    });
+}
+async function runCustomAsyncCommand(command) {
+    return new Promise((resolve, reject) => {
+        command({ resolve, reject });
     });
 }
 //# sourceMappingURL=deploy.js.map
