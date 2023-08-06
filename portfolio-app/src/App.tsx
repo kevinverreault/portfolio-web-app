@@ -16,25 +16,25 @@ export default function App () {
   usePageViewTracking()
 
   return (
-        <div className="App">
-          <MetadataContext.Provider value={metadata}>
-            <PostHogProvider
-              apiKey={process.env.REACT_APP_ANALYTICS_KEY}
-              options={{
-                api_host: process.env.REACT_APP_PUBLIC_ANALYTICS_HOST
-              }}>
-              <NavigationHeader />
-                <Routes>
-                    <Route path="/" element={<Accueil />} />
-                    <Route path="/faune" element={<Faune />} />
-                    <Route path="/paysages" element={<Paysages />} />
-                    <Route path="/contact" element={<Contact />} />
-                </Routes>
-              </PostHogProvider>
-            </MetadataContext.Provider>
-            <footer>
-                <span>© 2023 Kevin Verreault</span>
-            </footer>
-        </div>
+    <div className="App">
+      <MetadataContext.Provider value={metadata}>
+        <PostHogProvider
+          apiKey={process.env.REACT_APP_ANALYTICS_KEY}
+          options={{
+            api_host: process.env.REACT_APP_PUBLIC_ANALYTICS_HOST
+          }}>
+          <NavigationHeader />
+            <Routes>
+                <Route path="/" element={<Accueil />} />
+                <Route path="/faune" element={<Faune />} />
+                <Route path="/paysages" element={<Paysages />} />
+                <Route path="/contact" element={<Contact />} />
+            </Routes>
+          </PostHogProvider>
+        </MetadataContext.Provider>
+        <footer>
+            <span>© 2023 Kevin Verreault</span>
+        </footer>
+    </div>
   )
 }

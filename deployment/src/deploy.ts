@@ -86,93 +86,93 @@ async function uploadSources(ftpClient: jsftp, sourceFiles: FilePaths[]) {
 }
 
 async function uploadDirectory(ftpClient: jsftp, files: FilePaths[]) {
-  console.log('upload started')
   try {
     for (const file of files) {
       await upload(ftpClient, file.source, file.destination)
     }
-    console.log('upload finished')
   } catch (exception) {
-    console.log('upload error')
+    console.log('upload directory error')
     throw exception
   }
 }
 
 async function stageTempDirectories(ftpClient: jsftp) {
-  console.log('staging temp folders')
+  console.log('stage temp folders')
+
   try {
     await createDirectory(ftpClient, `${SERVER_SOURCE_DIRECTORY}/${IMAGES_DIRECTORY}${TEMP}`)
     for (let i = 1; i <= IMAGE_SET_SIZE; ++i) {
       await createDirectory(ftpClient, `${SERVER_SOURCE_DIRECTORY}/${IMAGES_DIRECTORY}${TEMP}/${i}x`)
     }
-    console.log('staging finished')
   } catch (exception){
-    console.log('staging failed')
+    console.log('stage failed')
     throw exception
   }
 }
 
 async function cleanupSource(ftpClient: jsftp) {
   try {
-    console.log('cleanup source started')
+    console.log('cleanup sources')
+
     await emptyDirectory(ftpClient, `${SERVER_SOURCE_DIRECTORY}/${STATIC_DIRECTORY}/js`)
     await emptyDirectory(ftpClient, `${SERVER_SOURCE_DIRECTORY}/${STATIC_DIRECTORY}/css`)
     await emptyDirectory(ftpClient, `${SERVER_SOURCE_DIRECTORY}`)
-    console.log('cleanup finished')
   } catch (exception) {
-    console.log('cleanup failed')
+    console.log('cleanup sources failed')
     throw exception
   }
 }
 
 async function cleanupOldImages(ftpClient: jsftp) {
   try {
-    console.log('cleanup started')
+    console.log('cleanup old images')
+
     for (let directoryIndex = 1; directoryIndex <= IMAGE_SET_SIZE; ++directoryIndex) {
       await emptyDirectory(ftpClient, `${SERVER_SOURCE_DIRECTORY}/${IMAGES_DIRECTORY}${TO_DELETE}/${directoryIndex}x`)
       await deleteDirectory(ftpClient, `${SERVER_SOURCE_DIRECTORY}/${IMAGES_DIRECTORY}${TO_DELETE}/${directoryIndex}x`)
     }
+
     await emptyDirectory(ftpClient, `${SERVER_SOURCE_DIRECTORY}/${IMAGES_DIRECTORY}${TO_DELETE}`)
     await deleteDirectory(ftpClient, `${SERVER_SOURCE_DIRECTORY}/${IMAGES_DIRECTORY}${TO_DELETE}`)
-    console.log('cleanup finished')
   } catch (exception) {
-    console.log('cleanup failed')
+    console.log('cleanup old images failed')
     throw exception
   }
 }
 
 async function swapImagesDirectories(ftpClient: jsftp) {
   try {
-    console.log('swapping images directory')
+    console.log('swap images directory')
+
     await rename(ftpClient, `${SERVER_SOURCE_DIRECTORY}/${IMAGES_DIRECTORY}`, `${SERVER_SOURCE_DIRECTORY}/${IMAGES_DIRECTORY}${TO_DELETE}`)
     await rename(ftpClient, `${SERVER_SOURCE_DIRECTORY}/${IMAGES_DIRECTORY}${TEMP}`, `${SERVER_SOURCE_DIRECTORY}/${IMAGES_DIRECTORY}`)
-    console.log('swapping finished')
   } catch (exception) {
-    console.log('swapping images directory failed')
+    console.log('swap images directory failed')
     throw exception
   }
 }
 
 async function upload(ftpClient: jsftp, sourcePath: string, destinationPath: string) {
   try {
-    console.log(`uploading ${sourcePath} to ${destinationPath}`)
+    console.log(`upload ${sourcePath} to ${destinationPath}`)
+
     let buffer = fs.readFileSync(sourcePath)
+
     await runAsyncCommand((callback) => ftpClient.put(buffer, destinationPath, callback))
-    console.log(`${destinationPath} transferred successfully`)
   } catch (exception) {
-    console.log(`uploading ${sourcePath} to ${destinationPath} failed`)
+    console.log(`upload ${sourcePath} to ${destinationPath} failed`)
     throw exception
   }
 }
 
 async function emptyDirectory(ftpClient: jsftp, directory: string) {
   try {
-    console.log(`emptying directory ${directory}`)
+    console.log(`empty directory ${directory}`)
+
     await runCustomAsyncCommand((callbacks) => {
       ftpClient.ls(directory, async (error: Error, result: [{ name: string }]) => {
         if (error) {
-          console.log(`ls error: ${error}`)
-          callbacks.reject()
+          callbacks.reject(error)
           return
         }
 
@@ -186,14 +186,15 @@ async function emptyDirectory(ftpClient: jsftp, directory: string) {
      })
     })
   } catch (exception) {
-    console.log('emptyDirectory error: ' + directory)
+    console.log('empty directory error: ' + directory)
     throw exception
   }
 }
 
 async function createDirectory(ftpClient: jsftp, path:string) {
   try {
-    console.log(`creating directory ${path}`)
+    console.log(`create directory ${path}`)
+
     await runAsyncCommand((callback) => ftpClient.raw('mkd', path, callback))
   } catch (exception) {
     console.log(`mkdir error: ${path}, error: ${exception}`)
@@ -203,7 +204,8 @@ async function createDirectory(ftpClient: jsftp, path:string) {
 
 async function deleteDirectory(ftpClient: jsftp, path:string) {
   try {
-    console.log(`deleting directory ${path}`)
+    console.log(`delete directory ${path}`)
+
     await runAsyncCommand((callback) => ftpClient.raw('rmd', path, callback))
   } catch (exception) {
     console.log(`rmdir error: ${path}, error: ${exception}`)
@@ -213,7 +215,8 @@ async function deleteDirectory(ftpClient: jsftp, path:string) {
 
 async function deleteFile(ftpClient: jsftp, path: string) {
   try {
-    console.log(`deleting file ${path}`)
+    console.log(`delete file ${path}`)
+    
     await runAsyncCommand((callback) => ftpClient.raw('dele', path, callback))
   } catch (exception) {
     console.log(`delete file error: ${path}`)
@@ -223,7 +226,8 @@ async function deleteFile(ftpClient: jsftp, path: string) {
 
 async function rename(ftpClient: jsftp, from: string, to:string) {
   try {
-    console.log(`renaming from ${from} to ${to}`)
+    console.log(`rename from ${from} to ${to}`)
+
     await runAsyncCommand((callback) => ftpClient.raw('rnfr', from, callback))
     await runAsyncCommand((callback) => ftpClient.raw('rnto', to, callback))
   } catch (exception) {
@@ -234,21 +238,20 @@ async function rename(ftpClient: jsftp, from: string, to:string) {
 
 async function quit(ftpClient: jsftp) {
   await runCustomAsyncCommand((callbacks) => {
-    ftpClient.raw('quit', (err, data) => {
-      if (err) {
-        callbacks.reject()
-        return console.error(err);
+    ftpClient.raw('quit', (error, data) => {
+      if (error) {
+        callbacks.reject(error)
+        return
       }
     
       callbacks.resolve()
     })
   })
 
-  console.log('ended ftp connection');
+  console.log('ftp connection terminated');
 }
 
-type FtpCommand = (callback: CommandCallback) => void
-type CommandCallback = (err: Error) => void
+type WaitCommandCompletionCallback = (error: Error) => void
 type ResolveCallback = (value: void | PromiseLike<void>) => void
 type RejectCallback = (reason?: any) => void
 
@@ -257,12 +260,12 @@ interface PromiseCallbacks {
   reject: RejectCallback
 }
 
-async function runAsyncCommand(command: FtpCommand): Promise<void> {
+async function runAsyncCommand(command: (callback: WaitCommandCompletionCallback) => void): Promise<void> {
   return new Promise<void>((resolve, reject) => {
-    command((err: Error) => { 
-      if (err) {
-        reject()
-        return console.error(err)
+    command((error: Error) => { 
+      if (error) {
+        reject(error)
+        return
       }
 
       resolve()

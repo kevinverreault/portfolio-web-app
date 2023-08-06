@@ -13,17 +13,17 @@ const Contact = () => {
   const isLoadingCallback = useCallback((isLoadingParam: boolean) => { setIsLoading(isLoadingParam) }, [])
 
   return (
-        <React.Fragment>
-            <LoadingOverlay isLoading={headerImageIsLoading} />
+    <React.Fragment>
+        <LoadingOverlay isLoading={headerImageIsLoading} />
 
-            <LoadingOverlay isLoading={isLoading} margin="500px" hideIndicator />
+        <LoadingOverlay isLoading={isLoading} margin="500px" hideIndicator />
 
-            <ImageHeader imageIsLoading={headerImageIsLoading} headerUrl={headerUrl}>
-                <TextHeader>Contact</TextHeader>
-                <TextSubHeader>Questions et commentaires</TextSubHeader>
-            </ImageHeader>
-            <ContactForm isLoadingCallback={isLoadingCallback} />
-        </React.Fragment>
+        <ImageHeader imageIsLoading={headerImageIsLoading} headerUrl={headerUrl}>
+            <TextHeader>Contact</TextHeader>
+            <TextSubHeader>Questions et commentaires</TextSubHeader>
+        </ImageHeader>
+        <ContactForm isLoadingCallback={isLoadingCallback} />
+    </React.Fragment>
   )
 }
 

@@ -6,11 +6,11 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@fancyapps/ui": "^4.0.27",
-    "@fortawesome/fontawesome-svg-core": "^1.2.36",
-    "@fortawesome/free-brands-svg-icons": "^5.15.4",
-    "@fortawesome/free-regular-svg-icons": "^5.15.4",
-    "@fortawesome/free-solid-svg-icons": "^5.15.4",
-    "@fortawesome/react-fontawesome": "^0.1.19",
+    "@fortawesome/fontawesome-svg-core": "^6.4.2",
+    "@fortawesome/free-brands-svg-icons": "^6.4.2",
+    "@fortawesome/free-regular-svg-icons": "^6.4.2",
+    "@fortawesome/free-solid-svg-icons": "^6.4.2",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
@@ -45,8 +45,9 @@
     "deploy-sources": "node ../deployment/dist/deploy.js -s",
     "metadata": "node ../deployment/dist/metadata.js",
     "overwrite": "node ../exif-utility/src/exif-overwrite.js",
-    "refresh": "node ../deployment/dist/loader.js",
-    "refresh-all": "node ../deployment/dist/loader.js -a"
+    "refresh": "node ../deployment/dist/image-utilities.js",
+    "refresh-all": "node ../deployment/dist/image-utilities.js -a",
+    "release": "npm run refresh-all && npm run clean-build && npm run deploy"
   },
   "eslintConfig": {
     "extends": [

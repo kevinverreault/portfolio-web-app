@@ -4,48 +4,48 @@ import SocialMediaList from './SocialMediaList'
 import styled from '@emotion/styled'
 
 const Header = styled.header`
-    padding-top: 2em;
-    box-shadow: none;
-    margin-bottom: 2em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    justify-content: space-around;
+  padding-top: 2em;
+  box-shadow: none;
+  margin-bottom: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: space-around;
 `
 
 const Title = styled.h1`
-    font-weight: 250;
-    color: #212121;
-    margin: auto;
-    font-size: 1.5rem;
-    line-height: 2rem;
+  font-weight: 250;
+  color: #212121;
+  margin: auto;
+  font-size: 1.5rem;
+  line-height: 2rem;
 `
 
 const Description = styled.p`
-    line-height: 24px;
-    margin: 0;
+  line-height: 24px;
+  margin: 0;
 `
 
 const NavigationList = styled.ul`
-    list-style: none;
-    align-items: center;
-    text-align: center;
-    display: flex;
-    flex-direction: row;
-    justify-content:space-between;
-    padding: 0;
-    margin-top: 0;
+  list-style: none;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  padding: 0;
+  margin-top: 0;
 
-    @media (max-width: 480px) {
-        flex-direction: column;
-    }
+  @media (max-width: 480px) {
+      flex-direction: column;
+  }
 `
 
 const NavListItem = styled.li`
-    line-height: 24px;
-    text-decoration: inherit;
-    margin: 1em 0.5em 0 0.5em
+  line-height: 24px;
+  text-decoration: inherit;
+  margin: 1em 0.5em 0 0.5em
 `
 
 const NavigationHeader = () => {

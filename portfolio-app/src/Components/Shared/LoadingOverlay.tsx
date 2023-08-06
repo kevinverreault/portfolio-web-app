@@ -9,18 +9,18 @@ interface OverlayProps {
 }
 
 const Overlay = styled.div<OverlayProps>`
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    min-height:100vh;
-    z-index: 1;
-    box-sizing: border-box;
-    background-color: ${props => !props.hideIndicator ? '#f5f5f5' : 'rgb(245, 245, 245, 0.5)'};
-    opacity: ${props => props.isLoading ? '1' : '0'};
-    visibility: ${props => props.isLoading ? 'visible' : 'hidden'};    
-    transition: visibility 1s linear, opacity 1s linear;
-    top: ${props => props.margin ? props.margin : null};
-    `
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  min-height:100vh;
+  z-index: 1;
+  box-sizing: border-box;
+  background-color: ${props => !props.hideIndicator ? '#f5f5f5' : 'rgb(245, 245, 245, 0.5)'};
+  opacity: ${props => props.isLoading ? '1' : '0'};
+  visibility: ${props => props.isLoading ? 'visible' : 'hidden'};    
+  transition: visibility 1s linear, opacity 1s linear;
+  top: ${props => props.margin ? props.margin : null};
+  `
 
 const LoadingOverlay = (props: OverlayProps) => {
   const override = css`
@@ -31,9 +31,9 @@ const LoadingOverlay = (props: OverlayProps) => {
         `
 
   return (
-        <Overlay isLoading={props.isLoading} margin={props.margin} hideIndicator={props.hideIndicator}>
-            { props.hideIndicator ? null : <CircleLoader color="#212121" loading={props.isLoading} css={override} size={150} /> }
-        </Overlay>
+    <Overlay isLoading={props.isLoading} margin={props.margin} hideIndicator={props.hideIndicator}>
+        { props.hideIndicator ? null : <CircleLoader color="#212121" loading={props.isLoading} css={override} size={150} /> }
+    </Overlay>
   )
 }
 
