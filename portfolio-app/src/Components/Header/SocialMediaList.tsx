@@ -15,8 +15,8 @@ const SocialMediaList = () => {
   return (
     <IconList>
       <SocialMediaButton target="https://www.instagram.com/kevinverreault_/" label="instagram" />
-      <SocialMediaButton target="https://www.youtube.com/channel/UC0H8kS7v1U5yprgK7RHqQZQ" label="youtube" />
-      <SocialMediaButton target="https://www.flickr.com/photos/152334550@N04/" label="flickr" />
+      <SocialMediaButton target="https://www.youtube.com/@kevinverreaultphotographie" label="youtube" />
+      <SocialMediaButton target="https://www.threads.net/@kevinverreault_" label="threads" />
     </IconList>
   )
 }

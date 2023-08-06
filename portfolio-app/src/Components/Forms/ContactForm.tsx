@@ -77,69 +77,69 @@ const ContactForm = (props: { isLoadingCallback: (isLoading: boolean) => void })
   }, [onSubmitEvent, isLoadingCallback])
 
   return (
-        <div style={{ minHeight: '100vh' }}>
-            <FormWrapper>
-                <Formik initialValues={{ nom: '', email: '', comment: '' }}
-                    validationSchema={Yup.object({
-                      nom: Yup.string().required('champ requis'),
-                      email: Yup.string().email('courriel invalide').required('champ requis'),
-                      comment: Yup.string().required('champ requis')
-                    })}
-                    onSubmit={(values, { setSubmitting, resetForm }) => {
-                      setOnSubmitEvent({
-                        nom: values.nom,
-                        email: values.email,
-                        comment: values.comment,
-                        setSubmitting,
-                        resetForm
-                      })
-                    }}>
-                    <Form>
-                        {
-                            !width || width > 768
-                              ? (
-                                <FormRow>
-                                    <FormSection>
-                                        <TextInput name="nom" type="text" placeholder="nom" />
-                                    </FormSection>
-                                    <FormSection>
-                                        <TextInput name="email" type="email" placeholder="courriel" />
-                                    </FormSection>
-                                </FormRow>
-                                )
-                              : (
-                                <React.Fragment>
-                                    <FormRow>
-                                        <FormSection width="100%">
-                                            <TextInput name="nom" type="text" placeholder="nom" />
-                                        </FormSection>
-                                    </FormRow>
-                                    <FormRow>
-                                        <FormSection width="100%">
-                                            <TextInput name="email" type="email" placeholder="courriel" />
-                                        </FormSection>
-                                    </FormRow>
-                                </React.Fragment>
-                                )
-                        }
+    <div style={{ minHeight: '100vh' }}>
+        <FormWrapper>
+            <Formik initialValues={{ nom: '', email: '', comment: '' }}
+                validationSchema={Yup.object({
+                  nom: Yup.string().required('champ requis'),
+                  email: Yup.string().email('courriel invalide').required('champ requis'),
+                  comment: Yup.string().required('champ requis')
+                })}
+                onSubmit={(values, { setSubmitting, resetForm }) => {
+                  setOnSubmitEvent({
+                    nom: values.nom,
+                    email: values.email,
+                    comment: values.comment,
+                    setSubmitting,
+                    resetForm
+                  })
+                }}>
+                <Form>
+                    {
+                      !width || width > 768
+                        ? (
+                          <FormRow>
+                              <FormSection>
+                                  <TextInput name="nom" type="text" placeholder="nom" />
+                              </FormSection>
+                              <FormSection>
+                                  <TextInput name="email" type="email" placeholder="courriel" />
+                              </FormSection>
+                          </FormRow>
+                          )
+                        : (
+                          <React.Fragment>
+                              <FormRow>
+                                  <FormSection width="100%">
+                                      <TextInput name="nom" type="text" placeholder="nom" />
+                                  </FormSection>
+                              </FormRow>
+                              <FormRow>
+                                  <FormSection width="100%">
+                                      <TextInput name="email" type="email" placeholder="courriel" />
+                                  </FormSection>
+                              </FormRow>
+                          </React.Fragment>
+                          )
+                    }
 
-                        <FormRow lastrow={true} height="175px">
-                            <FormSection width="100%">
-                                <Textarea name="comment" placeholder="message" rows={4} />
-                            </FormSection>
-                        </FormRow>
+                    <FormRow lastrow={true} height="175px">
+                        <FormSection width="100%">
+                            <Textarea name="comment" placeholder="message" rows={4} />
+                        </FormSection>
+                    </FormRow>
 
-                        <div style={{ margin: '0 20px 15px 20px' }}>
-                            <TextButton type="submit" label="envoyer" width="100%" />
-                        </div>
-                        <Toaster containerStyle={{
-                          position: 'absolute',
-                          top: '90%'
-                        }}/>
-                    </Form>
-                </Formik>
-            </FormWrapper>
-        </div>
+                    <div style={{ margin: '0 20px 15px 20px' }}>
+                        <TextButton type="submit" label="envoyer" width="100%" />
+                    </div>
+                    <Toaster containerStyle={{
+                      position: 'absolute',
+                      top: '90%'
+                    }}/>
+                </Form>
+            </Formik>
+        </FormWrapper>
+    </div>
   )
 }
 

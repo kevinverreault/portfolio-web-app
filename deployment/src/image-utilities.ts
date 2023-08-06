@@ -20,6 +20,7 @@ function main() {
 
   fs.rmSync(imagesPath, { recursive: true, force: true })
   copyDirectory(exportPath, imagesPath)
+  
 }
 
 function copyDirectory(source: string, destination: string) {
