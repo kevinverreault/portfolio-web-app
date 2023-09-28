@@ -36,7 +36,7 @@ const ResponsiveImage = (props: ResponsiveImageProps) => {
 
   return (
     <img
-      style={ props.customStyle ? { ...props.customStyle, ...defaultStyle } : defaultStyle }
+      style={ props.customStyle ? { ...defaultStyle, ...props.customStyle } : defaultStyle }
       sizes={props.sizes}
       srcSet={sourceSet}
       src={props.imageProperties.imageMinSize}

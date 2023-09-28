@@ -27,8 +27,8 @@ async function main() {
 }
 
 interface FilePaths {
-  source: string;
-  destination: string;
+  source: string
+  destination: string
 }
 
 async function uploadBuildOutput(uploadSourcesOnly: boolean) {
@@ -248,7 +248,7 @@ async function quit(ftpClient: jsftp) {
     })
   })
 
-  console.log('ftp connection terminated');
+  console.log('ftp connection terminated')
 }
 
 type WaitCommandCompletionCallback = (error: Error) => void
