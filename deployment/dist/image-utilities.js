@@ -1,28 +1,29 @@
 import * as path from 'path';
 import * as fs from 'fs';
-import * as dotenv from 'dotenv';
-import { hasProcessArgument } from './utilities.mjs';
-const imagesPathRoot = '../portfolio-app/public/images/';
-const exportRoot = 'C:\\Users\\Kevin\\Pictures\\JPEG\\Autre\\siteweb\\';
+const IMAGES_IMPORT_PATH = '../image-sources/';
+const IMAGES_SOURCE_PATH = 'C:\\Users\\Kevin\\Pictures\\JPEG\\Autre\\siteweb';
+const IMAGE_SUB_PATH = '2000w';
+const SIZES = ['1750w', '1500w', '1250w', '1000w', '750w', '500w', '250w'];
+const QUALITY = ['87.5', '75', '62.5', '50', '37.5', '25', '12.5'];
 main();
 function main() {
-    dotenv.config();
-    const refreshAll = hasProcessArgument('-a');
-    const imagesPath = refreshAll ? path.resolve(`${imagesPathRoot}`) : path.resolve(`${imagesPathRoot}1x`);
-    const exportPath = refreshAll ? `${exportRoot}` : `${exportRoot}1x`;
-    console.log(`refreshing folder into sources: ${imagesPath}`);
+    importImagesFrom('thumbnail');
+    importImagesFrom('fullsize');
+}
+function importImagesFrom(imageFormat) {
+    const imagesPath = path.resolve(`${IMAGES_IMPORT_PATH}/${imageFormat}/${IMAGE_SUB_PATH}`);
+    const exportPath = `${IMAGES_SOURCE_PATH}\\${imageFormat}\\${IMAGE_SUB_PATH}`;
+    console.log(`refreshing folder ${exportPath} into sources ${imagesPath}`);
     fs.rmSync(imagesPath, { recursive: true, force: true });
+    fs.mkdirSync(imagesPath, { recursive: true });
     copyDirectory(exportPath, imagesPath);
 }
 function copyDirectory(source, destination) {
-    fs.mkdirSync(destination, { recursive: true });
     let entries = fs.readdirSync(source, { withFileTypes: true });
     for (let entry of entries) {
         let sourcePath = path.join(source, entry.name);
-        let destinationPath = path.join(destination, entry.name);
-        entry.isDirectory() ?
-            copyDirectory(sourcePath, destinationPath) :
-            fs.copyFileSync(sourcePath, destinationPath);
+        let destinationPath = path.join(destination, entry.name.toLowerCase());
+        fs.copyFileSync(sourcePath, destinationPath);
     }
 }
 //# sourceMappingURL=image-utilities.js.map

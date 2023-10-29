@@ -1,11 +1,19 @@
 import { useEffect, useState } from 'react'
-import metadataFile from '../metadata.json'
+import images from '../images-metadata.json'
+import pages from '../pages-metadata.json'
+import SiteMetadata from '../Contexts/SiteMetadata'
 
-const useMetadata = (): Map<string, string> => {
-  const [metadata, setMetadata] = useState(new Map<string, string>())
+const useMetadata = (): SiteMetadata => {
+  const [metadata, setMetadata] = useState<SiteMetadata>({
+    imagesMetadata: new Map<string, string>(),
+    pagesMetadata: new Map<string, number>()
+  })
 
   useEffect(() => {
-    setMetadata(new Map<string, string>(Object.entries(metadataFile)))
+    setMetadata({
+      imagesMetadata: new Map<string, string>(Object.entries(images)),
+      pagesMetadata: new Map<string, number>(Object.entries(pages))
+    })
   }, [])
 
   return metadata

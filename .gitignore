@@ -9,6 +9,7 @@ obj
 .vs
 *.user
 .env
+portfolio-app/.env.development
 
 .DS_STORE
 node_modules
@@ -50,6 +51,6 @@ packages/react-devtools-inline/dist
 packages/react-devtools-shell/dist
 packages/react-devtools-scheduling-profiler/dist
 
-portfolio-app/public/images/
-
 git-filter-repo
+image-sources/
+images/
