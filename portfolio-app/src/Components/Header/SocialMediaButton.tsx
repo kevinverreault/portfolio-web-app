@@ -15,7 +15,7 @@ const IconListItem = styled.li`
 const SocialMediaLink = styled.a`
   background-color: rgb(209, 213, 219);
   box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
-              rgba(0, 0, 0, 0) 0px 0px 0px 0px, y
+              rgba(0, 0, 0, 0) 0px 0px 0px 0px,
               rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, 
               rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   box-sizing: border-box;

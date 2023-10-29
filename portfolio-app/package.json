@@ -41,13 +41,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "npx eslint src/** --fix",
-    "deploy": "node ../deployment/dist/deploy.js",
-    "deploy-sources": "node ../deployment/dist/deploy.js -s",
-    "metadata": "node ../deployment/dist/metadata.js",
-    "overwrite": "node ../exif-utility/src/exif-overwrite.js",
-    "refresh": "node ../deployment/dist/image-utilities.js",
-    "refresh-all": "node ../deployment/dist/image-utilities.js -a",
-    "release": "npm run refresh-all && npm run clean-build && npm run deploy"
+    "metadata": "node ../deployment/dist/metadata.js && node ../exif-utility/src/exif-overwrite.js"
   },
   "eslintConfig": {
     "extends": [

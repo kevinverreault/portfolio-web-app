@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useContext } from 'react'
 import { GalleryListItem } from './GalleryListItem'
 import styled from '@emotion/styled'
 import LoadingOverlay from '../Shared/LoadingOverlay'
@@ -6,6 +6,7 @@ import useWaitAllImages from '../../Hooks/useWaitAllImages'
 import useImageGallery from '../../Hooks/useImageGallery'
 import { ImageHeader, TextHeader, TextSubHeader } from '../Shared/ImageHeader'
 import useWaitImageLoad from '../../Hooks/useWaitImageLoad'
+import { MetadataContext } from '../../Contexts/MetadataContext'
 
 const Container = styled.div`
     width: 1920px;
@@ -31,7 +32,7 @@ const Container = styled.div`
 
 const GalleryList = styled.ul`
     padding: 0;
-    `
+`
 
 const Gallery = styled.div`
     min-height: 100vh;
@@ -39,18 +40,20 @@ const Gallery = styled.div`
 
 interface PhotoGalleryProps {
   GalleryName: string
-  GallerySize: number
 }
 
 const PhotoGallery = (props: PhotoGalleryProps) => {
-  const pageSize = 15
-  const totalPages = Math.ceil(props.GallerySize / pageSize)
+  const galleryLowerCase = props.GalleryName.toLowerCase()
+  const pageSize = 12
+  const metadataContext = useContext(MetadataContext)
+  const gallerySize = metadataContext.pagesMetadata.get(galleryLowerCase) ?? 0
+  const totalPages = Math.ceil(gallerySize / pageSize)
 
   const [pageNumber, setPageNumber] = useState(1)
   const [imageKeys, setImageKeys] = useState<number[]>([])
   const { isLoading, onLoadNotification } = useWaitAllImages(pageSize)
 
-  const headerUrl = `${props.GalleryName.toLowerCase()}-header.jpg`
+  const headerUrl = `${galleryLowerCase}-header.webp`
   const headerImageIsLoading = useWaitImageLoad(headerUrl)
 
   const lastElement = useRef<HTMLLIElement>(null)
@@ -83,7 +86,7 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
   useEffect(() => {
     const addPage = () => {
       const imagesToLoad: number[] = []
-      for (let i = ((pageNumber - 1) * pageSize) + 1; (i <= pageNumber * pageSize) && (i <= props.GallerySize); ++i) {
+      for (let i = ((pageNumber - 1) * pageSize) + 1; (i <= pageNumber * pageSize) && (i <= gallerySize); ++i) {
         imagesToLoad.push(i)
       }
 
@@ -93,7 +96,7 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
     if (pageNumber <= totalPages) {
       addPage()
     }
-  }, [pageNumber, props.GallerySize])
+  }, [pageNumber, gallerySize])
 
   useImageGallery()
 
@@ -113,9 +116,9 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
             imageKeys.map((listNumber) =>
               <GalleryListItem
                 ref={listNumber === Math.round(imageKeys.length - (pageSize * 0.33)) ? lastElement : undefined}
-                key={`${props.GalleryName}-${listNumber.toString()}`}
+                key={`${galleryLowerCase}-${listNumber.toString()}`}
                 imageId={listNumber.toString()}
-                galleryName={props.GalleryName}
+                galleryName={galleryLowerCase}
                 onLoad={onLoadNotification}/>
             )
           }

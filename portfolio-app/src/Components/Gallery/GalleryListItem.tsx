@@ -1,7 +1,8 @@
 import { forwardRef, useContext } from 'react'
 import styled from '@emotion/styled'
 import { MetadataContext, getMetadataKey } from '../../Contexts/MetadataContext'
-import { ResponsiveImage, createImageProperties } from './ResponsiveImage'
+import { ResponsiveImage } from './ResponsiveImage'
+import ResponsiveImageService from '../../Services/ResponsiveImageService'
 
 const ListItem = styled.li`
     width:500px;
@@ -33,6 +34,7 @@ const GalleryLink = styled.a`
     :hover {
         box-shadow: inset 0 0 0 1px rgba(61, 8, 8, 0.25), 0 0 6px 0 #37474f;
         opacity: 90%;
+        cursor: pointer;
      }
 `
 type ListItemForwardedRef = React.ForwardedRef<HTMLLIElement>
@@ -48,26 +50,32 @@ const GalleryListItem = forwardRef((props: GalleryListItemProps, ref: ListItemFo
 
   const sizes = '(max-width:768px) 90vw, (max-width:1366px) 50vw, 500px'
   const alt = `${props.galleryName} image ${props.imageId}`
-  const description = metadataContext.get(getMetadataKey(props.galleryName, props.imageId)) ?? ''
-  const imageProperties = createImageProperties(props.imageId, props.galleryName)
+  const description = metadataContext.imagesMetadata.get(getMetadataKey(props.galleryName, props.imageId)) ?? ''
+  const imageProperties = ResponsiveImageService.createImageSourceSet(props.imageId, props.galleryName)
 
   return (
     <ListItem ref={ref}>
       <GalleryLink
-        href={imageProperties.imageMaxSize}
         data-fancybox='portfolio'
-        data-caption={description}>
-          <ResponsiveImage
-            onLoad={props.onLoad}
-            imageId={props.imageId}
-            description={description}
-            sizes={sizes}
-            alt={alt}
-            imageProperties={imageProperties}
-            customStyle={{
-              borderRadius: '2px',
-              boxSizing: 'border-box'
-            }} />;
+        data-caption={description}
+        data-src={imageProperties.fullsizeSource}
+        data-srcset={imageProperties.fullsizeSourceSet}
+        data-sizes='50vw'
+      >
+        <ResponsiveImage
+          onLoad={props.onLoad}
+          imageId={props.imageId}
+          description={description}
+          sizes={sizes}
+          alt={alt}
+          imageName={imageProperties.imageName}
+          imageSource={imageProperties.thumbnailSource}
+          sourceSet={imageProperties.thumbnailSourceSet}
+          customStyle={{
+            borderRadius: '2px',
+            boxSizing: 'border-box'
+          }}
+        />
       </GalleryLink>
   </ListItem>
   )

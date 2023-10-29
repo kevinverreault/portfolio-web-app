@@ -34,15 +34,17 @@ const Column = styled.div`
     margin: 0 1rem 0 1rem;
     width: calc(100% / 3);
     ${mediaQueries[2]} {
-        margin: 0 0.75rem 0 0.75rem;
+        margin: 0 0.75rem;
     }
     ${mediaQueries[1]} {
-        margin: 0 0.5rem 0 0.5rem;
+        margin: 0 0.5rem;
     }
     ${mediaQueries[0]} {
-        margin: 0 0.25rem 0 0.25rem;
+        margin: 0 0.25rem;
     }
 `
+
+const sizes = '(max-width:768px) 30vw, (max-width:1280px) 25vw, 15vw'
 
 const HomeGallery = () => {
   const imageCount = 9
@@ -51,27 +53,26 @@ const HomeGallery = () => {
   useImageGallery()
 
   return (
-        <div>
-            <LoadingOverlay isLoading={isLoading} />
-            <Grid>
-                <Column>
-                    <HomeGridItem imageId="1" onLoad={onLoadNotification} />
-                    <HomeGridItem imageId="2" onLoad={onLoadNotification} />
-                    <HomeGridItem imageId="3" onLoad={onLoadNotification} />
-                </Column>
-                <Column>
-                    <HomeGridItem imageId="4" onLoad={onLoadNotification} />
-                    <HomeGridItem imageId="5" onLoad={onLoadNotification} vertical />
-                    <HomeGridItem imageId="6" onLoad={onLoadNotification} />
-                </Column>
-                <Column>
-                    <HomeGridItem imageId="7" onLoad={onLoadNotification} />
-                    <HomeGridItem imageId="8" onLoad={onLoadNotification} />
-                    <HomeGridItem imageId="9" onLoad={onLoadNotification} />
-                </Column>
-            </Grid>
-        </div>
-
+    <div>
+        <LoadingOverlay isLoading={isLoading} />
+        <Grid>
+          <Column>
+            <HomeGridItem imageId="1" onLoad={onLoadNotification} sizes={sizes} />
+            <HomeGridItem imageId="2" onLoad={onLoadNotification} sizes={sizes} />
+            <HomeGridItem imageId="3" onLoad={onLoadNotification} sizes={sizes} />
+          </Column>
+          <Column>
+            <HomeGridItem imageId="4" onLoad={onLoadNotification} sizes={sizes} />
+            <HomeGridItem imageId="5" onLoad={onLoadNotification} sizes={sizes} />
+            <HomeGridItem imageId="6" onLoad={onLoadNotification} sizes={sizes} />
+          </Column>
+          <Column>
+            <HomeGridItem imageId="7" onLoad={onLoadNotification} sizes={sizes} />
+            <HomeGridItem imageId="8" onLoad={onLoadNotification} sizes={sizes} />
+            <HomeGridItem imageId="9" onLoad={onLoadNotification} sizes={sizes} />
+          </Column>
+        </Grid>
+    </div>
   )
 }
 

@@ -7,7 +7,7 @@ import useWaitImageLoad from '../../Hooks/useWaitImageLoad'
 
 const Contact = () => {
   const [isLoading, setIsLoading] = useState(false)
-  const headerUrl = 'contact-header.jpg'
+  const headerUrl = 'contact-header.webp'
   const headerImageIsLoading = useWaitImageLoad(headerUrl)
 
   const isLoadingCallback = useCallback((isLoadingParam: boolean) => { setIsLoading(isLoadingParam) }, [])
