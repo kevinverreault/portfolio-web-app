@@ -14,7 +14,7 @@ const ImageHeader = styled.div<{ imageIsLoading?: boolean | null, headerUrl: str
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  opacity: ${props => props.opacity ? props.opacity : '1.0'};
+  opacity: ${props => props.opacity ? props.opacity : '0.75'};
 `
 
 const headerStyle = css`
