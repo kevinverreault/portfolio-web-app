@@ -33,7 +33,7 @@ export default function App () {
           </PostHogProvider>
         </MetadataContext.Provider>
         <footer>
-            <span>© 2023 Kevin Verreault</span>
+            <span>© 2024 Kevin Verreault</span>
         </footer>
     </div>
   )
