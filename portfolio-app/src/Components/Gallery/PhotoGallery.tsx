@@ -106,7 +106,7 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
       <ImageHeader
         imageIsLoading={headerImageIsLoading}
         headerUrl={headerUrl}
-        opacity="0.85">
+        opacity="1">
           <TextHeader>{props.GalleryName}</TextHeader>
           <TextSubHeader></TextSubHeader>
       </ImageHeader>

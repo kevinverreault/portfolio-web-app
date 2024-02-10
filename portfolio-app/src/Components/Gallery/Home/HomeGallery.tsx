@@ -3,6 +3,8 @@ import styled from '@emotion/styled'
 import LoadingOverlay from '../../Shared/LoadingOverlay'
 import useWaitAllImages from '../../../Hooks/useWaitAllImages'
 import useImageGallery from '../../../Hooks/useImageGallery'
+import { ImageHeader, TextHeader, TextSubHeader } from '../../Shared/ImageHeader'
+import useWaitImageLoad from '../../../Hooks/useWaitImageLoad'
 
 const breakpoints = [480, 768, 1280]
 
@@ -17,6 +19,7 @@ const Grid = styled.div`
     position: relative;
     filter: none;
     margin-bottom: 3em;
+    margin-top: 2rem;
     min-height: 100vh;
     margin-right: auto;
     margin-left: auto;
@@ -50,11 +53,21 @@ const HomeGallery = () => {
   const imageCount = 9
   const { isLoading, onLoadNotification } = useWaitAllImages(imageCount)
 
+  const headerUrl = 'accueil-header.webp'
+  const headerImageIsLoading = useWaitImageLoad(headerUrl)
+
   useImageGallery()
 
   return (
     <div>
         <LoadingOverlay isLoading={isLoading} />
+        <ImageHeader
+          imageIsLoading={headerImageIsLoading}
+          headerUrl={headerUrl}
+        >
+          <TextHeader>Accueil</TextHeader>
+          <TextSubHeader></TextSubHeader>
+        </ImageHeader>
         <Grid>
           <Column>
             <HomeGridItem imageId="1" onLoad={onLoadNotification} sizes={sizes} />
