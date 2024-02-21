@@ -70,19 +70,19 @@ const HomeGallery = () => {
         </ImageHeader>
         <Grid>
           <Column>
-            <HomeGridItem imageId="1" onLoad={onLoadNotification} sizes={sizes} />
-            <HomeGridItem imageId="2" onLoad={onLoadNotification} sizes={sizes} />
-            <HomeGridItem imageId="3" onLoad={onLoadNotification} sizes={sizes} />
+            <HomeGridItem imageNumber={1} onLoad={onLoadNotification} sizes={sizes} />
+            <HomeGridItem imageNumber={2} onLoad={onLoadNotification} sizes={sizes} />
+            <HomeGridItem imageNumber={3} onLoad={onLoadNotification} sizes={sizes} />
           </Column>
           <Column>
-            <HomeGridItem imageId="4" onLoad={onLoadNotification} sizes={sizes} />
-            <HomeGridItem imageId="5" onLoad={onLoadNotification} sizes={sizes} />
-            <HomeGridItem imageId="6" onLoad={onLoadNotification} sizes={sizes} />
+            <HomeGridItem imageNumber={4} onLoad={onLoadNotification} sizes={sizes} />
+            <HomeGridItem imageNumber={5} onLoad={onLoadNotification} sizes={sizes} />
+            <HomeGridItem imageNumber={6} onLoad={onLoadNotification} sizes={sizes} />
           </Column>
           <Column>
-            <HomeGridItem imageId="7" onLoad={onLoadNotification} sizes={sizes} />
-            <HomeGridItem imageId="8" onLoad={onLoadNotification} sizes={sizes} />
-            <HomeGridItem imageId="9" onLoad={onLoadNotification} sizes={sizes} />
+            <HomeGridItem imageNumber={7} onLoad={onLoadNotification} sizes={sizes} />
+            <HomeGridItem imageNumber={8} onLoad={onLoadNotification} sizes={sizes} />
+            <HomeGridItem imageNumber={9} onLoad={onLoadNotification} sizes={sizes} />
           </Column>
         </Grid>
     </div>

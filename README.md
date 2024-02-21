@@ -6,9 +6,15 @@
 - clean-build
 - lint
 - deploy
-- deploy-sources
 - metadata
 - overwrite
 - refresh
 - refresh-all
 - release
+
+## deployment
+
+```bash
+cd .\\deployment\\src
+npx tsc
+```

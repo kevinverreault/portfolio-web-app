@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { MetadataContext, getMetadataKey } from '../../../Contexts/MetadataContext'
+import { MetadataContext, getAlbum } from '../../../Contexts/MetadataContext'
 import { useContext } from 'react'
 import { ResponsiveImage } from '../ResponsiveImage'
 import ResponsiveImageService from '../../../Services/ResponsiveImageService'
@@ -31,7 +31,7 @@ const GalleryLink = styled.a`
 `
 
 interface HomeGridItemProps {
-  imageId: string
+  imageNumber: number
   sizes: string
   onLoad: () => void
 }
@@ -39,22 +39,22 @@ interface HomeGridItemProps {
 const HomeGridItem = (props: HomeGridItemProps) => {
   const metadataContext = useContext(MetadataContext)
   const albumKey = 'accueil'
-  const description = metadataContext.imagesMetadata.get(getMetadataKey(albumKey, props.imageId)) ?? ''
-  const alt = `accueil image ${props.imageId} ${description}`
-  const imageProperties = ResponsiveImageService.createImageSourceSet(props.imageId, albumKey)
+  const album = getAlbum(albumKey, metadataContext.albums)
+  const imageMetadata = album.photos[props.imageNumber - 1]
+  const alt = `accueil image ${albumKey} - ${imageMetadata.metadata.description}`
+  const imageProperties = ResponsiveImageService.createImageSourceSet(imageMetadata.id)
 
   return (
     <GalleryLink
       data-fancybox="portfolio"
       data-src={imageProperties.fullsizeSource}
-      data-caption={description}
+      data-caption={imageMetadata.metadata.description}
       data-srcset={imageProperties.fullsizeSourceSet}
       data-sizes='50vw'
     >
       <ResponsiveImage
         onLoad={props.onLoad}
-        imageId={props.imageId}
-        description={description}
+        description={imageMetadata.metadata.description}
         sizes={props.sizes}
         alt={alt}
         imageName={imageProperties.imageName}

@@ -5,7 +5,7 @@ var piexif = require("piexifjs");
 const tempSuffix = '_temp';
 const toDeleteSuffix = '_todelete';
 const formatPlaceholder = '-format-';
-const sourceFolder = `./image-sources/${formatPlaceholder}/250w`;
+const sourceFolder = `../image-sources/${formatPlaceholder}/250w`;
 main();
 function main() {
     overwriteFilesInDirectory(path.resolve(sourceFolder.replace(formatPlaceholder, 'thumbnail')));

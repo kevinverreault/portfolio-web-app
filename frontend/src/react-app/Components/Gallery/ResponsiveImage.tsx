@@ -13,7 +13,6 @@ interface ResponsiveImageProps {
   imageSource: string
   sourceSet: string[]
   customStyle?: React.CSSProperties
-  imageId: string
   description: string
   alt: string
   sizes: string

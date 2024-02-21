@@ -1,8 +1,6 @@
-import { forwardRef, useContext } from 'react'
+import { forwardRef } from 'react'
 import styled from '@emotion/styled'
-import { MetadataContext, getMetadataKey } from '../../Contexts/MetadataContext'
-import { ResponsiveImage } from './ResponsiveImage'
-import ResponsiveImageService from '../../Services/ResponsiveImageService'
+import { ResponsiveImage, type ImageProperties } from './ResponsiveImage'
 
 const ListItem = styled.li`
     width:500px;
@@ -40,18 +38,16 @@ const GalleryLink = styled.a`
 type ListItemForwardedRef = React.ForwardedRef<HTMLLIElement>
 
 interface GalleryListItemProps {
-  galleryName: string
-  imageId: string
+  alt: string
+  imageProperties: ImageProperties
+  description: string
   onLoad: () => void
 }
 
 const GalleryListItem = forwardRef((props: GalleryListItemProps, ref: ListItemForwardedRef) => {
-  const metadataContext = useContext(MetadataContext)
 
-  const sizes = '(max-width:768px) 90vw, (max-width:1366px) 50vw, 500px'
-  const alt = `${props.galleryName} image ${props.imageId}`
-  const description = metadataContext.imagesMetadata.get(getMetadataKey(props.galleryName, props.imageId)) ?? ''
-  const imageProperties = ResponsiveImageService.createImageSourceSet(props.imageId, props.galleryName)
+  const { imageProperties, alt, description } = props;
+  const sizes = '(max-width:768px) 90vw, (max-width:1366px) 50vw, 500px';
 
   return (
     <ListItem ref={ref}>
@@ -64,7 +60,6 @@ const GalleryListItem = forwardRef((props: GalleryListItemProps, ref: ListItemFo
       >
         <ResponsiveImage
           onLoad={props.onLoad}
-          imageId={props.imageId}
           description={description}
           sizes={sizes}
           alt={alt}

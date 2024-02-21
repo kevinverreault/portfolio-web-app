@@ -7,8 +7,8 @@ class ResponsiveImageService {
   private readonly thumbnailFormat = 'thumbnail'
   private readonly fullsizeFormat = 'fullsize'
 
-  createImageSourceSet(imageId: string, album: string): ImageProperties {
-    const imageName = `${album}_${imageId}`
+  createImageSourceSet(imageId: string): ImageProperties {
+    const imageName = `${imageId}`
     const imageSourceSet = (size: string, format: string) => `${this.imageHost}/${format}/${size}/${imageName}${this.extension} ${size}`
     const fullsizeSourceSet: string[] = []
     const thumbnailSourceSet: string[] = []
@@ -26,7 +26,7 @@ class ResponsiveImageService {
       thumbnailSource: this.getSourceFromSet(thumbnailSourceSet),
       fullsizeSourceSet,
       thumbnailSourceSet,
-      imageName
+      imageName,
     }
   }
 
