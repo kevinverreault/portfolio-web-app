@@ -1,63 +1,66 @@
-import * as exif from 'exif-parser'
-import * as path from 'path'
-import * as fs from 'fs'
-import { getFlatFileList } from './utilities.mjs'
+import * as exif from "exif-parser";
+import * as path from "path";
+import * as fs from "fs";
 
 await main()
 
 async function main() {
   try {
-    const publicPath = path.resolve('./portfolio-app')
-    const imagesPath = path.resolve('./image-sources/fullsize/250w')
+    const publicPath = path.resolve("./");
+    const imagesPath = "../image-sources/fullsize/250w";
+    const jsonFilePath = path.resolve(`${publicPath}/metadata.json`);
 
-    console.log('generating metadata')
+    const data: string = fs.readFileSync(jsonFilePath, "utf8");
 
-    const images = await getFlatFileList(imagesPath)
-    const imagesMetadata = getImagesMetadata(imagesPath, images)
-    const pagesMetadata = getPagesMetadata(imagesMetadata)
+    let jsonData: {
+      albums: {
+        title: string;
+        count: number;
+        photos: {
+          id: string;
+          order: number;
+          metadata: { description: string };
+        }[];
+      }[];
+    } = JSON.parse(data);
 
-    console.log(imagesMetadata)
+    jsonData.albums.forEach((album) => {
+      album.photos.sort((a, b) => a.order - b.order)
 
-    fs.writeFileSync(`${publicPath}/src/images-metadata.json`, JSON.stringify(Object.fromEntries(imagesMetadata)), 'utf-8')
-    fs.writeFileSync(`${publicPath}/src/pages-metadata.json`, JSON.stringify(Object.fromEntries(pagesMetadata)), 'utf-8')
-  } catch (exception) {
-    console.log(exception)
+      album.photos.forEach((photo) => {
+        photo.metadata = getImageMetadata(imagesPath, photo.id)
+      });
+    });
+
+    const updatedJsonData: string = JSON.stringify(jsonData, null, 2)
+
+    fs.writeFileSync(jsonFilePath, updatedJsonData, "utf8")
+    console.log("JSON data updated successfully.")
+  } catch (err) {
+    console.error("Error processing the JSON file:", err)
   }
 }
 
-function getImagesMetadata(imagesPath: string, images: string[]): Map<string, string> {
-  const imagesMetadata = new Map<string, string>()
+function getImageMetadata(
+  imageDirectory: string,
+  imageName: string
+): { description: string } {
+  const imagePath = path.resolve(imageDirectory, imageName + ".jpg");
 
-  for (const image of images) {
-    try {
-      const exifData = exif.create(fs.readFileSync(image)).parse()
-      const description = exifData.tags.ImageDescription
-      const dateTaken = exifData.tags.DateTimeOriginal
-      if (description) {
-        const imageKey = image.replace(imagesPath, '')
-                              .replace('.jpg', '')
-                              .replace('\\', '')
-        const caption = description + (dateTaken ? ` - ${new Date(dateTaken*1000).getFullYear()}` : '')
-        imagesMetadata.set(imageKey, caption)
-      }
-    } catch (error) {
-      console.log(`failed to get exif for ${image}, error: ${error}`)
+  try {
+    const exifData = exif.create(fs.readFileSync(imagePath)).parse();
+    let imageDescription = exifData.tags.ImageDescription;
+    const dateTaken = exifData.tags.DateTimeOriginal;
+
+    if (imageDescription) {
+      imageDescription = imageDescription +
+        (dateTaken ? ` - ${new Date(dateTaken * 1000).getFullYear()}` : "");
+
+      return {
+        description: imageDescription
+      };
     }
+  } catch (error) {
+    console.log(`failed to get exif for ${imagePath}, error: ${error}`);
   }
-
-  return imagesMetadata
-}
-
-function getPagesMetadata(imagesMetadata: Map<string, string>) : Map<string, number> {
-  const pagesMetadata = new Map<string, number>()
-
-  for (let image of Array.from(imagesMetadata.keys())) {
-    const albumKey = image.split('_')[0]
-    if (!pagesMetadata.has(albumKey)) {
-      pagesMetadata.set(albumKey, 0)
-    }
-
-    pagesMetadata.set(albumKey, pagesMetadata.get(albumKey) + 1)
-  }
-  return pagesMetadata
 }

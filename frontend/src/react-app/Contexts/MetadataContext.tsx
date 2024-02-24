@@ -1,13 +1,17 @@
 import { createContext } from 'react'
-import type { SiteMetadata } from './SiteMetadata'
+import type { Album, SiteMetadata } from './SiteMetadata'
 
 const MetadataContext = createContext<SiteMetadata>({
-  imagesMetadata: new Map<string, string>(),
-  pagesMetadata: new Map<string, number>()
+  albums: []
 })
 
-function getMetadataKey(galleryName: string, imageId: string) {
-  return `${galleryName.toLowerCase()}_${imageId}`
+function getAlbum(albumName: string, albums: Album[]): Album {
+  const albumIndex = albums.findIndex(x => x.title === albumName)
+  if (albumIndex < 0) {
+    throw Error(`Album ${albumName} not found in metadata`)
+  }
+
+  return albums[albumIndex]
 }
 
-export { MetadataContext, getMetadataKey }
+export { MetadataContext, getAlbum }

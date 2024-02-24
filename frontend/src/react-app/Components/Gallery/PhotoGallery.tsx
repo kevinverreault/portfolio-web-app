@@ -6,7 +6,8 @@ import useWaitAllImages from '../../Hooks/useWaitAllImages'
 import useImageGallery from '../../Hooks/useImageGallery'
 import { ImageHeader, TextHeader, TextSubHeader } from '../Shared/ImageHeader'
 import useWaitImageLoad from '../../Hooks/useWaitImageLoad'
-import { MetadataContext } from '../../Contexts/MetadataContext'
+import { MetadataContext, getAlbum } from '../../Contexts/MetadataContext'
+import ResponsiveImageService from 'src/react-app/Services/ResponsiveImageService'
 
 const Container = styled.div`
     width: 1920px;
@@ -46,7 +47,8 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
   const galleryLowerCase = props.GalleryName.toLowerCase()
   const pageSize = 12
   const metadataContext = useContext(MetadataContext)
-  const gallerySize = metadataContext.pagesMetadata.get(galleryLowerCase) ?? 0
+  const albumMetadata = getAlbum(galleryLowerCase, metadataContext.albums)
+  const gallerySize = albumMetadata.count
   const totalPages = Math.ceil(gallerySize / pageSize)
 
   const [pageNumber, setPageNumber] = useState(1)
@@ -113,13 +115,16 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
       <Container>
         <GalleryList>
           {
-            imageKeys.map((listNumber) =>
-              <GalleryListItem
-                ref={listNumber === Math.round(imageKeys.length - (pageSize * 0.33)) ? lastElement : undefined}
-                key={`${galleryLowerCase}-${listNumber.toString()}`}
-                imageId={listNumber.toString()}
-                galleryName={galleryLowerCase}
-                onLoad={onLoadNotification}/>
+            imageKeys.map((listNumber) => {
+                const imageProps = albumMetadata.photos[listNumber - 1];
+                return <GalleryListItem
+                  ref={listNumber === Math.round(imageKeys.length - (pageSize * 0.33)) ? lastElement : undefined}
+                  key={`${galleryLowerCase}-${listNumber.toString()}`}
+                  imageProperties={ResponsiveImageService.createImageSourceSet(imageProps.id)}
+                  description={imageProps.metadata.description}
+                  alt={`${galleryLowerCase} - ${imageProps.metadata.description}`}
+                  onLoad={onLoadNotification}/>
+              }
             )
           }
         </GalleryList>

@@ -1,6 +1,19 @@
-interface SiteMetadata {
-  imagesMetadata: Map<string, string>
-  pagesMetadata: Map<string, number>
+ type Album = {
+  title: string;
+  count: number;
+  photos: ImageMetadata[]
 }
 
-export type { SiteMetadata }
+type ImageMetadata = {
+  id: string;
+  order: number;
+  metadata: {
+    description: string;
+  }
+}
+
+interface SiteMetadata {
+  albums: Album[]
+}
+
+export type { SiteMetadata, Album }
