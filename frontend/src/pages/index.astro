@@ -1,21 +1,10 @@
 ---
-import App from '../react-app/App.tsx'
+import Layout from '@components/layout/Layout.astro'
+import App from '../react-app/App'
 import '@design-system/styles/global.css'
+
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"
-    />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<App client:only />
-	</body>
-</html>
+<Layout title="Accueil">
+  <App client:only />
+</Layout>

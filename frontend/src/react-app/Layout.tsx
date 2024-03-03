@@ -20,7 +20,7 @@ const Layout = () => {
         options={{
           api_host: import.meta.env.PUBLIC_ANALYTICS_HOST
         }}>
-        <NavigationHeader />
+        {/* <NavigationHeader /> */}
         <Routes>
             <Route path="/" element={<Accueil />} />
             <Route path="/faune" element={<Faune />} />

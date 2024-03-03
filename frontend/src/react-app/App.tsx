@@ -8,9 +8,9 @@ export default function App () {
     <BrowserRouter>
       <div className="App">
         <Layout />
-        <footer>
+        {/* <footer>
             <span>© 2024 Kevin Verreault</span>
-        </footer>
+        </footer> */}
       </div>
     </BrowserRouter>
   )
