@@ -12,11 +12,11 @@ const InputCss = css`
   box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 5%) 0px 4px 6px -1px, rgb(0 0 0 / 3%) 0px 2px 4px -1px;
 
   :hover {
-      outline: 1px solid rgb(156, 163, 175)
+      outline: 1px solid hsl(var(--color-primary));
   }
 
   :focus {
-      outline: 2px solid rgb(156, 163, 175)
+      outline: 2px solid hsl(var(--color-primary-variant));
   }
 `
 
@@ -65,11 +65,11 @@ const FormWrapper = styled.div`
   margin-right: auto;
   margin-left: auto;
   margin-top: 2rem;
-  border-width: 1px;
-  border-style: solid;
+
   border-radius: 0.5rem;
   padding: 20px;
-  border-color: rgb(209, 213, 219);
+  
+  background-color: hsl(var(--color-surface) / 0.6);
   box-sizing: border-box;
   width: 30%;
   min-width: 650px;

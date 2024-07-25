@@ -9,11 +9,11 @@ const NavigationItems : NavigationItem[] = [
   }, 
   {
     text: "Paysages",
-    path: "/oaysages"
+    path: "/paysages"
   }, 
   {
     text: "Contact",
-    path: "/"
+    path: "/contact"
   }
 ]
 
@@ -29,4 +29,4 @@ type NavigationMenuLink = {
 }
 
 export { NavigationItems };
-export type { NavigationItem , NavigationMenuLink  };
+export type { NavigationItem , NavigationMenuLink };

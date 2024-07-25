@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { useImageClickedTracking } from '../../Hooks/useAnalytics'
+import './Gallery.css'
 
 interface ImageProperties {
   fullsizeSource: string
@@ -28,9 +30,11 @@ const defaultStyle: React.CSSProperties = {
 const ResponsiveImage = (props: ResponsiveImageProps) => {
   const sourceSet = props.sourceSet.slice(1).join(', ')
   const imageClickedTracking = useImageClickedTracking()
+  const [loaded, setLoaded] = useState(false);
 
   function handleImageOnLoad () {
     props.onLoad()
+    setLoaded(true)
   }
 
   function handleOnClick () {
@@ -40,6 +44,7 @@ const ResponsiveImage = (props: ResponsiveImageProps) => {
   return (
     <img
       style={ props.customStyle ? { ...defaultStyle, ...props.customStyle } : defaultStyle }
+      className={`image ${loaded ? 'loaded': ''}`}
       sizes={props.sizes}
       srcSet={sourceSet}
       src={props.imageSource}

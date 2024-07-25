@@ -1,62 +1,21 @@
-import { useEffect, useState, useRef, useContext } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { GalleryListItem } from './GalleryListItem'
-import styled from '@emotion/styled'
-import LoadingOverlay from '../Shared/LoadingOverlay'
 import useWaitAllImages from '../../Hooks/useWaitAllImages'
 import useImageGallery from '../../Hooks/useImageGallery'
-import { ImageHeader, TextHeader, TextSubHeader } from '../Shared/ImageHeader'
-import useWaitImageLoad from '../../Hooks/useWaitImageLoad'
-import { MetadataContext, getAlbum } from '../../Contexts/MetadataContext'
 import ResponsiveImageService from 'src/react-app/Services/ResponsiveImageService'
+import type { Album } from 'src/types/SiteMetadata'
+import './Gallery.css'
 
-const Container = styled.div`
-    width: 1920px;
-    padding: 0;
-    display: block;
-    box-sizing: border-box;
-    font-size: 0px;
-    letter-spacing: 0px;
-    word-spacing: 0px;
-    transition: opacity 1s ease, filter 1s ease;
-    min-height: 100vh;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 2rem;
-
-    @media (max-width:1920px) {
-        width: 1366px;
-    }
-    @media (max-width:1366px) {
-        width: 100%;
-    }
-    `
-
-const GalleryList = styled.ul`
-    padding: 0;
-`
-
-const Gallery = styled.div`
-    min-height: 100vh;
-`
-
-interface PhotoGalleryProps {
-  GalleryName: string
-}
-
-const PhotoGallery = (props: PhotoGalleryProps) => {
-  const galleryLowerCase = props.GalleryName.toLowerCase()
+const PhotoGallery = (props: {Album: Album}) => {
+  const { Album } = props;
+  const galleryLowerCase = props.Album.title.toLowerCase()
   const pageSize = 12
-  const metadataContext = useContext(MetadataContext)
-  const albumMetadata = getAlbum(galleryLowerCase, metadataContext.albums)
-  const gallerySize = albumMetadata.count
+  const gallerySize = Album.count
   const totalPages = Math.ceil(gallerySize / pageSize)
 
   const [pageNumber, setPageNumber] = useState(1)
   const [imageKeys, setImageKeys] = useState<number[]>([])
   const { isLoading, onLoadNotification } = useWaitAllImages(pageSize)
-
-  const headerUrl = `${galleryLowerCase}-header.webp`
-  const headerImageIsLoading = useWaitImageLoad(headerUrl)
 
   const lastElement = useRef<HTMLLIElement>(null)
   const observer = useRef<IntersectionObserver>()
@@ -103,20 +62,12 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
   useImageGallery()
 
   return (
-    <Gallery>
-      <LoadingOverlay isLoading={isLoading || headerImageIsLoading} />
-      <ImageHeader
-        imageIsLoading={headerImageIsLoading}
-        headerUrl={headerUrl}
-        opacity="1">
-          <TextHeader>{props.GalleryName}</TextHeader>
-          <TextSubHeader></TextSubHeader>
-      </ImageHeader>
-      <Container>
-        <GalleryList>
+    <div className='photo-gallery'>
+      <div className='gallery-inner-container'>
+        <ul className='gallery-list'>
           {
             imageKeys.map((listNumber) => {
-                const imageProps = albumMetadata.photos[listNumber - 1];
+                const imageProps = Album.photos[listNumber - 1];
                 return <GalleryListItem
                   ref={listNumber === Math.round(imageKeys.length - (pageSize * 0.33)) ? lastElement : undefined}
                   key={`${galleryLowerCase}-${listNumber.toString()}`}
@@ -127,9 +78,9 @@ const PhotoGallery = (props: PhotoGalleryProps) => {
               }
             )
           }
-        </GalleryList>
-      </Container>
-    </Gallery>
+        </ul>
+      </div>
+    </div>
   )
 }
 

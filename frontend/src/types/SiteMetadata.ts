@@ -1,4 +1,4 @@
- type Album = {
+type Album = {
   title: string;
   count: number;
   photos: ImageMetadata[]
@@ -16,4 +16,4 @@ interface SiteMetadata {
   albums: Album[]
 }
 
-export type { SiteMetadata, Album, ImageMetadata }
+export type { SiteMetadata, Album }

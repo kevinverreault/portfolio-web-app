@@ -1,3 +1,3 @@
-[submodule "design-system"]
-	path = design-system
+[submodule "frontend/design-system"]
+	path = frontend/design-system
 	url = https://github.com/kevinverreault/design-system.git

@@ -1,0 +1,46 @@
+---
+import '@design-system/styles/global.css'
+import Button from '@design-system/components/ui/Button.astro'
+import Icon from '@design-system/components/ui/Icon.astro'
+const links = [
+  {
+    label: 'inaturalist', 
+    link: 'https://inaturalist.ca/observations?order_by=observed_on&place_id=any&user_id=kevinverreault&verifiable=any'
+  },
+  {
+     label: 'youtube',
+     link: 'https://www.youtube.com/@kevinverreaultphotographie'
+  }, 
+  { 
+    label: 'instagram',
+    link: "https://www.instagram.com/kevinverreault_"
+  }
+];
+---
+
+
+<ul class="social-media-links flex items-center">
+  {links.map(link => {
+    return (
+      <li>
+        <a href={link.link} target="_blank">
+          <Button size="icon" shape="circle" aria-label={link.link}>
+            <Icon icon={link.label} width="1.25rem" height="1.25rem" color="inherit" />
+          </Button>
+        </a>
+      </li>
+    )
+  })}
+  
+</ul>
+
+<style>
+.social-media-links {
+  flex-direction: row-reverse;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  --gap: 0.5rem;  
+}
+
+</style>

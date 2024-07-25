@@ -1,0 +1,9 @@
+---
+import Layout from '@components/layout/Layout.astro'
+import ContactForm from 'src/react-app/Components/Forms/ContactForm'
+import '@design-system/styles/global.css'
+---
+
+<Layout title="Contact" subTitle="Questions et commentaires">
+  <ContactForm client:only="react" />
+</Layout>

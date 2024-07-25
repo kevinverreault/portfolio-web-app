@@ -1,60 +1,30 @@
-import styled from '@emotion/styled'
-import { MetadataContext, getAlbum } from '../../../Contexts/MetadataContext'
-import { useContext } from 'react'
 import { ResponsiveImage } from '../ResponsiveImage'
 import ResponsiveImageService from '../../../Services/ResponsiveImageService'
-
-const GalleryLink = styled.a`
-    margin: 0 0 2em 0;
-    transition: all .2s ease;
-    display: block;
-    width: 100%;
-    border-radius: 2px;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
-    @media (max-width:1280px) {
-        margin: 0 0 1.5rem 0;
-    }
-    @media (max-width:768px) {
-        margin: 0 0 1rem 0;
-    }
-
-    @media (max-width: 480px) {
-        margin: 0 0 0.5rem 0;
-    }
-
-    :hover {
-        background-color: rgba(255, 255, 255, 0.25);
-        box-shadow: inset 0 0 0 1px rgba(61, 8, 8, 0.25), 0 0 .5em 0 #37474f;
-        opacity: 90%;
-        cursor: pointer;
-    }
-`
+import type { ImageMetadata } from '../../../Contexts/SiteMetadata'
+import '../Gallery.css'
 
 interface HomeGridItemProps {
-  imageNumber: number
   sizes: string
   onLoad: () => void
+  image: ImageMetadata
 }
 
 const HomeGridItem = (props: HomeGridItemProps) => {
-  const metadataContext = useContext(MetadataContext)
-  const albumKey = 'accueil'
-  const album = getAlbum(albumKey, metadataContext.albums)
-  const imageMetadata = album.photos[props.imageNumber - 1]
-  const alt = `accueil image ${albumKey} - ${imageMetadata.metadata.description}`
-  const imageProperties = ResponsiveImageService.createImageSourceSet(imageMetadata.id)
+  const { image } = props;
+  const alt = `accueil image - ${image.metadata.description}`
+  const imageProperties = ResponsiveImageService.createImageSourceSet(image.id)
 
   return (
-    <GalleryLink
+    <a className='home-gallery-link'
       data-fancybox="portfolio"
       data-src={imageProperties.fullsizeSource}
-      data-caption={imageMetadata.metadata.description}
+      data-caption={image.metadata.description}
       data-srcset={imageProperties.fullsizeSourceSet}
       data-sizes='50vw'
     >
       <ResponsiveImage
         onLoad={props.onLoad}
-        description={imageMetadata.metadata.description}
+        description={image.metadata.description}
         sizes={props.sizes}
         alt={alt}
         imageName={imageProperties.imageName}
@@ -64,7 +34,7 @@ const HomeGridItem = (props: HomeGridItemProps) => {
           display: 'block'
         }}
       />
-    </GalleryLink>
+    </a>
   )
 }
 

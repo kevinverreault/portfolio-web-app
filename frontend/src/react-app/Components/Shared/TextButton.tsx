@@ -1,7 +1,8 @@
 import styled from '@emotion/styled'
 
 const Button = styled.button<{ width?: string | null }>`
-  background-color: rgb(209, 213, 219);
+  background-color: hsl(var(--color-primary));
+  color: hsl(var(--color-on-primary));
   box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
               rgba(0, 0, 0, 0) 0px 0px 0px 0px, 
               rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, 
@@ -19,7 +20,7 @@ const Button = styled.button<{ width?: string | null }>`
   font-family: inherit;
   line-height: 24px;
   :hover {
-      background-color:rgb(156, 163, 175);
+      background-color:hsl(var(--color-primary-variant));
   }
   :active {
       transform: scale(0.97);
