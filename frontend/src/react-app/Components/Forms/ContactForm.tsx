@@ -7,7 +7,7 @@ import toast, { Toaster } from 'react-hot-toast'
 import emailjs, { init } from 'emailjs-com'
 import { FormRow, FormSection, FormWrapper, Textarea, TextInput } from './FormFields'
 
-const ContactForm = (props: { isLoadingCallback: (isLoading: boolean) => void }) => {
+const ContactForm = () => {
   const { width } = useWindowDimensions()
   const [onSubmitEvent, setOnSubmitEvent] = useState<{
     nom: string
@@ -21,8 +21,6 @@ const ContactForm = (props: { isLoadingCallback: (isLoading: boolean) => void })
 
   const mountedRef = useRef(true)
 
-  const isLoadingCallback = props.isLoadingCallback
-
   useEffect(() => {
     if (import.meta.env.PUBLIC_EMAIL_USER_ID) {
       init(import.meta.env.PUBLIC_EMAIL_USER_ID)
@@ -33,7 +31,6 @@ const ContactForm = (props: { isLoadingCallback: (isLoading: boolean) => void })
   useEffect(() => {
     if (onSubmitEvent.setSubmitting === null) return
 
-    isLoadingCallback(true)
     if (!import.meta.env.PUBLIC_EMAIL_SERVICE_ID || !import.meta.env.PUBLIC_EMAIL_TEMPLATE_ID) {
       return
     }
@@ -56,7 +53,6 @@ const ContactForm = (props: { isLoadingCallback: (isLoading: boolean) => void })
       }
     }).finally(() => {
       if (mountedRef.current) {
-        isLoadingCallback(false)
         onSubmitEvent.setSubmitting(false)
         setOnSubmitEvent({ ...onSubmitEvent, setSubmitting: null, resetForm: null })
       }
@@ -74,7 +70,7 @@ const ContactForm = (props: { isLoadingCallback: (isLoading: boolean) => void })
     }).catch((reason: Error) => {
       console.log(`erreur dans l'envoi du message: ${reason.message}`)
     })
-  }, [onSubmitEvent, isLoadingCallback])
+  }, [onSubmitEvent])
 
   return (
     <div style={{ minHeight: '100vh' }}>

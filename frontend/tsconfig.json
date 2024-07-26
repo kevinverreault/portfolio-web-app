@@ -1,5 +1,5 @@
 {
-  "extends": "astro/tsconfigs/strict",
+  "extends": ["astro/tsconfigs/strict"],
   "compilerOptions": {
     "baseUrl": ".",
     "jsx": "react-jsx",
@@ -8,7 +8,8 @@
       "@components/*": ["src/components/*"],
       "@styles/*": ["src/styles/*"],
       "@data/*": ["src/data/*"],
-      "@design-system/*": ["../design-system/src/*"]
+      "@design-system/*": ["design-system/src/*"],
+      "@services/*": ["src/services/*"]
     }
   },
   

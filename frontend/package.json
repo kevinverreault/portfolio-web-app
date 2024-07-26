@@ -5,14 +5,19 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "build": "python ../deployment/src/images.py unstage && astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "metadata": "node ../deployment/dist/metadata.js && node ../exif-utility/src/exif-overwrite.js"
+    "stage": "python ../deployment/src/images.py stage",
+    "metadata": "cd ../deployment && venv\\Scripts\\activate && python src/exif.py generate && cd ../frontend",
+    "clean": "cd ../deployment && venv\\Scripts\\activate && python src/exif.py clean && cd ../frontend",
+    "import": "python ../deployment/src/images.py import",
+    "deploy": "aws s3 sync ./dist s3://www.kevinverreault.com --delete",
+    "deploy-images": "aws s3 sync ../image-sources s3://kevinverreault-photos/images --delete"
   },
   "dependencies": {
-    "@astrojs/check": "^0.5.2",
-    "@astrojs/react": "^3.0.10",
+    "@astrojs/check": "^0.8.3",
+    "@astrojs/react": "^3.6.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@fancyapps/ui": "^5.0.33",
@@ -20,7 +25,7 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@types/react": "^18.2.55",
     "@types/react-dom": "^18.2.19",
-    "astro": "^4.3.5",
+    "astro": "^4.12.2",
     "cva": "npm:class-variance-authority@^0.7.0",
     "emailjs-com": "^3.2.0",
     "formik": "^2.4.5",

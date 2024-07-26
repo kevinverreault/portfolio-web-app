@@ -1,0 +1,82 @@
+---
+import '@design-system/styles/global.css'
+import { NavigationItems } from '../../data/navigation.js'
+import NavigationMenu from '@design-system/components/navigation/NavigationMenu.astro'
+import SocialMediaLinks from '../layout/SocialMediaLinks.astro'
+import Accordion from '@design-system/components/navigation/Accordion.astro'
+---
+
+<header>
+  <div class="container color-background text-on-background flex">
+    <div class="site-info color-background flex flex-column justify-center">
+      <span class="ff-serif text-3xl">Kevin Verreault</span>
+      <span class="ff-sans text-md">Photographie de la nature</span>
+    </div>
+    <div class="navigation flex flex-column justify-space-between">
+      <div class="top-section flex items-center justify-end">
+        <SocialMediaLinks />
+      </div>
+      <div class="default-navigation">
+        <NavigationMenu navigationItems={NavigationItems} />
+      </div>
+      <div class="mobile-navigation">
+        <Accordion navigationItems={NavigationItems} />
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+
+header > .container {
+  --gap: 0;
+}
+
+.navigation {
+  padding-left: 3rem;
+  flex-grow: 1;
+  --gap: 0;
+}
+
+.top-section {
+  flex-grow: 1;
+  margin: 0.5rem 0 0.5rem 0;
+}
+
+.mobile-navigation {
+  display: none;
+}
+
+@media (max-width: 70rem) {
+  header > .container {
+    flex-direction: column;
+  }
+
+  .site-info {
+    align-items: center;
+  }
+
+  .top-section {
+    justify-content: center;
+  }
+
+  .navigation {
+    padding-left: 0;
+  }
+}
+
+@media (max-width: 35rem) {
+  .site-info span {
+    text-align: center;
+  }
+
+  .default-navigation {
+    display: none;
+  }
+
+  .mobile-navigation {
+    display: block;
+  }
+}
+
+</style>

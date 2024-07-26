@@ -1,0 +1,12 @@
+---
+import Layout from '@components/layout/Layout.astro'
+import '@design-system/styles/global.css'
+import PhotoGallery from '../react-app/Components/Gallery/PhotoGallery'
+import metadataService from '@services/MetadataService'
+
+const albumName = 'Paysages';
+---
+
+<Layout title={albumName}>
+  <PhotoGallery Album={metadataService.getAlbum(albumName)} client:only="react"/>
+</Layout>
