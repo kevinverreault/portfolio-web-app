@@ -8,7 +8,6 @@ interface GalleryListItemProps {
   alt: string
   imageProperties: ImageProperties
   description: string
-  onLoad: () => void
 }
 
 const GalleryListItem = forwardRef((props: GalleryListItemProps, ref: ListItemForwardedRef) => {
@@ -18,7 +17,7 @@ const GalleryListItem = forwardRef((props: GalleryListItemProps, ref: ListItemFo
 
   return (
     <li className='gallery-list-item' ref={ref}>
-      <a
+      <div
         className='gallery-link'
         data-fancybox='portfolio'
         data-caption={description}
@@ -27,7 +26,6 @@ const GalleryListItem = forwardRef((props: GalleryListItemProps, ref: ListItemFo
         data-sizes='50vw'
       >
         <ResponsiveImage
-          onLoad={props.onLoad}
           description={description}
           sizes={sizes}
           alt={alt}
@@ -39,7 +37,7 @@ const GalleryListItem = forwardRef((props: GalleryListItemProps, ref: ListItemFo
             boxSizing: 'border-box'
           }}
         />
-      </a>
+      </div>
   </li>
   )
 })

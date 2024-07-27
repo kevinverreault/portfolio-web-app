@@ -6,8 +6,6 @@
   font: inherit;
   font-size: small;
   box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 0%) 0px 0px 0px 0px, rgb(0 0 0 / 5%) 0px 4px 6px -1px, rgb(0 0 0 / 3%) 0px 2px 4px -1px;
-
-  
 }
 
 .form-input:hover {
@@ -34,8 +32,6 @@
   box-sizing: border-box;
   width: 30%;
   min-width: 650px;
-
-  
 }
 
 @media (max-width: 768px) { 

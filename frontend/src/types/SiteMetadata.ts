@@ -16,4 +16,4 @@ interface SiteMetadata {
   albums: Album[]
 }
 
-export type { SiteMetadata, Album }
+export type { SiteMetadata, ImageMetadata, Album }

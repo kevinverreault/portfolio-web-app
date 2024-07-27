@@ -1,11 +1,10 @@
 import { ResponsiveImage } from '../ResponsiveImage'
 import ResponsiveImageService from '../../../Services/ResponsiveImageService'
-import type { ImageMetadata } from '../../../Contexts/SiteMetadata'
+import type { ImageMetadata } from '../../../../types/SiteMetadata'
 import '../Gallery.css'
 
 interface HomeGridItemProps {
   sizes: string
-  onLoad: () => void
   image: ImageMetadata
 }
 
@@ -23,7 +22,6 @@ const HomeGridItem = (props: HomeGridItemProps) => {
       data-sizes='50vw'
     >
       <ResponsiveImage
-        onLoad={props.onLoad}
         description={image.metadata.description}
         sizes={props.sizes}
         alt={alt}

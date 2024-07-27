@@ -3,9 +3,8 @@ import Layout from '@components/layout/Layout.astro'
 import '@design-system/styles/global.css'
 import HomeGallery from '../react-app/Components/Gallery/Home/HomeGallery'
 import metadataService from '@services/MetadataService'
-
 ---
 
-<Layout title="Accueil" displayTitleInHeader={false} opacity="0.9">
+<Layout title="Accueil" displayTitleInHeader={false} opacity="0.9" >
   <HomeGallery Album={metadataService.getAlbum('accueil')} client:only="react"/>
 </Layout>
