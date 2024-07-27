@@ -23,7 +23,7 @@ const links = [
   {links.map(link => {
     return (
       <li>
-        <a href={link.link} target="_blank">
+        <a href={link.link} aria-label={link.label} target="_blank">
           <Button size="icon" shape="circle" aria-label={link.link}>
             <Icon icon={link.label} width="1.25rem" height="1.25rem" color="inherit" />
           </Button>

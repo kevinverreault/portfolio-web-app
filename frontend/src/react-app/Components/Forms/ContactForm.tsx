@@ -5,7 +5,7 @@ import useWindowDimensions from '../../Hooks/useWindowDimensions'
 import React, { useRef, useState, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
 import emailjs, { init } from 'emailjs-com'
-import { FormRow, FormSection, FormWrapper, Textarea, TextInput } from './FormFields'
+import { Textarea, TextInput } from './FormFields'
 
 const ContactForm = () => {
   const { width } = useWindowDimensions()
@@ -64,7 +64,8 @@ const ContactForm = () => {
       error: () => "erreur dans l'envoi du message"
     }, {
       style: {
-        backgroundColor: 'rgb(209, 213, 219, 0.7)',
+        color: 'hsl(var(--color-on-surface))',
+        backgroundColor: 'hsl(var(--color-surface))',
         minWidth: '300px'
       }
     }).catch((reason: Error) => {
@@ -74,7 +75,7 @@ const ContactForm = () => {
 
   return (
     <div style={{ minHeight: '100vh' }}>
-        <FormWrapper>
+        <div className='form-wrapper'>
             <Formik initialValues={{ nom: '', email: '', comment: '' }}
                 validationSchema={Yup.object({
                   nom: Yup.string().required('champ requis'),
@@ -94,36 +95,36 @@ const ContactForm = () => {
                     {
                       !width || width > 768
                         ? (
-                          <FormRow>
-                              <FormSection>
+                          <div className='form-row'>
+                              <div className='form-section'>
                                   <TextInput name="nom" type="text" placeholder="nom" />
-                              </FormSection>
-                              <FormSection>
+                              </div>
+                              <div className='form-section'>
                                   <TextInput name="email" type="email" placeholder="courriel" />
-                              </FormSection>
-                          </FormRow>
+                              </div>
+                          </div>
                           )
                         : (
                           <React.Fragment>
-                              <FormRow>
-                                  <FormSection width="100%">
+                              <div className='form-row'>
+                                  <div className='form-section mobile'>
                                       <TextInput name="nom" type="text" placeholder="nom" />
-                                  </FormSection>
-                              </FormRow>
-                              <FormRow>
-                                  <FormSection width="100%">
+                                  </div>
+                              </div>
+                              <div className='form-row'>
+                                  <div className='form-section mobile'>
                                       <TextInput name="email" type="email" placeholder="courriel" />
-                                  </FormSection>
-                              </FormRow>
+                                  </div>
+                              </div>
                           </React.Fragment>
                           )
                     }
 
-                    <FormRow lastrow={true} height="175px">
-                        <FormSection width="100%">
+                    <div className='form-row last'>
+                      <div className='form-section mobile'>
                             <Textarea name="comment" placeholder="message" rows={4} />
-                        </FormSection>
-                    </FormRow>
+                        </div>
+                    </div>
 
                     <div style={{ margin: '0 20px 15px 20px' }}>
                         <TextButton type="submit" label="envoyer" width="100%" />
@@ -134,7 +135,7 @@ const ContactForm = () => {
                     }}/>
                 </Form>
             </Formik>
-        </FormWrapper>
+        </div>
     </div>
   )
 }
