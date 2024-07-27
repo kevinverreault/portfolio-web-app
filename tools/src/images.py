@@ -4,12 +4,12 @@ import shutil
 import re
 
 try:
-    ROOT_PATH = os.environ["PORTFOLIO_IMAGES_SOURCE_PATH"]
-    ROOT_DESTINATION_PATH = os.environ["PORTFOLIO_IMAGES_DESTINATION_PATH"]
+    SOURCE_PATH = os.environ["PORTFOLIO_IMAGES_SOURCE_PATH"]
 except KeyError as e:
     print(f"Required environment variable {e.args[0]} is not set. Aborting...")
     raise SystemExit(1)
 
+DESTINATION_PATH = "../image-sources"
 DESTINATION_SUBDIRECTORIES = {
     "Green": "fullsize",
     "Orange": "thumbnail",
@@ -53,7 +53,7 @@ def process_directory(directory_path, keyword=None, relative_path=""):
                 )
                 destination_subdir = DESTINATION_SUBDIRECTORIES[current_keyword]
                 destination_path = os.path.join(
-                    ROOT_DESTINATION_PATH, destination_subdir, new_relative_path
+                    DESTINATION_PATH, destination_subdir, new_relative_path
                 )
                 if keyword:
                     copy_files(full_path, destination_path)
@@ -103,7 +103,7 @@ if __name__ == "__main__":
     elif command == "unstage":
         clean_images()
     elif command == "import":
-        process_directory(ROOT_PATH)
+        process_directory(SOURCE_PATH)
     else:
         print("Invalid command.")
         sys.exit(1)

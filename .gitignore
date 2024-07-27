@@ -55,4 +55,4 @@ git-filter-repo
 image-sources/
 images/
 
-/deployment/venv/
+/tools/venv/
