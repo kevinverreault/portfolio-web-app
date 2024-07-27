@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
 import { GalleryListItem } from './GalleryListItem'
-import useWaitAllImages from '../../Hooks/useWaitAllImages'
 import useImageGallery from '../../Hooks/useImageGallery'
 import ResponsiveImageService from 'src/react-app/Services/ResponsiveImageService'
 import type { Album } from 'src/types/SiteMetadata'
@@ -15,7 +14,6 @@ const PhotoGallery = (props: {Album: Album}) => {
 
   const [pageNumber, setPageNumber] = useState(1)
   const [imageKeys, setImageKeys] = useState<number[]>([])
-  const { isLoading, onLoadNotification } = useWaitAllImages(pageSize)
 
   const lastElement = useRef<HTMLLIElement>(null)
   const observer = useRef<IntersectionObserver>()
@@ -73,8 +71,7 @@ const PhotoGallery = (props: {Album: Album}) => {
                   key={`${galleryLowerCase}-${listNumber.toString()}`}
                   imageProperties={ResponsiveImageService.createImageSourceSet(imageProps.id)}
                   description={imageProps.metadata.description}
-                  alt={`${galleryLowerCase} - ${imageProps.metadata.description}`}
-                  onLoad={onLoadNotification}/>
+                  alt={`${galleryLowerCase} - ${imageProps.metadata.description}`}/>
               }
             )
           }

@@ -2,7 +2,6 @@ import json
 import os
 from datetime import datetime
 from PIL import Image
-from PIL.ExifTags import TAGS
 import asyncio
 import codecs
 import sys
@@ -34,6 +33,41 @@ def overwrite_files_in_directory(images_path):
             os.remove(to_delete)
 
 
+def get_image_metadata(image_directory, image_name):
+    image_path = os.path.join(os.path.abspath(image_directory), f"{image_name}.jpg")
+    try:
+        exif_dict = piexif.load(image_path)
+
+        image_description = exif_dict.get('0th', {}).get(piexif.ImageIFD.ImageDescription)
+        date_taken = exif_dict.get('Exif', {}).get(piexif.ExifIFD.DateTimeOriginal)
+
+        if image_description:
+            image_description = decode_exif_field(image_description)
+            if date_taken:
+                date_taken = decode_exif_field(date_taken)
+                try:
+                    date_obj = datetime.strptime(date_taken, "%Y:%m:%d %H:%M:%S")
+                    image_description += f" - {date_obj.year}"
+                except ValueError:
+                    print(f"Invalid date format in EXIF for {image_path}: {date_taken}")
+            return {"description": image_description}
+    except Exception as error:
+        print(f"failed to get exif for {image_path}, error: {str(error)}")
+    return {"description": ""}
+
+
+def decode_exif_field(field):
+    if isinstance(field, bytes):
+        try:
+            return field.decode('utf-8')
+        except UnicodeDecodeError:
+            try:
+                return field.decode('latin-1')
+            except UnicodeDecodeError:
+                return field.decode('utf-8', errors='replace')
+    return field
+
+
 def correct_encoding(text):
     try:
         # First, encode as Latin-1 (which will preserve the bytes)
@@ -44,32 +78,6 @@ def correct_encoding(text):
         # If it's already correctly encoded UTF-8, this will fail
         # In that case, just return the original text
         return text
-
-
-def get_image_metadata(image_directory, image_name):
-    image_path = os.path.join(os.path.abspath(image_directory), f"{image_name}.jpg")
-    try:
-        with Image.open(image_path) as img:
-            exif_data = img._getexif()
-            if exif_data:
-                exif = {TAGS[k]: v for k, v in exif_data.items() if k in TAGS}
-
-                image_description = exif.get('ImageDescription')
-                date_taken = exif.get('DateTimeOriginal')
-
-                if image_description:
-                    image_description = correct_encoding(image_description)
-
-                    if date_taken:
-                        date_obj = datetime.strptime(date_taken, "%Y:%m:%d %H:%M:%S")
-                        image_description += f" - {date_obj.year}"
-
-                    # print(f"Corrected image description: {image_description}")
-                    return {"description": image_description}
-    except Exception as error:
-        print(f"failed to get exif for {image_path}, error: {str(error)}")
-
-    return {"description": ""}
 
 
 def clear_metadata():

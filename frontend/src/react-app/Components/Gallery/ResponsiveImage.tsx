@@ -18,7 +18,6 @@ interface ResponsiveImageProps {
   description: string
   alt: string
   sizes: string
-  onLoad: () => void
 }
 
 const defaultStyle: React.CSSProperties = {
@@ -33,7 +32,6 @@ const ResponsiveImage = (props: ResponsiveImageProps) => {
   const [loaded, setLoaded] = useState(false);
 
   function handleImageOnLoad () {
-    props.onLoad()
     setLoaded(true)
   }
 
@@ -44,7 +42,6 @@ const ResponsiveImage = (props: ResponsiveImageProps) => {
   return (
     <img
       style={ props.customStyle ? { ...defaultStyle, ...props.customStyle } : defaultStyle }
-      className={`image ${loaded ? 'loaded': ''}`}
       sizes={props.sizes}
       srcSet={sourceSet}
       src={props.imageSource}

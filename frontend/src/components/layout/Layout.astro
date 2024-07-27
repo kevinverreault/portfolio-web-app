@@ -1,20 +1,19 @@
 ---
 import "@design-system/styles/global.css";
 import Header from "../layout/Header.astro";
-// import { ViewTransitions } from 'astro:transitions';
+import { ViewTransitions } from 'astro:transitions';
 
 interface Props {
   title: string;
   subTitle?: string;
   displayTitleInHeader?: boolean;
   opacity?: string;
+  fadeIn?: boolean;
 }
 
-const { title, opacity = "0.75", subTitle = "", displayTitleInHeader = true } = Astro.props;
+const { title, opacity = "0.75", subTitle = "", displayTitleInHeader = true, fadeIn = false } = Astro.props;
 
 const headerImageUrl = `/assets/${title.toLowerCase()}-header.webp`
-const headerImageUrlCss = `url('${headerImageUrl}')`
-
 ---
 
 <html lang="en">
@@ -28,17 +27,20 @@ const headerImageUrlCss = `url('${headerImageUrl}')`
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
-    <!-- <ViewTransitions /> -->
+    <ViewTransitions />
   </head>
   <body>
-    <div class="full-page-content">
+    <div class="full-page">
       <Header />
-      <div class="image-header">
-        {displayTitleInHeader && 
-        <h1>{title}</h1>
-        <h2>{subTitle}</h2>}
+      <div class={`content-container ${fadeIn ? 'fade-in' : ''}`}>
+        <div class="image-banner">
+          <img src={headerImageUrl} />
+          {displayTitleInHeader && 
+          <h1>{title}</h1>
+          <h2>{subTitle}</h2>}
+        </div>
+        <slot />
       </div>
-      <slot />
     </div>
 
     <footer class="center">
@@ -52,17 +54,14 @@ const headerImageUrlCss = `url('${headerImageUrl}')`
   </body>
 </html>
 
-<script is:inline define:vars={{headerImageUrl}}>
-  const imageToLoad = new Image(0, 0)
-  imageToLoad.style.display = 'none'
-  imageToLoad.addEventListener('load', function() {
-    const image = document.querySelector('div.image-header')
-    image?.classList.add('loaded')
+<script is:inline>
+  document.addEventListener('astro:before-preparation', () => {
   });
-  imageToLoad.src = headerImageUrl
+  document.addEventListener('astro:after-preparation', () => {
+  });
 </script>
 
-<style define:vars={{headerImageUrl : headerImageUrlCss, opacity}}>
+<style define:vars={{opacity}}>
   body {
     overflow-y: scroll;
   }
@@ -83,39 +82,52 @@ const headerImageUrlCss = `url('${headerImageUrl}')`
     flex-grow: 1;
   }
 
-  .full-page-content {
+  .full-page {
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 
-  .image-header {
+  .content-container {
+    position: relative;
+  }
+
+  .image-banner {
     height: 400px;
     margin: 0 auto;
-    background-position: 50%;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-image: var(--headerImageUrl);
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    opacity: 0;
+    opacity: var(--opacity);
     transition: opacity 0.75s ease;
   }
 
-  .image-header.loaded {
+  .image-banner > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    object-fit: cover;
+  }
+
+  .image-banner.loaded {
     opacity: var(--opacity);
   }
 
-  .image-header > h1,h2 {
+  .image-banner > h1,h2 {
     color: white;
   }
 
-  .image-header > h1 {
+  .image-banner > h1 {
     font-size: 4rem;
     text-shadow: 0.5px 0.5px 4px var(--color-surface);
   }
 
-  .image-header > h2 {
+  .image-banner > h2 {
     margin-left: 0.67em;
     margin-right: 0.67em;
   }
