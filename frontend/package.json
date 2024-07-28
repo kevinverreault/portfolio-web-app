@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "start": "npm run create-link && astro dev",
     "build": "npm run remove-link && astro check && astro build",
+    "build:ci": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "remove-link": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command ../tools/src/symlink.ps1 -Action remove",
