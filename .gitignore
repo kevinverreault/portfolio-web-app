@@ -53,6 +53,6 @@ packages/react-devtools-scheduling-profiler/dist
 
 git-filter-repo
 image-sources/
-images/
+frontend/public/images
 
 /tools/venv/

@@ -14,6 +14,12 @@ jobs:
         with:
           submodules: true
           fetch-depth: 0
+      - name: Set up environment variables
+        run: |
+          echo "PUBLIC_IMAGES_CDN_HOST=${{ secrets.CLOUDFRONT_IMAGE_HOST }}" >> ./frontend/.env.production
+          echo "PUBLIC_EMAIL_USER_ID=${{ secrets.EMAIL_USER_ID }}" >> ./frontend/.env.production
+          echo "PUBLIC_EMAIL_SERVICE_ID=${{ secrets.EMAIL_SERVICE_ID }}" >> ./frontend/.env.production
+          echo "PUBLIC_EMAIL_TEMPLATE_ID=${{ secrets.EMAIL_TEMPLATE_ID }}" >> ./frontend/.env.production
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
