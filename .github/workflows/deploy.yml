@@ -20,6 +20,7 @@ jobs:
           echo "PUBLIC_EMAIL_USER_ID=${{ secrets.EMAIL_USER_ID }}" >> ./frontend/.env.production
           echo "PUBLIC_EMAIL_SERVICE_ID=${{ secrets.EMAIL_SERVICE_ID }}" >> ./frontend/.env.production
           echo "PUBLIC_EMAIL_TEMPLATE_ID=${{ secrets.EMAIL_TEMPLATE_ID }}" >> ./frontend/.env.production
+          echo "PUBLIC_POSTHOG_KEY=${{ secrets.POSTHOG_KEY }}" >> ./frontend/.env.production
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
