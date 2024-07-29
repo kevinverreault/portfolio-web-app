@@ -35,7 +35,7 @@ export class InfrastructureStack extends cdk.Stack {
     const emailFunction = new lambda.Function(this, 'EmailFunction', {
       runtime: lambda.Runtime.NODEJS_20_X,
       handler: 'lambda.handler',
-      code: lambda.Code.fromAsset(path.join(__dirname, '../../src')),
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../dist/src')),
       role: lambdaRole,
       environment: {
         VERIFIED_EMAIL: verifiedEmail,
@@ -46,6 +46,10 @@ export class InfrastructureStack extends cdk.Stack {
 
     const api = new apigateway.LambdaRestApi(this, 'EmailApi', {
       handler: emailFunction,
+      defaultCorsPreflightOptions: {
+        allowOrigins: apigateway.Cors.ALL_ORIGINS,
+        allowMethods: apigateway.Cors.ALL_METHODS,
+      },
     });
   }
 }

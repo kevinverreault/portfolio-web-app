@@ -4,8 +4,23 @@ import TextButton from '../Shared/TextButton'
 import useWindowDimensions from '../../Hooks/useWindowDimensions'
 import React, { useRef, useState, useEffect } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
-import emailjs, { init } from 'emailjs-com'
 import { Textarea, TextInput } from './FormFields'
+
+interface EmailPayload {
+  replyTo: string;
+  from: string;
+  message: string;
+}
+
+const sendHttpRequest = (payload: EmailPayload) => {
+  return fetch(import.meta.env.PUBLIC_EMAIL_API, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  })
+};
 
 const ContactForm = () => {
   const { width } = useWindowDimensions()
@@ -22,23 +37,28 @@ const ContactForm = () => {
   const mountedRef = useRef(true)
 
   useEffect(() => {
-    if (import.meta.env.PUBLIC_EMAIL_USER_ID) {
-      init(import.meta.env.PUBLIC_EMAIL_USER_ID)
-    }
     return () => { mountedRef.current = false }
   }, [])
 
   useEffect(() => {
     if (onSubmitEvent.setSubmitting === null) return
 
-    if (!import.meta.env.PUBLIC_EMAIL_SERVICE_ID || !import.meta.env.PUBLIC_EMAIL_TEMPLATE_ID) {
-      return
-    }
+    const sendEmailPromise = sendHttpRequest({
+      replyTo: onSubmitEvent.email,
+      from: onSubmitEvent.nom,
+      message: onSubmitEvent.comment
+    })
 
-    const sendEmailPromise = emailjs.send(import.meta.env.PUBLIC_EMAIL_SERVICE_ID, import.meta.env.PUBLIC_EMAIL_TEMPLATE_ID, {
-      nom: onSubmitEvent.nom,
-      message: onSubmitEvent.comment,
-      reply_to: onSubmitEvent.email
+    toast.promise(sendEmailPromise, {
+      success: 'envoi réussi',
+      loading: 'envoi en cours',
+      error: () => "erreur dans l'envoi du message"
+    }, {
+      style: {
+        color: 'hsl(var(--color-on-surface))',
+        backgroundColor: 'hsl(var(--color-surface))',
+        minWidth: '300px',
+      }
     })
 
     sendEmailPromise.then(() => {
@@ -56,20 +76,6 @@ const ContactForm = () => {
         onSubmitEvent.setSubmitting(false)
         setOnSubmitEvent({ ...onSubmitEvent, setSubmitting: null, resetForm: null })
       }
-    })
-
-    toast.promise(sendEmailPromise, {
-      success: () => 'message envoyé',
-      loading: 'envoi en cours',
-      error: () => "erreur dans l'envoi du message"
-    }, {
-      style: {
-        color: 'hsl(var(--color-on-surface))',
-        backgroundColor: 'hsl(var(--color-surface))',
-        minWidth: '300px'
-      }
-    }).catch((reason: Error) => {
-      console.log(`erreur dans l'envoi du message: ${reason.message}`)
     })
   }, [onSubmitEvent])
 
@@ -131,7 +137,7 @@ const ContactForm = () => {
                     </div>
                     <Toaster containerStyle={{
                       position: 'absolute',
-                      top: '90%'
+                      top: '50%'
                     }}/>
                 </Form>
             </Formik>
