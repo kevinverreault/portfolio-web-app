@@ -54,5 +54,6 @@ packages/react-devtools-scheduling-profiler/dist
 git-filter-repo
 image-sources/
 frontend/public/images
+email-service/dist
 
 /tools/venv/
